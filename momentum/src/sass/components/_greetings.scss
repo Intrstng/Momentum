@@ -1,0 +1,40 @@
+.greeting-container {
+  @include flex(flex, stretch, center);
+  flex-wrap: wrap;
+  min-height: 48px;
+  width: 100vw;
+  font-size: 4rem;
+  @include media-tablet {
+    min-height: 40px;
+    font-size: 3.2rem;
+  }
+}
+
+.greeting {
+  flex: 1;  
+  padding: 10px;
+  text-align: right;
+  @include media-tablet {
+    padding: 5px;
+  }
+}
+
+.name {
+  flex: 1;
+  max-width: 50%;
+  padding: 10px;
+  font-size: 4rem;
+  text-align: left;
+  color: $color-light;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  &::placeholder {
+    color: $color-light;
+    opacity: .6;
+  }
+  @include media-tablet {
+    font-size: 3.2rem;
+    padding: 5px;
+  }
+}

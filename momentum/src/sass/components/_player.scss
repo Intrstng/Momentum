@@ -1,0 +1,35 @@
+.player-controls {
+  @include flex(flex, space-between, center);
+  width: 120px;
+  margin-bottom: 28px;
+}
+
+.play-list {
+  text-align: left;
+}
+
+.play-item {
+  position: relative;
+  padding: 5px;
+  padding-left: 20px;
+  list-style: none;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;
+  &::before {
+    content: "\2713";  
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-weight: 900;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.item-active {
+  &::before {
+    color: $color-selected;
+  }
+}

@@ -1,0 +1,22 @@
+// @import '../../node_modules/normalize.scss/normalize.scss';
+
+
+@import './abstracts/fonts';
+@import './abstracts/owfont-regular';
+@import './abstracts/constants';
+@import './abstracts/placeholders';
+@import './abstracts/mixins';
+@import './base/base';
+@import './base/buttons';
+
+// Components
+@import './components/player';
+@import './components/weather';
+@import './components/time-date';
+@import './components/greetings';
+@import './components/quote';
+
+// Layouts
+@import './layouts/header';
+@import './layouts/main';
+@import './layouts/footer';

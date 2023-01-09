@@ -1,0 +1,8 @@
+.footer {
+  @include flex(flex, flex-end, center);
+  flex-direction: column;
+  width: 100%;
+  height: 30vh;
+  min-height: 160px;  
+  padding: 20px;
+}

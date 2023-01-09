@@ -1,0 +1,21 @@
+@mixin flex($display, $justify-content, $align-items) {
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin background-img($imgpath) {
+  background-image: url($path-assets + $imgpath);
+}
+
+@mixin media-tablet {
+  @media (max-width: $tablet-width) { @content; }
+}
+
+@mixin media-mobile {
+  @media (max-width: $mobile-width) { @content; }
+}
+
+@mixin media-mobile-small {
+  @media (max-width: $mobile-small-width) { @content; }
+}

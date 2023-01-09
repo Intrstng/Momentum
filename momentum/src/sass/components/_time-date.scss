@@ -1,0 +1,17 @@
+.time {
+  min-height: 124px;
+  margin-bottom: 10px;
+  @extend %font-primary;
+  font-size: 10rem;
+  letter-spacing: -4px;
+  @include media-tablet {
+    min-height: 80px;
+    font-size: 7.2rem;
+  }
+}
+
+.date {
+  min-height: 28px;
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
