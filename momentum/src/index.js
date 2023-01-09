@@ -321,10 +321,10 @@ playNextBtn.addEventListener('click', playNextAudio);
 
 // Генерация плейлиста в DOM
 
-playList.forEach((elem) => {
+playList.forEach((elem, index) => {
   let playItem = document.createElement('li');
   playItem.classList.add('play-item');
-  playItem.innerHTML = elem.title;
+  playItem.innerHTML = `${index + 1}. &nbsp;${elem.title}`;
   playlist.append(playItem);
 });
 
@@ -332,8 +332,11 @@ playList.forEach((elem) => {
 
 const playSelectedTrack = (event) => {
   if (event.target.closest('.play-item')) {
+    const trackNameArray = event.target.textContent.split(' ');
+    trackNameArray.shift();
+    const trackName = trackNameArray.join(' ').trim();  
     playlist.children[playNum].classList.remove('item-active');
-    playNum = playList.map((elem) => elem.title).indexOf(event.target.textContent);
+    playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
     playAudio();
   }

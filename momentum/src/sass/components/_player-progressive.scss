@@ -99,7 +99,7 @@
             background: coral;
             border-radius: 3px;
             height: 100%;
-            width: 70%;
+            width: 40%;
             transition: .25s;
           }
         }
@@ -116,7 +116,7 @@
     .play-list {
     display: none;
       list-style: none;
-      padding: 0 25px 20px;
+      padding: 0 25px 12px;
       margin: 0;
       max-height: 22.5vh;
       overflow:auto;
@@ -124,7 +124,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 5px 0;
+        // padding: 5px 0;
         font-size: 14px;
       }
     }
