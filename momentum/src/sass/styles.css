@@ -3454,7 +3454,7 @@ body {
   list-style: none;
   padding: 0 25px 12px;
   margin: 0;
-  max-height: 22.5vh;
+  max-height: 22vh;
   overflow: auto;
 }
 .play-list > li {
