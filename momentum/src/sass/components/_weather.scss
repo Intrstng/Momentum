@@ -1,5 +1,6 @@
 .weather {
   @include flex(flex, space-between, flex-start);
+  font-size: 0.7rem;
   flex-direction: column;
   row-gap: 5px;
   width: 180px;

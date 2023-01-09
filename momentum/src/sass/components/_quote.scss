@@ -3,9 +3,13 @@
   // background-image: url('../../../assets/svg/reload.svg');
   @include background-img('svg/reload.svg'); 
 }
-
+.quote-block {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
 .quote {
   min-height: 32px;
+  font-style: italic;
 }
 
 .author {

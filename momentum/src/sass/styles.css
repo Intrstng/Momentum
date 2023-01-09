@@ -3157,12 +3157,11 @@ body {
   border-radius: 3px;
 }
 
-.player-controls {
+.play-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 120px;
-  margin-bottom: 28px;
 }
 
 .play-list {
@@ -3197,6 +3196,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  font-size: 0.7rem;
   flex-direction: column;
   row-gap: 5px;
   width: 180px;
@@ -3330,8 +3330,14 @@ body {
   background-image: url("/intrstng-JSFEPRESCHOOL2022Q4/momentum/assets/svg/reload.svg");
 }
 
+.quote-block {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
 .quote {
   min-height: 32px;
+  font-style: italic;
 }
 
 .author {

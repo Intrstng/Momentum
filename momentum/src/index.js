@@ -211,7 +211,7 @@ const quotesUrls = {
 
 const showQuote = (quoteData) => {
   let randomQuote = getRandomNum(0, quoteData.length);
-  quote.textContent = quoteData[randomQuote].text;
+  quote.textContent = `"${quoteData[randomQuote].text}"`;
   author.textContent = quoteData[randomQuote].author;
 }
 

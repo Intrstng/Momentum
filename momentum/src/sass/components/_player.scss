@@ -1,7 +1,6 @@
-.player-controls {
+.play-container {
   @include flex(flex, space-between, center);
   width: 120px;
-  margin-bottom: 28px;
 }
 
 .play-list {
