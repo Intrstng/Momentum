@@ -7,6 +7,7 @@
 @import './abstracts/placeholders';
 @import './abstracts/mixins';
 @import './base/base';
+@import './base/icono';
 @import './base/buttons';
 
 // Components
@@ -15,6 +16,7 @@
 @import './components/time-date';
 @import './components/greetings';
 @import './components/quote';
+@import './components/player-progressive';
 
 // Layouts
 @import './layouts/header';
