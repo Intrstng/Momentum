@@ -1,15 +1,18 @@
 .audio-player {
     width: 450px;
-    background: -webkit-linear-gradient(45deg, rgb(80, 80, 80), rgb(159, 161, 175));
+    background: -webkit-linear-gradient(45deg, rgba(80, 80, 80, 0.5), rgba(159, 161, 175, 0.2));
     box-shadow: 0 0 20px 0 #000a;
-  
     font-family: arial;
     color: white;
     font-size: 0.75em;
     overflow: hidden;
-  
     display: flex;
     flex-direction: column;
+    &:hover {
+        .play-list {
+            display: block;
+        }
+    }
     .timeline {
       margin: 0 auto;
       background: rgb(242, 242, 242);
@@ -32,13 +35,13 @@
       justify-content: space-between;
       align-items: stretch;
       padding: 14px 20px 12px;
-  
       > * {
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .name {
+      .track-name {
+        font-size: 0.7rem;
         padding: 0 8px;
       }
       .play-container {
@@ -51,7 +54,6 @@
           width: 25px;
           height: 25px;
           background-size: 25px 25px;
-          background-image: url('../../stage1-tasks-momentum/assets/svg/play.svg');
           background-position: center center;
           background-repeat: no-repeat;
           background-color: transparent;
@@ -104,7 +106,7 @@
         }
       }
     }
-    .time {
+    .track-time {
       display: flex;
       padding: 12px 20px 0;
       margin-bottom: 12px;
@@ -112,9 +114,12 @@
       align-items: center;
     }
     .play-list {
+    display: none;
       list-style: none;
       padding: 0 25px 20px;
       margin: 0;
+      max-height: 22.5vh;
+      overflow:auto;
       & > li {
         display: flex;
         justify-content: space-between;

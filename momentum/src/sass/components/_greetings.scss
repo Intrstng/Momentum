@@ -3,10 +3,10 @@
   flex-wrap: wrap;
   min-height: 48px;
   width: 100vw;
-  font-size: 4rem;
+  font-size: 3rem;
   @include media-tablet {
     min-height: 40px;
-    font-size: 3.2rem;
+    font-size: 2.2rem;
   }
 }
 
@@ -23,7 +23,7 @@
   flex: 1;
   max-width: 50%;
   padding: 10px;
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: left;
   color: $color-light;
   background-color: transparent;
@@ -34,7 +34,7 @@
     opacity: .6;
   }
   @include media-tablet {
-    font-size: 3.2rem;
+    font-size: 2.2rem;
     padding: 5px;
   }
 }

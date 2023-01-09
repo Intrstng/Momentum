@@ -3143,6 +3143,20 @@ body {
   background-image: url("/intrstng-JSFEPRESCHOOL2022Q4/momentum/assets/svg/slider-next.svg");
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF7F50;
+  border-radius: 3px;
+}
+
 .player-controls {
   display: flex;
   justify-content: space-between;
@@ -3237,20 +3251,20 @@ body {
 
 .time {
   min-height: 124px;
-  margin-bottom: 10px;
-  font-size: 10rem;
+  margin-bottom: 40px;
+  font-size: 8rem;
   letter-spacing: -4px;
 }
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
-    font-size: 7.2rem;
+    font-size: 6.2rem;
   }
 }
 
 .date {
   min-height: 28px;
-  font-size: 2.4rem;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
@@ -3261,12 +3275,12 @@ body {
   flex-wrap: wrap;
   min-height: 48px;
   width: 100vw;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 @media (max-width: 768px) {
   .greeting-container {
     min-height: 40px;
-    font-size: 3.2rem;
+    font-size: 2.2rem;
   }
 }
 
@@ -3285,7 +3299,7 @@ body {
   flex: 1;
   max-width: 50%;
   padding: 10px;
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: left;
   color: #FFFFFF;
   background-color: transparent;
@@ -3306,7 +3320,7 @@ body {
 }
 @media (max-width: 768px) {
   .name {
-    font-size: 3.2rem;
+    font-size: 2.2rem;
     padding: 5px;
   }
 }
@@ -3326,7 +3340,7 @@ body {
 
 .audio-player {
   width: 450px;
-  background: -webkit-linear-gradient(45deg, rgb(80, 80, 80), rgb(159, 161, 175));
+  background: -webkit-linear-gradient(45deg, rgba(80, 80, 80, 0.5), rgba(159, 161, 175, 0.2));
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.6666666667);
   font-family: arial;
   color: white;
@@ -3334,6 +3348,9 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+.audio-player:hover .play-list {
+  display: block;
 }
 .audio-player .timeline {
   margin: 0 auto;
@@ -3363,7 +3380,8 @@ body {
   justify-content: center;
   align-items: center;
 }
-.audio-player .controls .name {
+.audio-player .controls .track-name {
+  font-size: 0.7rem;
   padding: 0 8px;
 }
 .audio-player .controls .play-container {
@@ -3377,7 +3395,6 @@ body {
   width: 25px;
   height: 25px;
   background-size: 25px 25px;
-  background-image: url("../../stage1-tasks-momentum/assets/svg/play.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -3427,7 +3444,7 @@ body {
   transition: 0.25s;
 }
 
-.time {
+.track-time {
   display: flex;
   padding: 12px 20px 0;
   margin-bottom: 12px;
@@ -3436,9 +3453,12 @@ body {
 }
 
 .play-list {
+  display: none;
   list-style: none;
   padding: 0 25px 20px;
   margin: 0;
+  max-height: 22.5vh;
+  overflow: auto;
 }
 .play-list > li {
   display: flex;
@@ -3453,7 +3473,7 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  height: 30vh;
+  height: 33vh;
   min-height: 220px;
   padding: 20px;
 }
@@ -3465,7 +3485,7 @@ body {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 40vh;
+  height: 37vh;
   min-height: 260px;
   padding: 20px;
 }
