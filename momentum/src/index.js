@@ -254,15 +254,20 @@ const getQuotes = async (url) => {
 // Аудиоплеер
 
 // const audio = document.querySelector('audio');
+const song = document.getElementById('song');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 const playBtn = document.querySelector('.play');
 const playlist = document.querySelector('.play-list');
 const playlistItems = document.querySelectorAll('.play-item');
+const trackBlock = document.querySelector('.track-name');
+const currentTrackTime = document.querySelector('.current');
+const trackLength = document.querySelector('.length');
+const volumeBtn = document.querySelector('.volume-button');
 let isPlay = false;
 let playNum = 0;
 
-const audio = new Audio();
+const audio = new Audio('./assets/sounds/Aqua Caelestis.mp3');
 const pauseAudio = () => {
   audio.pause();
 }
@@ -275,8 +280,47 @@ const addIconPlay = () => {
   playBtn.classList.remove('pause');
 }
 
+const markSelectedTrack = (action) => {
+  (action === 'remove') ? playlist.children[playNum].classList.remove('item-active') :
+  playlist.children[playNum].classList.add('item-active');
+}
+
+const showTrackInfo = () => {
+  trackBlock.textContent = playList[playNum].title;
+  audio.addEventListener("loadeddata", () => {
+    let trackDurationInSec = Math.trunc(audio.duration);
+    trackLength.textContent = trackLengthTime(trackDurationInSec);
+      audio.volume = .4;
+    }, false);
+  }
+
+// const updateProgressValue = () => {
+//   setInterval(() => {
+//     console.log(audio.duration)
+//     console.log(audio.currentTime)
+//   }, 500)
+// }
+
+const trackLengthTime = (seconds) => {
+  let min = Math.floor((seconds / 60));
+  let hour = Math.floor((seconds / 3600));
+  let sec = (seconds - (hour * 60) - (min * 60));
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (hour !== 0) {
+    min = (min - (hour * 60));
+    if (min < 10) {
+      min = `0${min}`;
+    }
+    return `${hour}:${min}:${sec}`;
+  } else {
+    return `${min}:${sec}`;
+  }
+}
+
 const playPrevAudio = () => {
-  playlist.children[playNum].classList.remove('item-active');
+  markSelectedTrack('remove');
   if (playNum === 0) {
     playNum = (playList.length - 1);
   } else {
@@ -287,7 +331,7 @@ const playPrevAudio = () => {
 }
 
 const playNextAudio = () => {
-  playlist.children[playNum].classList.remove('item-active');
+  markSelectedTrack('remove');
   if (playNum < (playList.length - 1)) {
     playNum++;
   } else playNum = 0;
@@ -299,20 +343,44 @@ audio.onended = function() {
   playNextAudio();
 }
 
+const changeMuteIcon = () => {
+  const volumeIcon = document.querySelector('.volume');
+  volumeIcon.classList.toggle('icono-volume');
+  volumeIcon.classList.toggle('icono-volumeMedium');
+}
+
+const muteSound = () => {
+  changeMuteIcon();
+  audio.muted == false ? audio.muted = true : audio.muted = false;
+}
+volumeBtn.addEventListener('click', muteSound);
+
+
 const playAudio = () => {
   audio.src = playList[playNum].src;
-  playlist.children[playNum].classList.add('item-active');
+  
+  // updateProgressValue()
+
+
+  markSelectedTrack('add');
   console.log(audio.src);
-  audio.currentTime = 0;
+  // audio.currentTime = 0;
+  console.log(isPlay)
   if (!isPlay) {
     audio.play();
     isPlay = true;
     addIconPause();
-  } else {
-      pauseAudio();
+    showTrackInfo();
+    // setCurrentTrackTime('play');
+    return;
+  }
+  if (isPlay) {
+    audio.pause();
       isPlay = false;
       addIconPlay();
+      // setCurrentTrackTime('pause');
   }
+  console.log(isPlay)
 }
 
 playBtn.addEventListener('click', playAudio);
@@ -321,12 +389,16 @@ playNextBtn.addEventListener('click', playNextAudio);
 
 // Генерация плейлиста в DOM
 
-playList.forEach((elem, index) => {
-  let playItem = document.createElement('li');
-  playItem.classList.add('play-item');
-  playItem.innerHTML = `${index + 1}. &nbsp;${elem.title}`;
-  playlist.append(playItem);
-});
+const genPlaylist = () => {
+  playList.forEach((elem, index) => {
+    let playItem = document.createElement('li');
+    playItem.classList.add('play-item');
+    playItem.innerHTML = `<span>${index + 1}. &nbsp;${elem.title}</span><span>${elem.duration}</span>`;
+    playlist.append(playItem);
+  });
+}
+
+genPlaylist();
 
 // Play по нажатию на трек
 
@@ -335,7 +407,7 @@ const playSelectedTrack = (event) => {
     const trackNameArray = event.target.textContent.split(' ');
     trackNameArray.shift();
     const trackName = trackNameArray.join(' ').trim();  
-    playlist.children[playNum].classList.remove('item-active');
+    markSelectedTrack('remove');
     playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
     playAudio();
@@ -344,3 +416,17 @@ const playSelectedTrack = (event) => {
 
 playlist.addEventListener('click', playSelectedTrack);
 
+// Обновление CurrentTime
+
+// const setCurrentTrackTime = (select) => {
+//   if (select == 'play') {
+//   let refreshIntervalCurrTrackTime = setInterval(() => {
+//     console.log('sddsds')
+//     let currentTrackTime = Math.trunc(audio.currentTime);
+//     document.querySelector('.current').textContent = trackLengthTime(currentTrackTime);
+//   }, 500);
+// }
+//   if (select == 'pause') {
+//   clearInterval(refreshIntervalCurrTrackTime);
+//   }
+// }

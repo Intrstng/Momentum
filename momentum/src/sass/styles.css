@@ -3327,7 +3327,7 @@ body {
 }
 
 .quote {
-  min-height: 32px;
+  min-height: 30px;
   font-style: italic;
 }
 
@@ -3447,12 +3447,13 @@ body {
   margin-bottom: 12px;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.7rem;
 }
 
 .play-list {
   display: none;
   list-style: none;
-  padding: 0 25px 12px;
+  padding: 0 14px 12px 25px;
   margin: 0;
   max-height: 22vh;
   overflow: auto;
