@@ -38,6 +38,6 @@ const playList = [
     title: 'Jazz Piano Bar - Doug Maxwell_Media',
     src: 'assets/sounds/Jazz Piano Bar - Doug Maxwell_Media.mp3',
     duration: '01:46'
-  }
+  },
   ]
   export default playList;

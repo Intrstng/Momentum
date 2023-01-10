@@ -411,23 +411,13 @@ playBtn.addEventListener('click', playAudio);
 playPrevBtn.addEventListener('click', playPrevAudio);
 playNextBtn.addEventListener('click', playNextAudio);
 
-
-
-
-
-
-
-
-
-
-
 // Генерация плейлиста в DOM
 
 const genPlaylist = () => {
   playList.forEach((elem, index) => {
     let playItem = document.createElement('li');
     playItem.classList.add('play-item');
-    playItem.innerHTML = `<span>${index + 1}. &nbsp;${elem.title}</span><span>${elem.duration}</span>`;
+    playItem.innerHTML = `<span class="track-title">${index + 1}. &nbsp;${elem.title}</span><span>${elem.duration}</span>`;
     playlist.append(playItem);
   });
 }
@@ -444,13 +434,10 @@ const playSelectedTrack = (event) => {
     markSelectedTrack('remove');
     playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
+    console.log(event.target)
     audio.src = playList[playNum].src;
     playAudio();
   }
 }
 
 playlist.addEventListener('click', playSelectedTrack);
-
-
-
-
