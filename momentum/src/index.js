@@ -254,20 +254,21 @@ const getQuotes = async (url) => {
 // Аудиоплеер
 
 // const audio = document.querySelector('audio');
-const song = document.getElementById('song');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 const playBtn = document.querySelector('.play');
 const playlist = document.querySelector('.play-list');
-const playlistItems = document.querySelectorAll('.play-item');
 const trackBlock = document.querySelector('.track-name');
-const currentTrackTime = document.querySelector('.current');
 const trackLength = document.querySelector('.length');
 const volumeBtn = document.querySelector('.volume-button');
+const trackTimeLine = document.querySelector('.timeline');
+const progressBar = document.querySelector('.progress');
 let isPlay = false;
 let playNum = 0;
 
-const audio = new Audio('./assets/sounds/Aqua Caelestis.mp3');
+const audio = new Audio('./assets/sounds/Two of Us - Saidbysed.mp3');
+audio.volume = 0.4;
+
 const pauseAudio = () => {
   audio.pause();
 }
@@ -290,16 +291,8 @@ const showTrackInfo = () => {
   audio.addEventListener("loadeddata", () => {
     let trackDurationInSec = Math.trunc(audio.duration);
     trackLength.textContent = trackLengthTime(trackDurationInSec);
-      audio.volume = .4;
     }, false);
   }
-
-// const updateProgressValue = () => {
-//   setInterval(() => {
-//     console.log(audio.duration)
-//     console.log(audio.currentTime)
-//   }, 500)
-// }
 
 const trackLengthTime = (seconds) => {
   let min = Math.floor((seconds / 60));
@@ -327,6 +320,7 @@ const playPrevAudio = () => {
     playNum--;
   }
   isPlay = false;
+  audio.src = playList[playNum].src;
   playAudio();
 }
 
@@ -336,6 +330,7 @@ const playNextAudio = () => {
     playNum++;
   } else playNum = 0;
   isPlay = false;
+  audio.src = playList[playNum].src;
   playAudio();
 }
 
@@ -355,37 +350,76 @@ const muteSound = () => {
 }
 volumeBtn.addEventListener('click', muteSound);
 
+// Обновление CurrentTime (см. setInterval)
 
-const playAudio = () => {
-  audio.src = playList[playNum].src;
-  
-  // updateProgressValue()
+const setCurrentTrackTime = () => {
+  progressBar.style.width = `${audio.currentTime / audio.duration * 100}%`;
+  let currentTrackTime = Math.trunc(audio.currentTime);
+  document.querySelector('.current').textContent = trackLengthTime(currentTrackTime);
+}
+
+// Установка уровня звука и изменение полосы volume bar при клике по ней
+const volumeSlider = document.querySelector('.volume-slider');
+const volumeLevelBar = document.querySelector('.volume-percentage');
+volumeLevelBar.style.width = `${audio.volume * 100}%`; // Значение полосы volume bar по умолчанию
+
+const setVolumeLevel = (event) => {
+  const volumeSliderWidth = getComputedStyle(volumeSlider).width;
+  const selectedVolumeByLevelBar = event.offsetX / parseInt(volumeSliderWidth);
+  const volumeLevelBar = document.querySelector('.volume-percentage');
+  volumeLevelBar.style.width = `${selectedVolumeByLevelBar * 100}%`;
+  audio.volume = selectedVolumeByLevelBar;
+}
+volumeSlider.addEventListener('click', setVolumeLevel, false);
+
+// Установка progress bar трека при нажатии на него
+
+const setTrackProgress = (event) => {
+  const trackTimeLineWidth = getComputedStyle(trackTimeLine).width;
+
+  const selectedTrackTimeLinePos = event.offsetX / parseInt(trackTimeLineWidth);
+  progressBar.style.width = `${selectedTrackTimeLinePos * 100}%`;
+  audio.currentTime = audio.duration * selectedTrackTimeLinePos;
+}
+trackTimeLine.addEventListener('click', setTrackProgress);
 
 
+// Play / pause одной кнопкой
+audio.src = playList[playNum].src;
+
+function playAudio() {
   markSelectedTrack('add');
+  
   console.log(audio.src);
-  // audio.currentTime = 0;
-  console.log(isPlay)
   if (!isPlay) {
     audio.play();
     isPlay = true;
     addIconPause();
     showTrackInfo();
-    // setCurrentTrackTime('play');
+    setCurrentTrackTime();
+    setInterval(setCurrentTrackTime, 500);
     return;
-  }
-  if (isPlay) {
-    audio.pause();
+  } else {
+      pauseAudio();
       isPlay = false;
       addIconPlay();
-      // setCurrentTrackTime('pause');
+      setCurrentTrackTime();
   }
-  console.log(isPlay)
 }
 
 playBtn.addEventListener('click', playAudio);
 playPrevBtn.addEventListener('click', playPrevAudio);
 playNextBtn.addEventListener('click', playNextAudio);
+
+
+
+
+
+
+
+
+
+
 
 // Генерация плейлиста в DOM
 
@@ -410,23 +444,13 @@ const playSelectedTrack = (event) => {
     markSelectedTrack('remove');
     playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
+    audio.src = playList[playNum].src;
     playAudio();
   }
 }
 
 playlist.addEventListener('click', playSelectedTrack);
 
-// Обновление CurrentTime
 
-// const setCurrentTrackTime = (select) => {
-//   if (select == 'play') {
-//   let refreshIntervalCurrTrackTime = setInterval(() => {
-//     console.log('sddsds')
-//     let currentTrackTime = Math.trunc(audio.currentTime);
-//     document.querySelector('.current').textContent = trackLengthTime(currentTrackTime);
-//   }, 500);
-// }
-//   if (select == 'pause') {
-//   clearInterval(refreshIntervalCurrTrackTime);
-//   }
-// }
+
+
