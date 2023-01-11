@@ -447,3 +447,86 @@ const selectTrackInPlaylist = (event) => {
 }
 
 playlist.addEventListener('click', selectTrackInPlaylist);
+
+// Меню настроек
+const settingsMenuData = [
+  {
+    "title": "Settings",
+    "language": ["eng", "ru"],
+    "imageSource": ["GitHub", "Unsplash API", "Flickr API"],
+    "tags": "Select tag",
+    "hideItem": ["time", "date", "greeting", "quote", "weather", "player"],
+  }
+]
+
+const settingsMenu = document.querySelector('.settings-menu');
+const settingsMenuCloseBtn = document.createElement('div');
+settingsMenuCloseBtn.classList.add('close-settings-btn', 'icono-cross');
+settingsMenu.append(settingsMenuCloseBtn);
+
+
+const line = document.createElement('div');
+line.innerHTML = '<div class="line"></div>';
+
+const selectLangMenu = document.createElement('div');
+selectLangMenu.classList.add('select-lang');
+let selectLangMenuContent = `<label for="language">Select language:</label>
+  <select name="language" id="language">
+    <option value="en">English</option>
+    <option value="ru">Russian</option>
+    <div class="line"></div>`;
+selectLangMenu.innerHTML = selectLangMenuContent;
+settingsMenu.append(selectLangMenu);
+const cloneLine1 = line.cloneNode(true);
+selectLangMenu.after(cloneLine1);
+
+const selectImgSource = document.createElement('div');
+selectImgSource.classList.add('select-img-source');
+let selectImgSourceContent = `<label for="imgSource">Photo source for background image:</label>
+  <select name="imgSource" id="imgSource">
+    <option value="github">GitHub</option>
+    <option value="unsplash">Unsplash Api</option>
+    <option value="flickr">Flickr Api</option>`;
+selectImgSource.innerHTML = selectImgSourceContent;
+settingsMenu.append(selectImgSource);
+const cloneLine2 = line.cloneNode(true);
+selectImgSource.after(cloneLine2);
+
+const selectImgTag = document.createElement('div');
+selectImgTag.classList.add('select-img-tag');
+let selectImgTagContent = `<div class="search-box"><span>Enter a tag for background image collection</span>
+  <input type="text" id="image-tag" placeholder="nature"></div>`;
+selectImgTag.innerHTML = selectImgTagContent;
+settingsMenu.append(selectImgTag);
+const cloneLine3 = line.cloneNode(true);
+selectImgTag.after(cloneLine3);
+
+const hideVidgetItems = document.createElement('div');
+hideVidgetItems.classList.add('hide-vidgets');
+let hideVidgetItemsContent = `<p>Hide/show block</p>
+  <label for="block-time">Time</label>
+  <input type="radio" id="block-time" value="time"><br>
+    <label for="block-date">Date</label>
+    <input type="radio" id="block-date" value="date"><br>
+      <label for="block-greeting">Greeting</label>
+      <input type="radio" id="block-greeting" value="greeting"><br>
+        <label for="block-quote">Quote</label>
+        <input type="radio" id="block-quote" value="quote"><br>
+          <label for="block-quote">Quote</label>
+          <input type="radio" id="block-quote" value="quote"><br>
+            <label for="block-weather">Weather</label>
+            <input type="radio" id="block-weather" value="weather"><br>
+              <label for="block-weather">Weather</label>
+              <input type="radio" id="block-weather" value="weather"><br>
+                <label for="block-player">Player</label>
+                <input type="radio" id="block-player" value="player"><br>
+                  <label for="block-todo">Todo</label>
+                  <input type="radio" id="block-todo" value="todo"><br>`;
+hideVidgetItems.innerHTML = hideVidgetItemsContent;
+settingsMenu.append(hideVidgetItems);
+const cloneLine4 = line.cloneNode(true);
+hideVidgetItems.after(cloneLine4);
+
+
+
+//const unsplashApiURL = 'https://api.unsplash.com/search/photos/&query='+word+'&per_page=9&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30'

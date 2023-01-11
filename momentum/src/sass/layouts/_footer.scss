@@ -5,4 +5,54 @@
   height: 30vh;
   min-height: 160px;  
   padding: 20px;
+
+.copyright {
+  width: 93vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__settings {
+      opacity: 0.8;
+      cursor: pointer;
+      &_hover {
+        @extend %transition-all;
+        &:hover {
+          transform: rotate(90deg)
+        }
+      }
+      &_active {
+        @extend %transition-all;
+        &:active {
+          opacity: 1;
+        }
+      }
+  }
+  &__icons {
+    display: flex;
+    align-items: center;
+    & span {
+      margin-right: 10px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+  &__icon {
+    height: 1.6rem;
+    max-width: 3.9rem;
+    opacity: 0.8;
+    @extend %transition-all;
+  }
+  &__link {
+    display: inline-block;
+    &_hover {
+      &:hover .copyright__icon {
+        transform: scale(1.13);
+      }
+    }
+  }
+}
+}
+
+.git-img {
+  margin-right: 8px;
 }

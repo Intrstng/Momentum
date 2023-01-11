@@ -1,0 +1,60 @@
+.settings-menu {
+  min-width: 0;
+  height: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 20px 0 #000a;
+  position: absolute;
+  left: 22px;
+  bottom: 65px;
+  z-index: 1;
+  padding: 20px;
+  text-align: left;
+  color: rgb(83, 83, 83);
+  font-size: 0.9rem;
+  &_active {
+    max-width: 300px;
+    height: 450px;
+    &:after {
+      content: '';
+      position: absolute;
+      left: 70px;
+      bottom: -20px;
+      border: 10px solid transparent;
+      border-top: 10px solid rgba(255, 255, 255, 0.7);
+    }
+  }
+  .close-settings-btn {
+    width: 25px;
+    height: 25px;
+    color: rgb(83, 83, 83);
+    margin-bottom: 20px;
+  }
+  .select-lang,
+  .select-img-source,
+  .search-box {
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hide-vidgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & > p {
+      grid-column: 1 / 4;
+      margin-bottom: 10px;
+    }
+    & label {
+      margin-left: 10px;
+    }
+    & input {
+      margin: 2.5px 0;
+    }
+  }
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(83, 83, 83, 0.7);
+  }
+}
