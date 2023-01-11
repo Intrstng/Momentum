@@ -5,6 +5,11 @@ const playList = [
     duration: '01:41'
   },
   {      
+    title: 'Never Surrender - Anno Domini Beats',
+    src: 'assets/sounds/Never Surrender - Anno Domini Beats.mp3',
+    duration: '02:44'
+  },
+  {      
     title: 'I Feel It All So Deeply - Bail Bonds',
     src: 'assets/sounds/I Feel It All So Deeply - Bail Bonds.mp3',
     duration: '00:57'
@@ -35,9 +40,14 @@ const playList = [
     duration: '01:56'
   },
   {      
-    title: 'Jazz Piano Bar - Doug Maxwell_Media',
-    src: 'assets/sounds/Jazz Piano Bar - Doug Maxwell_Media.mp3',
-    duration: '01:46'
+    title: 'Intellect - Yung Logos',
+    src: 'assets/sounds/Intellect - Yung Logos.mp3',
+    duration: '01:39'
   },
+  {      
+    title: 'Soulicious - Dyalla',
+    src: 'assets/sounds/Soulicious - Dyalla.mp3',
+    duration: '01:33'
+  }
   ]
   export default playList;

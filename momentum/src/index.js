@@ -267,7 +267,7 @@ let isPlay = false;
 let playNum = 0;
 
 const audio = new Audio('./assets/sounds/Two of Us - Saidbysed.mp3');
-audio.volume = 0.4;
+audio.volume = 0.35;
 
 const pauseAudio = () => {
   audio.pause();
@@ -383,7 +383,6 @@ const setTrackProgress = (event) => {
 }
 trackTimeLine.addEventListener('click', setTrackProgress);
 
-
 // Play / pause одной кнопкой
 audio.src = playList[playNum].src;
 
@@ -417,27 +416,34 @@ const genPlaylist = () => {
   playList.forEach((elem, index) => {
     let playItem = document.createElement('li');
     playItem.classList.add('play-item');
-    playItem.innerHTML = `<span class="track-title">${index + 1}. &nbsp;${elem.title}</span><span>${elem.duration}</span>`;
+    playItem.innerHTML = `<span class="track-title">${index + 1}. &nbsp;${elem.title}</span><span class="track-duration">${elem.duration}</span>`;
     playlist.append(playItem);
   });
 }
-
 genPlaylist();
 
 // Play по нажатию на трек
 
-const playSelectedTrack = (event) => {
-  if (event.target.closest('.play-item')) {
-    const trackNameArray = event.target.textContent.split(' ');
+const playSelectedTrack = (ev, element = ev.target) => {
+  let trackNameArray = element.textContent.split(' ');
     trackNameArray.shift();
     const trackName = trackNameArray.join(' ').trim();  
     markSelectedTrack('remove');
     playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
-    console.log(event.target)
+  console.log('!!!', ev.target.textContent)
     audio.src = playList[playNum].src;
     playAudio();
+}
+
+const selectTrackInPlaylist = (event) => {
+  if (event.target.closest('.track-title')) {
+    playSelectedTrack(event);
+  }
+  if (event.target.closest('.track-duration')) {
+    const prevElement = event.target.previousElementSibling;
+    playSelectedTrack(event, prevElement);
   }
 }
 
-playlist.addEventListener('click', playSelectedTrack);
+playlist.addEventListener('click', selectTrackInPlaylist);

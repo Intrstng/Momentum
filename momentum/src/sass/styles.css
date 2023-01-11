@@ -3455,7 +3455,7 @@ body {
   list-style: none;
   padding: 0 14px 12px 25px;
   margin: 0;
-  max-height: 22.5vh;
+  max-height: 189px;
   overflow: auto;
 }
 .play-list > li {
@@ -3465,7 +3465,7 @@ body {
   font-size: 14px;
 }
 .play-list .track-title {
-  display: inline-block;
+  width: 100%;
 }
 
 .header {
