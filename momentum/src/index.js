@@ -460,7 +460,7 @@ const settingsMenuData = [
 ]
 
 const settingsMenu = document.querySelector('.settings-menu');
-const settingsMenuCloseBtn = document.createElement('div');
+const settingsMenuCloseBtn = document.createElement('form');
 settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
 settingsMenu.append(settingsMenuCloseBtn);
 
@@ -468,7 +468,7 @@ settingsMenu.append(settingsMenuCloseBtn);
 const line = document.createElement('div');
 line.classList.add('line');
 
-const selectLangMenu = document.createElement('div');
+const selectLangMenu = document.createElement('form');
 selectLangMenu.classList.add('select-lang');
 let selectLangMenuContent = `
   <p>Select language</p>
@@ -485,19 +485,20 @@ settingsMenu.append(selectLangMenu);
 const cloneLine1 = line.cloneNode(true);
 selectLangMenu.after(cloneLine1);
 
-const selectImgSource = document.createElement('div');
+const selectImgSource = document.createElement('form');
 selectImgSource.classList.add('select-img-source');
 let selectImgSourceContent = `<label for="imgSource">Photo source for background image</label>
   <select name="imgSource" id="imgSource">
     <option value="github">GitHub</option>
     <option value="unsplash">Unsplash Api</option>
-    <option value="flickr">Flickr Api</option>`;
+    <option value="flickr">Flickr Api</option>
+    </select>`;
 selectImgSource.innerHTML = selectImgSourceContent;
 settingsMenu.append(selectImgSource);
 const cloneLine2 = line.cloneNode(true);
 selectImgSource.after(cloneLine2);
 
-const selectImgTag = document.createElement('div');
+const selectImgTag = document.createElement('form');
 selectImgTag.classList.add('select-img-tag');
 let selectImgTagContent = `<p>Enter a tag for background image collection</p>
   <div class="search-box">
@@ -508,7 +509,7 @@ settingsMenu.append(selectImgTag);
 const cloneLine3 = line.cloneNode(true);
 selectImgTag.after(cloneLine3);
 
-const hideVidgetItems = document.createElement('div');
+const hideVidgetItems = document.createElement('form');
 hideVidgetItems.classList.add('hide-vidgets');
 let hideVidgetItemsContent = `<p>Hide/show block</p>
   <label for="block-time" class="checkbox-ios">
