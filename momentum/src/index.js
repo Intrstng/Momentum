@@ -461,20 +461,19 @@ const settingsMenuData = [
 
 const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuCloseBtn = document.createElement('div');
-settingsMenuCloseBtn.classList.add('close-settings-btn', 'icono-cross');
+settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
 settingsMenu.append(settingsMenuCloseBtn);
 
 
 const line = document.createElement('div');
-line.innerHTML = '<div class="line"></div>';
+line.classList.add('line');
 
 const selectLangMenu = document.createElement('div');
 selectLangMenu.classList.add('select-lang');
 let selectLangMenuContent = `<label for="language">Select language:</label>
   <select name="language" id="language">
     <option value="en">English</option>
-    <option value="ru">Russian</option>
-    <div class="line"></div>`;
+    <option value="ru">Russian</option>`;
 selectLangMenu.innerHTML = selectLangMenuContent;
 settingsMenu.append(selectLangMenu);
 const cloneLine1 = line.cloneNode(true);
@@ -504,24 +503,20 @@ selectImgTag.after(cloneLine3);
 const hideVidgetItems = document.createElement('div');
 hideVidgetItems.classList.add('hide-vidgets');
 let hideVidgetItemsContent = `<p>Hide/show block</p>
-  <label for="block-time">Time</label>
-  <input type="radio" id="block-time" value="time"><br>
-    <label for="block-date">Date</label>
-    <input type="radio" id="block-date" value="date"><br>
-      <label for="block-greeting">Greeting</label>
-      <input type="radio" id="block-greeting" value="greeting"><br>
-        <label for="block-quote">Quote</label>
-        <input type="radio" id="block-quote" value="quote"><br>
-          <label for="block-quote">Quote</label>
-          <input type="radio" id="block-quote" value="quote"><br>
-            <label for="block-weather">Weather</label>
-            <input type="radio" id="block-weather" value="weather"><br>
-              <label for="block-weather">Weather</label>
-              <input type="radio" id="block-weather" value="weather"><br>
-                <label for="block-player">Player</label>
-                <input type="radio" id="block-player" value="player"><br>
-                  <label for="block-todo">Todo</label>
-                  <input type="radio" id="block-todo" value="todo"><br>`;
+  <input type="checkbox" class="custom-checkbox" id="block-time" name="time">
+  <label for="block-time">Time</label><br>
+    <input type="checkbox" class="custom-checkbox" id="block-date" name="date">
+    <label for="block-date">Date</label><br>   
+      <input type="checkbox" class="custom-checkbox" id="block-greeting" name="greeting">
+      <label for="block-greeting">Greeting</label><br>    
+        <input type="checkbox" class="custom-checkbox" id="block-quote" name="quote">
+        <label for="block-quote">Quote</label><br>   
+          <input type="checkbox" class="custom-checkbox" id="block-weather" name="weather">
+          <label for="block-weather">Weather</label><br>   
+            <input type="checkbox" class="custom-checkbox" id="block-player" name="player">
+            <label for="block-player">Player</label><br>    
+              <input type="checkbox" class="custom-checkbox" id="block-todo" name="todo">
+              <label for="block-todo">Todo</label><br>`
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
