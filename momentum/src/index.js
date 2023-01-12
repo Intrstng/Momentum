@@ -470,10 +470,16 @@ line.classList.add('line');
 
 const selectLangMenu = document.createElement('div');
 selectLangMenu.classList.add('select-lang');
-let selectLangMenuContent = `<label for="language">Select language:</label>
-  <select name="language" id="language">
-    <option value="en">English</option>
-    <option value="ru">Russian</option>`;
+let selectLangMenuContent = `
+  <p>Select language</p>
+  <div class="lang-radio">
+    <input type="radio" id="lang-eng" name="radio" checked>
+    <label  for="lang-eng" class="lang-label">English</label>
+  </div>
+  <div class="lang-radio">
+    <input type="radio" id="lang-ru" name="radio">
+    <label  for="lang-ru" class="lang-label">Russian</label>
+  </div>`;
 selectLangMenu.innerHTML = selectLangMenuContent;
 settingsMenu.append(selectLangMenu);
 const cloneLine1 = line.cloneNode(true);
@@ -481,7 +487,7 @@ selectLangMenu.after(cloneLine1);
 
 const selectImgSource = document.createElement('div');
 selectImgSource.classList.add('select-img-source');
-let selectImgSourceContent = `<label for="imgSource">Photo source for background image:</label>
+let selectImgSourceContent = `<label for="imgSource">Photo source for background image</label>
   <select name="imgSource" id="imgSource">
     <option value="github">GitHub</option>
     <option value="unsplash">Unsplash Api</option>
@@ -493,8 +499,10 @@ selectImgSource.after(cloneLine2);
 
 const selectImgTag = document.createElement('div');
 selectImgTag.classList.add('select-img-tag');
-let selectImgTagContent = `<div class="search-box"><span>Enter a tag for background image collection</span>
-  <input type="text" id="image-tag" placeholder="nature"></div>`;
+let selectImgTagContent = `<p>Enter a tag for background image collection</p>
+  <div class="search-box">
+    <input type="text" id="image-tag" placeholder="nature">
+  </div>`;
 selectImgTag.innerHTML = selectImgTagContent;
 settingsMenu.append(selectImgTag);
 const cloneLine3 = line.cloneNode(true);
@@ -503,20 +511,40 @@ selectImgTag.after(cloneLine3);
 const hideVidgetItems = document.createElement('div');
 hideVidgetItems.classList.add('hide-vidgets');
 let hideVidgetItemsContent = `<p>Hide/show block</p>
-  <input type="checkbox" class="custom-checkbox" id="block-time" name="time">
-  <label for="block-time">Time</label><br>
-    <input type="checkbox" class="custom-checkbox" id="block-date" name="date">
-    <label for="block-date">Date</label><br>   
-      <input type="checkbox" class="custom-checkbox" id="block-greeting" name="greeting">
-      <label for="block-greeting">Greeting</label><br>    
-        <input type="checkbox" class="custom-checkbox" id="block-quote" name="quote">
-        <label for="block-quote">Quote</label><br>   
-          <input type="checkbox" class="custom-checkbox" id="block-weather" name="weather">
-          <label for="block-weather">Weather</label><br>   
-            <input type="checkbox" class="custom-checkbox" id="block-player" name="player">
-            <label for="block-player">Player</label><br>    
-              <input type="checkbox" class="custom-checkbox" id="block-todo" name="todo">
-              <label for="block-todo">Todo</label><br>`
+  <label for="block-time" class="checkbox-ios">
+    <input type="checkbox" id="block-time" name="time" checked>Time
+    <span class="checkbox-ios-switch"></span>
+  </label>
+
+    <label for="block-date" class="checkbox-ios">
+      <input type="checkbox" id="block-date" name="date" checked>Date
+      <span class="checkbox-ios-switch"></span>
+    </label>
+
+      <label for="block-greeting" class="checkbox-ios">
+        <input type="checkbox" id="block-greeting" name="greeting" checked>Greeting
+        <span class="checkbox-ios-switch"></span>
+      </label>
+
+        <label for="block-quote" class="checkbox-ios">
+          <input type="checkbox" id="block-quote" name="quote" checked>Quote
+          <span class="checkbox-ios-switch"></span>
+        </label>
+
+          <label for="block-weather" class="checkbox-ios">
+            <input type="checkbox" id="block-weather" name="weather" checked>Weather
+            <span class="checkbox-ios-switch"></span>
+          </label>
+
+            <label for="block-player" class="checkbox-ios">
+              <input type="checkbox" id="block-player" name="player" checked>Audio player
+              <span class="checkbox-ios-switch"></span>
+            </label>
+
+              <label for="block-todo" class="checkbox-ios">
+                <input type="checkbox" id="block-todo" name="todo" checked>Todo
+                <span class="checkbox-ios-switch"></span>
+              </label>`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);

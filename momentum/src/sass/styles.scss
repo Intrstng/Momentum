@@ -10,7 +10,6 @@
 @import './base/icono';
 @import './base/fontawesome';
 @import './base/buttons';
-@import './base/checkbox';
 @import './base/scrollbar';
 
 // Components
@@ -21,6 +20,10 @@
 @import './components/quote';
 @import './components/player-progressive';
 @import './components/settings-menu';
+@import './components/checkbox';
+@import './components/select-lang';
+@import './components/photo-src';
+@import './components/select-tag';
 
 // Layouts
 @import './layouts/header';
