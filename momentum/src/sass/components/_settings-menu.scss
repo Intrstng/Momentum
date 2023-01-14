@@ -1,6 +1,6 @@
 .settings-menu {
-  min-width: 0;
-  height: 0;
+  max-width: 300px;
+  height: auto;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 0 20px 0 #000a;
@@ -13,8 +13,8 @@
   color: rgb(83, 83, 83);
   font-size: 0.8rem;
   &_active {
-    max-width: 300px;
-    height: 520px;
+    // max-width: 300px;
+    // height: auto;
     &:after {
       content: '';
       position: absolute;

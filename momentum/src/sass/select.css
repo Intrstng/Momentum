@@ -1,10 +1,19 @@
-.select-tag {
+* {
+  box-sizing: border-box;
+}
+
+.select-src {
+  width: 135px;
+}
+.select-src .select-tag {
   display: block;
   list-style: none;
-  padding: 5px 5px 5px 8px;
-  width: 135px;
-  height: 25px;
+  padding: 5px 0px 5px 8px;
+  line-height: 25px;
+  width: 100%;
   font-family: "Arial", sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
   color: rgba(0, 0, 0, 0.7);
   outline: none;
   border: 0;
@@ -12,15 +21,59 @@
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
   position: relative;
 }
-.select-tag:before {
+.select-src .select-tag__list {
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+}
+.select-src .select-tag__list_active {
+  padding-left: 0;
+  width: 100%;
+  height: auto;
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-radius: 0 0 0.4rem 0.4rem;
+}
+.select-src .select-tag__list__item {
+  padding: 6px 6px 6px 12px;
+  font-size: 0.8rem;
+  background-color: #eee;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+}
+.select-src .select-tag__list__item:hover {
+  background-color: #32CD32;
+  color: rgb(255, 255, 255);
+}
+.select-src .select-tag:before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 5px;
+  right: 10px;
   margin: auto 0;
-  width: 16px;
-  height: 16px;
-  background: url("../../assets/svg/search.svg") no-repeat;
+  width: 17px;
+  height: 17px;
+  background: url("../../assets/svg/bottom-chevron.svg") no-repeat;
+  background-size: cover;
+}
+.select-src .select-tag_active:before {
+  background: url("../../assets/svg/bottom-chevron-active.svg") no-repeat;
+  background-size: cover;
+  transform: rotate(-180deg);
+}
+.select-src .select-tag_hover {
+  transition: all 0.2s ease-out;
+}
+.select-src .select-tag_hover:hover {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.4rem 0.4rem 0 0;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+}
+.select-src .select-tag_hover:hover:before {
+  background: url("../../assets/svg/bottom-chevron-active.svg") no-repeat;
   background-size: cover;
 }/*# sourceMappingURL=select.css.map */

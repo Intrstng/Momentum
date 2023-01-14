@@ -486,13 +486,16 @@ const cloneLine1 = line.cloneNode(true);
 selectLangMenu.after(cloneLine1);
 
 const selectImgSource = document.createElement('form');
-selectImgSource.classList.add('select-img-source');
-let selectImgSourceContent = `<label for="imgSource">Photo source for background image</label>
-  <select name="imgSource" id="imgSource">
-    <option value="github">GitHub</option>
-    <option value="unsplash">Unsplash Api</option>
-    <option value="flickr">Flickr Api</option>
-    </select>`;
+selectImgSource.classList.add('select-src');
+let selectImgSourceContent = `<p>Photo source for background image</p>
+<div>
+<div class="select-tag select-tag_hover">GitHub</div>
+  <ul class="select-tag__list">
+    <li class="select-tag__list__item select-tag__list__item_hover select-tag__list__item_active" data-source="github">GitHub</li>
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="unsplash">Unsplash Api</li>
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="flickr">Flickr Api</li>
+  </ul>
+  </div>`;
 selectImgSource.innerHTML = selectImgSourceContent;
 settingsMenu.append(selectImgSource);
 const cloneLine2 = line.cloneNode(true);
@@ -551,6 +554,40 @@ settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
 hideVidgetItems.after(cloneLine4);
 
+
+// Open / close settings menu
+// const showSettingsMenuBtn = document.querySelector('.copyright__settings');
+// const showSettingsMenu = () => {
+//   console.log("dds")
+//   settingsMenu.classList.toggle('settings-menu_active');
+// }
+// showSettingsMenuBtn.addEventListener('click', showSettingsMenu);
+
+
+
+// Open / close photo source select menu
+const selectSrcMenuField = document.querySelector('.select-tag');
+const srcDropDownMenu = document.querySelector('.select-tag__list');
+
+
+const openCloseSrcMenu = () => {
+  selectSrcMenuField.classList.toggle('select-tag_active');
+  srcDropDownMenu.classList.toggle('select-tag__list_active');
+  
+}
+selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
+
+
+// ...
+const searchImgTagBlock = document.querySelector('.search-box');
+const searchImgTagField = document.getElementById('image-tag');
+
+const changeSearchIcon = () => {
+  searchImgTagBlock.classList.toggle('search-box_active');
+}
+
+searchImgTagField.addEventListener('focus', changeSearchIcon);
+searchImgTagField.addEventListener('blur', changeSearchIcon);
 
 
 //const unsplashApiURL = 'https://api.unsplash.com/search/photos/&query='+word+'&per_page=9&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30'
