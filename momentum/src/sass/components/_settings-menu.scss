@@ -12,9 +12,10 @@
   text-align: left;
   color: rgb(83, 83, 83);
   font-size: 0.8rem;
+  @extend %transition-all;
   &_active {
-    // max-width: 300px;
-    // height: auto;
+    //  max-width: 300px;
+    //  height: auto;
     &:after {
       content: '';
       position: absolute;

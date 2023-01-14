@@ -458,20 +458,52 @@ const settingsMenuData = [
     "hideItem": ["time", "date", "greeting", "quote", "weather", "player"],
   }
 ]
-
 const settingsMenu = document.querySelector('.settings-menu');
-const settingsMenuCloseBtn = document.createElement('form');
+
+
+const actionsInSettingsMenu = () => {
+  // Open / close photo source select menu
+const selectSrcMenuField = document.querySelector('.select-tag');
+
+const openCloseSrcMenu = () => {
+  const srcDropDownMenu = document.querySelector('.select-tag__list');
+  selectSrcMenuField.classList.toggle('select-tag_active');
+  srcDropDownMenu.classList.toggle('select-tag__list_active');
+  // ...
+}
+selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
+
+// Change icon in photo src field
+const searchImgTagField = document.getElementById('image-tag');
+
+const changeSearchIcon = () => {
+  const searchImgTagBlock = document.querySelector('.search-box');
+  searchImgTagBlock.classList.toggle('search-box_active');
+}
+searchImgTagField.addEventListener('focus', changeSearchIcon);
+searchImgTagField.addEventListener('blur', changeSearchIcon);
+
+}
+
+// Close settings menu
+
+settingsMenu.style.opacity = '0';
+const showSettingsMenu = () => {
+  (settingsMenu.style.opacity == '0') ? (settingsMenu.style.opacity = '1') : (settingsMenu.style.opacity = '0');
+}
+
+// Build (open) settings men
+const buildSettingsMenu = () => {
+const settingsMenuCloseBtn = document.createElement('div');
 settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
 settingsMenu.append(settingsMenuCloseBtn);
-
 
 const line = document.createElement('div');
 line.classList.add('line');
 
 const selectLangMenu = document.createElement('form');
 selectLangMenu.classList.add('select-lang');
-let selectLangMenuContent = `
-  <p>Select language</p>
+let selectLangMenuContent = `<p>Select language</p>
   <div class="lang-radio">
     <input type="radio" id="lang-eng" name="radio" checked>
     <label  for="lang-eng" class="lang-label">English</label>
@@ -554,40 +586,14 @@ settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
 hideVidgetItems.after(cloneLine4);
 
-
-// Open / close settings menu
-// const showSettingsMenuBtn = document.querySelector('.copyright__settings');
-// const showSettingsMenu = () => {
-//   console.log("dds")
-//   settingsMenu.classList.toggle('settings-menu_active');
-// }
-// showSettingsMenuBtn.addEventListener('click', showSettingsMenu);
-
-
-
-// Open / close photo source select menu
-const selectSrcMenuField = document.querySelector('.select-tag');
-const srcDropDownMenu = document.querySelector('.select-tag__list');
-
-
-const openCloseSrcMenu = () => {
-  selectSrcMenuField.classList.toggle('select-tag_active');
-  srcDropDownMenu.classList.toggle('select-tag__list_active');
-  
+actionsInSettingsMenu();
 }
-selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
+window.onload = buildSettingsMenu();
+const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
+settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
 
-
-// ...
-const searchImgTagBlock = document.querySelector('.search-box');
-const searchImgTagField = document.getElementById('image-tag');
-
-const changeSearchIcon = () => {
-  searchImgTagBlock.classList.toggle('search-box_active');
-}
-
-searchImgTagField.addEventListener('focus', changeSearchIcon);
-searchImgTagField.addEventListener('blur', changeSearchIcon);
-
+// Close menu by close btn (icon) in settings menu
+const closeSettingsBtn = document.querySelector('.close-settings-btn');
+closeSettingsBtn.addEventListener('click', showSettingsMenu);
 
 //const unsplashApiURL = 'https://api.unsplash.com/search/photos/&query='+word+'&per_page=9&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30'

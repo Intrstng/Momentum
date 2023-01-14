@@ -12,16 +12,15 @@
   align-items: center;
   justify-content: space-between;
   &__settings {
+      @extend %transition-all;
       opacity: 0.8;
       cursor: pointer;
       &_hover {
-        @extend %transition-all;
         &:hover {
           transform: rotate(90deg)
         }
       }
       &_active {
-        @extend %transition-all;
         &:active {
           opacity: 1;
         }

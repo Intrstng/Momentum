@@ -635,7 +635,7 @@ body {
   transition: background-image 1s ease-in-out;
 }
 
-.footer .copyright__icon, .footer .copyright__settings_active, .footer .copyright__settings_hover, .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover {
+.footer .copyright__icon, .footer .copyright__settings, .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu {
   transition: all 0.25s;
 }
 
