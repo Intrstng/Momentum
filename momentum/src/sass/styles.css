@@ -635,7 +635,7 @@ body {
   transition: background-image 1s ease-in-out;
 }
 
-.footer .copyright__icon, .footer .copyright__settings, .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu {
+.footer .copyright__icon, .footer .copyright__settings, .select-img-tag .search-box input[type=text], .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu {
   transition: all 0.25s;
 }
 
@@ -10134,6 +10134,11 @@ body {
   margin-bottom: 40px;
   font-size: 8rem;
   letter-spacing: -4px;
+  transition: opacity 0.25s linear;
+}
+.time_hidden {
+  opacity: 0;
+  z-index: -1;
 }
 @media (max-width: 768px) {
   .time {
@@ -10367,11 +10372,14 @@ body {
   position: absolute;
   left: 22px;
   bottom: 65px;
-  z-index: 1;
+  z-index: -1;
   padding: 20px 20px 10px;
   text-align: left;
   color: rgb(83, 83, 83);
   font-size: 0.8rem;
+}
+.settings-menu_active {
+  z-index: 1;
 }
 .settings-menu_active:after {
   content: "";
@@ -10670,7 +10678,6 @@ body {
   height: 25px;
   font-family: "Arial", sans-serif;
   color: rgba(0, 0, 0, 0.7);
-  background-color: #eee;
   cursor: pointer;
   outline: none;
   border: 0;
@@ -10678,6 +10685,9 @@ body {
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
 }
 .select-img-tag .search-box input[type=text]:focus {
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+}
+.select-img-tag .search-box input[type=text]:hover {
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
 }
 

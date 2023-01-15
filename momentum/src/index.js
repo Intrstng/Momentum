@@ -448,18 +448,16 @@ const selectTrackInPlaylist = (event) => {
 
 playlist.addEventListener('click', selectTrackInPlaylist);
 
-// Меню настроек
-const settingsMenuData = [
-  {
-    "title": "Settings",
-    "language": ["eng", "ru"],
-    "imageSource": ["GitHub", "Unsplash API", "Flickr API"],
-    "tags": "Select tag",
-    "hideItem": ["time", "date", "greeting", "quote", "weather", "player"],
-  }
-]
+// Settings menu
+const settingsMenuData = {
+    title: 'settings',
+    language: 'eng',
+    imageSource: 'github',
+    tag: 'nature',
+    vidgets: ['time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo'],
+  };
 const settingsMenu = document.querySelector('.settings-menu');
-
+const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
 
 const actionsInSettingsMenu = () => {
   // Open / close photo source select menu
@@ -482,17 +480,43 @@ const changeSearchIcon = () => {
 }
 searchImgTagField.addEventListener('focus', changeSearchIcon);
 searchImgTagField.addEventListener('blur', changeSearchIcon);
-
 }
+
+// Close settings menu by Escape or click outside of settings menu
+
+const closeMenuByAction = () => {
+  document.addEventListener('keyup', (event) => {
+    // Close settings meny by Escape
+    if (event.code === 'Escape') {
+      showSettingsMenu();
+    };
+  });
+    // Close settings menu by click outside of settings menu
+  document.addEventListener('click', (event) => {
+    if (settingsMenu.style.opacity == '1') {
+       const withinBoundaries = event.composedPath().includes(settingsMenu);
+       if (!withinBoundaries && !(event.target == settingsMenuOpenBtn)) {
+          showSettingsMenu();
+        }
+    }
+  });
+};
 
 // Close settings menu
 
 settingsMenu.style.opacity = '0';
 const showSettingsMenu = () => {
-  (settingsMenu.style.opacity == '0') ? (settingsMenu.style.opacity = '1') : (settingsMenu.style.opacity = '0');
+  if (settingsMenu.style.opacity == '0') {
+    settingsMenu.style.opacity = '1';
+    settingsMenu.classList.add('settings-menu_active');
+    closeMenuByAction();
+  } else {
+    settingsMenu.style.opacity = '0';
+    settingsMenu.classList.remove('settings-menu_active');
+  };
 }
 
-// Build (open) settings men
+// Build (open) settings menu
 const buildSettingsMenu = () => {
 const settingsMenuCloseBtn = document.createElement('div');
 settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
@@ -503,14 +527,15 @@ line.classList.add('line');
 
 const selectLangMenu = document.createElement('form');
 selectLangMenu.classList.add('select-lang');
+selectLangMenu.name = 'lang';
 let selectLangMenuContent = `<p>Select language</p>
   <div class="lang-radio">
-    <input type="radio" id="lang-eng" name="radio" checked>
-    <label  for="lang-eng" class="lang-label">English</label>
+    <input type="radio" id="lang-eng" name="radio" value="eng" checked>
+    <label for="lang-eng" class="lang-label">English</label>
   </div>
   <div class="lang-radio">
-    <input type="radio" id="lang-ru" name="radio">
-    <label  for="lang-ru" class="lang-label">Russian</label>
+    <input type="radio" id="lang-ru" name="radio" value="ru">
+    <label for="lang-ru" class="lang-label">Russian</label>
   </div>`;
 selectLangMenu.innerHTML = selectLangMenuContent;
 settingsMenu.append(selectLangMenu);
@@ -519,6 +544,7 @@ selectLangMenu.after(cloneLine1);
 
 const selectImgSource = document.createElement('form');
 selectImgSource.classList.add('select-src');
+selectImgSource.name = 'src';
 let selectImgSourceContent = `<p>Photo source for background image</p>
 <div>
 <div class="select-tag select-tag_hover">GitHub</div>
@@ -535,9 +561,10 @@ selectImgSource.after(cloneLine2);
 
 const selectImgTag = document.createElement('form');
 selectImgTag.classList.add('select-img-tag');
+selectImgTag.name = 'tag';
 let selectImgTagContent = `<p>Enter a tag for background image collection</p>
   <div class="search-box">
-    <input type="text" id="image-tag" placeholder="nature">
+    <input type="text" id="image-tag" placeholder="nature" name="imgtag">
   </div>`;
 selectImgTag.innerHTML = selectImgTagContent;
 settingsMenu.append(selectImgTag);
@@ -546,39 +573,40 @@ selectImgTag.after(cloneLine3);
 
 const hideVidgetItems = document.createElement('form');
 hideVidgetItems.classList.add('hide-vidgets');
+hideVidgetItems.name = 'vidgets';
 let hideVidgetItemsContent = `<p>Hide/show block</p>
   <label for="block-time" class="checkbox-ios">
-    <input type="checkbox" id="block-time" name="time" checked>Time
+    <input type="checkbox" id="block-time" name="vidget" value="time" checked>Time
     <span class="checkbox-ios-switch"></span>
   </label>
 
     <label for="block-date" class="checkbox-ios">
-      <input type="checkbox" id="block-date" name="date" checked>Date
+      <input type="checkbox" id="block-date" name="vidget" value="date" checked>Date
       <span class="checkbox-ios-switch"></span>
     </label>
 
       <label for="block-greeting" class="checkbox-ios">
-        <input type="checkbox" id="block-greeting" name="greeting" checked>Greeting
+        <input type="checkbox" id="block-greeting" name="vidget" value="greeting" checked>Greeting
         <span class="checkbox-ios-switch"></span>
       </label>
 
         <label for="block-quote" class="checkbox-ios">
-          <input type="checkbox" id="block-quote" name="quote" checked>Quote
+          <input type="checkbox" id="block-quote" name="vidget" value="quote" checked>Quote
           <span class="checkbox-ios-switch"></span>
         </label>
 
           <label for="block-weather" class="checkbox-ios">
-            <input type="checkbox" id="block-weather" name="weather" checked>Weather
+            <input type="checkbox" id="block-weather" name="vidget" value="weather" checked>Weather
             <span class="checkbox-ios-switch"></span>
           </label>
 
             <label for="block-player" class="checkbox-ios">
-              <input type="checkbox" id="block-player" name="player" checked>Audio player
+              <input type="checkbox" id="block-player" name="vidget" value="player" checked>Audio player
               <span class="checkbox-ios-switch"></span>
             </label>
 
               <label for="block-todo" class="checkbox-ios">
-                <input type="checkbox" id="block-todo" name="todo" checked>Todo
+                <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
                 <span class="checkbox-ios-switch"></span>
               </label>`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
@@ -589,11 +617,78 @@ hideVidgetItems.after(cloneLine4);
 actionsInSettingsMenu();
 }
 window.onload = buildSettingsMenu();
-const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
 settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
 
 // Close menu by close btn (icon) in settings menu
 const closeSettingsBtn = document.querySelector('.close-settings-btn');
 closeSettingsBtn.addEventListener('click', showSettingsMenu);
+
+
+
+
+// Choose settings
+const selectLangForm = document.forms.lang;
+const selectLangRadioInputs = selectLangForm.radio;
+console.log(selectLangRadioInputs)
+selectLangForm.addEventListener('click', (event) => {
+  if (event.target.nodeName !='INPUT') return;
+    let selectedLang = '';
+    for (let element of selectLangRadioInputs) {
+      if (element.checked) {
+        selectedLang = element.value;
+      }
+    }
+    settingsMenuData.language = selectedLang;
+    console.log(settingsMenuData.language); 
+});
+
+// Choose img tags
+const selectImgTagForm = document.forms.tag;
+const selectImgTagInput = selectImgTagForm.imgtag;
+
+const getTagInfoFromInput = () => {
+  settingsMenuData.tag = selectImgTagForm.imgtag.value;
+}
+selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
+
+                  // Update screen after showing/hiding vidgets
+                  const updateScreen = () => {
+                    if (settingsMenuData.vidgets.indexOf('time') == -1) {
+                      time.classList.add('time_hidden');
+                    }
+                    if (settingsMenuData.vidgets.indexOf('time') != -1) {
+                      time.classList.remove('time_hidden');
+                    }
+                  }
+
+// Choose hide/show block (vidgets)
+const selectVidgetsForm = document.forms.vidgets;
+const selectVidgetsInputs = selectVidgetsForm.vidget;
+
+const getInfoFromVidgetsInputs = () =>{
+let vidgetSet = new Set();
+selectVidgetsInputs.forEach((element) => {
+  if (element.checked) {
+    vidgetSet.add(element.value);
+  } else {
+    vidgetSet.delete(element.value);
+  }
+});
+  settingsMenuData.vidgets = [...vidgetSet];
+  console.log(settingsMenuData)
+}
+
+selectVidgetsForm.addEventListener ('click', (event) => {
+ if (event.target.nodeName != 'INPUT') return; getInfoFromVidgetsInputs();
+ updateScreen();
+});
+
+
+
+
+
+
+
+
 
 //const unsplashApiURL = 'https://api.unsplash.com/search/photos/&query='+word+'&per_page=9&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30'
