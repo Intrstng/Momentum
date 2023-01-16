@@ -53,7 +53,7 @@ const showDate = () => {
 // --------------------------------------------------------------- //
 // Приветствие
 
-const greeting = document.querySelector('.greeting');
+const greeting = document.querySelector('.greeting-container');
 const getTimeOfDay = () => {
   const date = new Date();
   const hour = date.getHours();
@@ -199,7 +199,7 @@ city.addEventListener('change', getWeather);
 // ------------------------------------------------- //
 // Виджет Цитата
 const quoteBtn = document.querySelector('.change-quote');
-const quote = document.querySelector('.quote');
+const quote = document.querySelector('.quote-block');
 const author = document.querySelector('.author');
 
 const quotesUrls = {
@@ -288,7 +288,7 @@ const markSelectedTrack = (action) => {
 
 const showTrackInfo = () => {
   trackBlock.textContent = playList[playNum].title;
-  audio.addEventListener("loadeddata", () => {
+  audio.addEventListener('loadeddata', () => {
     let trackDurationInSec = Math.trunc(audio.duration);
     trackLength.textContent = trackLengthTime(trackDurationInSec);
     }, false);
@@ -449,12 +449,12 @@ const selectTrackInPlaylist = (event) => {
 playlist.addEventListener('click', selectTrackInPlaylist);
 
 // Settings menu
-const settingsMenuData = {
+let settingsMenuData = {
     title: 'settings',
     language: 'eng',
     imageSource: 'github',
     tag: 'nature',
-    vidgets: ['time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo'],
+    vidgets: [], /* 'time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo' */
   };
 const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
@@ -605,10 +605,10 @@ let hideVidgetItemsContent = `<p>Hide/show block</p>
               <span class="checkbox-ios-switch"></span>
             </label>
 
-              <label for="block-todo" class="checkbox-ios">
+    <!--          <label for="block-todo" class="checkbox-ios">
                 <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
                 <span class="checkbox-ios-switch"></span>
-              </label>`;
+              </label> -->`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
@@ -629,7 +629,7 @@ closeSettingsBtn.addEventListener('click', showSettingsMenu);
 // Choose settings
 const selectLangForm = document.forms.lang;
 const selectLangRadioInputs = selectLangForm.radio;
-console.log(selectLangRadioInputs)
+//console.log(selectLangRadioInputs)
 selectLangForm.addEventListener('click', (event) => {
   if (event.target.nodeName !='INPUT') return;
     let selectedLang = '';
@@ -639,7 +639,7 @@ selectLangForm.addEventListener('click', (event) => {
       }
     }
     settingsMenuData.language = selectedLang;
-    console.log(settingsMenuData.language); 
+    //console.log(settingsMenuData.language); 
 });
 
 // Choose img tags
@@ -651,15 +651,17 @@ const getTagInfoFromInput = () => {
 }
 selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
 
-                  // Update screen after showing/hiding vidgets
-                  const updateScreen = () => {
-                    if (settingsMenuData.vidgets.indexOf('time') == -1) {
-                      time.classList.add('time_hidden');
-                    }
-                    if (settingsMenuData.vidgets.indexOf('time') != -1) {
-                      time.classList.remove('time_hidden');
-                    }
-                  }
+// Update screen after showing/hiding vidgets
+const updateScreen = () => {
+    let vidgets = document.getElementsByClassName('vidget');
+    [...vidgets].forEach((element) => {
+    if (settingsMenuData.vidgets.indexOf(element.id) != -1) {
+      document.querySelector(`.${element.id}`).classList.remove(`vidget_hidden`);
+    } else {
+      document.querySelector(`.${element.id}`).classList.add(`vidget_hidden`);
+    }
+  });
+}
 
 // Choose hide/show block (vidgets)
 const selectVidgetsForm = document.forms.vidgets;
@@ -675,13 +677,45 @@ selectVidgetsInputs.forEach((element) => {
   }
 });
   settingsMenuData.vidgets = [...vidgetSet];
-  console.log(settingsMenuData)
+  console.log('settings object', settingsMenuData.vidgets);
+  updateScreen();
 }
+                                window.onload = getInfoFromVidgetsInputs();
+                                window.onload = updateScreen();
 
 selectVidgetsForm.addEventListener ('click', (event) => {
- if (event.target.nodeName != 'INPUT') return; getInfoFromVidgetsInputs();
- updateScreen();
+ if (event.target.nodeName != 'INPUT') return; 
+ getInfoFromVidgetsInputs();
 });
+
+
+// Save the inputs selections of settings menu to LocalStorage (settingsMenuData object with all settings is stored in LocalStorage)
+
+const setInputsPosInLocalStorage = () => {
+  localStorage.setItem('inputs', JSON.stringify(settingsMenuData));
+}
+// userName.addEventListener('blur', setLocalStorage);
+window.addEventListener('beforeunload', setInputsPosInLocalStorage);
+
+// Set the inputs selections of settings menu from LocalStorage after reload of the page.
+const getInputsPosInLocalStorage = () => {
+  localStorage.getItem('inputs') && (settingsMenuData = JSON.parse(localStorage.getItem('inputs')));
+}
+window.onload = getInputsPosInLocalStorage();
+
+// Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
+const setCheckboxesBackAfterReloadPage = () => {
+
+
+
+
+
+  
+  getInfoFromVidgetsInputs();
+}
+window.onload = setCheckboxesBackAfterReloadPage();
+
+
 
 
 

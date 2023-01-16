@@ -13,7 +13,7 @@
 <body>
   <header class="header">
     <!-- <audio><source src="./assets/sounds/Aqua Caelestis.mp3" id="song" type="audio/mp3"></audio> -->
-      <div class="audio-player">
+      <div class="player vidget" id="player">
         <div class="controls">
         <div class="play-container">
           <button class="play-prev player-icon"></button>
@@ -40,7 +40,7 @@
       <ul class="play-list">
       </ul>
       </div>
-    <div class="weather">
+    <div class="weather vidget" id="weather">
       <input type="text" class="city" value="Minsk">
       <i class="weather-icon"></i>
       <div class="weather-error"></div>
@@ -57,17 +57,17 @@
       <button class="slide-prev slider-icon"></button>
       <button class="slide-next slider-icon"></button>
     </div>
-    <time class="time"></time>
-    <date class="date"></date>
-    <div class="greeting-container">
-      <span class="greeting"></span>
+    <time class="time vidget" id="time"></time>
+    <date class="date vidget" id="date"></date>
+    <div class="greeting vidget" id="greeting">
+      <span class="greeting-container"></span>
       <input type="text" class="name" placeholder="[Enter name]">
     </div>
   </main>
   <footer class="footer">
-    <button class="change-quote"></button>
-    <div class="quote-block">
-      <div class="quote"></div>
+    <div class="quote vidget" id="quote">
+      <button class="change-quote"></button>
+      <div class="quote-block"></div>
       <div class="author"></div>
     </div>
       <div class="copyright">
