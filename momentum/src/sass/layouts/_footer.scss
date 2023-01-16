@@ -48,6 +48,11 @@
         transform: scale(1.13);
       }
     }
+    &_active {
+      &:active .copyright__icon {
+        opacity: 1;
+      }
+    }
   }
 }
 }

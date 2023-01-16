@@ -1,0 +1,19 @@
+.todo {
+  color: $color-selected;
+  margin-left: 0.7rem;
+  transition: transform 0.2s ease,
+              color 0.2s,
+              opacity 0.2s;
+  &_hover {
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+  &_active {
+    &:active {
+     // opacity: 1;
+     opacity: 0.8;
+     color: #BEA732;
+    }
+  }
+}

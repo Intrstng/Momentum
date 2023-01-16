@@ -448,6 +448,8 @@ const selectTrackInPlaylist = (event) => {
 
 playlist.addEventListener('click', selectTrackInPlaylist);
 
+
+
 // Settings menu
 let settingsMenuData = {
     title: 'settings',
@@ -605,10 +607,10 @@ let hideVidgetItemsContent = `<p>Hide/show block</p>
               <span class="checkbox-ios-switch"></span>
             </label>
 
-    <!--          <label for="block-todo" class="checkbox-ios">
+              <label for="block-todo" class="checkbox-ios">
                 <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
                 <span class="checkbox-ios-switch"></span>
-              </label> -->`;
+              </label>`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
@@ -627,6 +629,7 @@ closeSettingsBtn.addEventListener('click', showSettingsMenu);
 
 
 // Choose settings
+// Select Language
 const selectLangForm = document.forms.lang;
 const selectLangRadioInputs = selectLangForm.radio;
 //console.log(selectLangRadioInputs)
@@ -653,7 +656,7 @@ selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
 
 // Update screen after showing/hiding vidgets
 const updateScreen = () => {
-    let vidgets = document.getElementsByClassName('vidget');
+  let vidgets = document.getElementsByClassName('vidget');
     [...vidgets].forEach((element) => {
     if (settingsMenuData.vidgets.indexOf(element.id) != -1) {
       document.querySelector(`.${element.id}`).classList.remove(`vidget_hidden`);
@@ -677,11 +680,11 @@ selectVidgetsInputs.forEach((element) => {
   }
 });
   settingsMenuData.vidgets = [...vidgetSet];
-  console.log('settings object', settingsMenuData.vidgets);
+  //console.log('settings object', settingsMenuData.vidgets);
   updateScreen();
 }
-                                window.onload = getInfoFromVidgetsInputs();
-                                window.onload = updateScreen();
+                                //window.onload = getInfoFromVidgetsInputs();
+                                //window.onload = updateScreen(); // или поместить после "window.onload = setCheckboxesBackAfterReloadPage();"
 
 selectVidgetsForm.addEventListener ('click', (event) => {
  if (event.target.nodeName != 'INPUT') return; 
@@ -703,19 +706,44 @@ const getInputsPosInLocalStorage = () => {
 }
 window.onload = getInputsPosInLocalStorage();
 
+// Set input radio language select accordingly recieved data from LocalStorage (settingsMenuData object)
+const setRadioBackAfterReloadPage = () => {
+  selectLangRadioInputs.forEach((element) => {
+    if (settingsMenuData.language == element.value) {
+      element.checked = true;
+  } else {
+    element.checked = false;
+  }
+});
+  getInfoFromVidgetsInputs();
+}
+window.onload = setRadioBackAfterReloadPage();
+
 // Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
 const setCheckboxesBackAfterReloadPage = () => {
-
-
-
-
-
-  
+  selectVidgetsInputs.forEach((element) => {
+    if (settingsMenuData.vidgets.indexOf(element.value) != -1) {
+      element.checked = true;
+    } else {
+      element.checked = false;
+    }
+  });
   getInfoFromVidgetsInputs();
 }
 window.onload = setCheckboxesBackAfterReloadPage();
 
 
+// Open img tag select input if Unsplash API or Flickr API are selected
+const selectImgSrcForm = document.forms.src;
+const selectImgSrcFormHead = selectImgSrcForm.querySelector('.select-tag');
+const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
+
+// const removeHoverFromFirstFormItem = () => {
+//   if (selectImgSrcFormItems[1].contains('select-tag__list__item_hover'))
+// }
+
+
+console.log(selectImgSrcFormItems[0])
 
 
 

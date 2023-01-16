@@ -635,7 +635,7 @@ body {
   transition: background-image 1s ease-in-out;
 }
 
-.footer .copyright__icon, .footer .copyright__settings, .select-img-tag .search-box input[type=text], .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu {
+.footer .copyright__icon, .footer .copyright__settings, .select-img-tag .search-box input[type=text], .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu, .play-item {
   transition: all 0.25s;
 }
 
@@ -10062,7 +10062,6 @@ body {
   list-style: none;
   opacity: 0.8;
   cursor: pointer;
-  transition: 0.3s;
 }
 .play-item:hover {
   opacity: 1;
@@ -10688,6 +10687,19 @@ body {
   z-index: -1;
 }
 
+.todo {
+  color: #C5B358;
+  margin-left: 0.7rem;
+  transition: transform 0.2s ease, color 0.2s, opacity 0.2s;
+}
+.todo_hover:hover {
+  transform: scale(1.15);
+}
+.todo_active:active {
+  opacity: 0.8;
+  color: #BEA732;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -10755,6 +10767,9 @@ body {
 }
 .footer .copyright__link_hover:hover .copyright__icon {
   transform: scale(1.13);
+}
+.footer .copyright__link_active:active .copyright__icon {
+  opacity: 1;
 }
 
 .git-img {

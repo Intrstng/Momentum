@@ -12,9 +12,9 @@
   padding: 5px 5px 5px 0;
   // padding-left: 20px;
   list-style: none;
-  opacity: .8;
+  opacity: 0.8;
   cursor: pointer;
-  transition: .3s;
+  @extend %transition-all;
   // &::before {
   //   content: "\2713";  
   //   position: absolute;
