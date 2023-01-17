@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 6px;
+  max-height: 75px;
+  opacity: 1;
+  // max-height: 0;
+  // opacity: 0;
+  // transition: max-height 0.3s linear;
   & > p {
     font-weight: bold;
   }
@@ -28,9 +33,13 @@
     input[type="text"] {
       padding: 5px 5px 5px 8px;
       width: 135px;
-      height: 25px;
+      max-height: 25px;
+      opacity: 1;
       font-family: "Arial", sans-serif;
-      color:rgba(0, 0, 0, 0.7);
+      font-size: 0.7rem;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      color:rgba(0, 0, 0, 0.5);
         cursor: pointer;
       outline: none;
       border: 0;
@@ -39,10 +48,35 @@
       @extend %transition-all;
       &:focus {
         box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+        &::-webkit-input-placeholder {
+          color: transparent;
+        }
+        ::-moz-placeholder {
+          color: transparent;
+        }
+        :-moz-placeholder {
+          color: transparent;
+        }
+        :-ms-input-placeholder {
+          color: transparent;
+        }
+      }
+      &:focus {
+        
       }
       &:hover {
         box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
       }
     }
   }
+  // &_active {
+  //   max-height: 75px;
+  //   opacity: 1;
+  // }
+  // &__line {
+  //   opacity: 0;
+  //   &_active {
+  //     opacity: 1;
+  //   }
+  // }
 }

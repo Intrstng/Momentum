@@ -10554,8 +10554,10 @@ body {
   list-style: none;
   padding: 5px 0px 5px 8px;
   font-family: "Arial", sans-serif;
-  font-size: 0.8rem;
-  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  color: rgba(0, 0, 0, 0.6);
   outline: none;
   border: 0;
   border-radius: 0.5rem;
@@ -10635,6 +10637,8 @@ body {
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 6px;
+  max-height: 75px;
+  opacity: 1;
 }
 .select-img-tag > p {
   font-weight: bold;
@@ -10661,9 +10665,13 @@ body {
 .select-img-tag .search-box input[type=text] {
   padding: 5px 5px 5px 8px;
   width: 135px;
-  height: 25px;
+  max-height: 25px;
+  opacity: 1;
   font-family: "Arial", sans-serif;
-  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   outline: none;
   border: 0;
@@ -10672,6 +10680,18 @@ body {
 }
 .select-img-tag .search-box input[type=text]:focus {
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+}
+.select-img-tag .search-box input[type=text]:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.select-img-tag .search-box input[type=text]:focus ::-moz-placeholder {
+  color: transparent;
+}
+.select-img-tag .search-box input[type=text]:focus :-moz-placeholder {
+  color: transparent;
+}
+.select-img-tag .search-box input[type=text]:focus :-ms-input-placeholder {
+  color: transparent;
 }
 .select-img-tag .search-box input[type=text]:hover {
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);

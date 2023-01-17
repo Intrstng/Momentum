@@ -462,14 +462,43 @@ const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
 
 const actionsInSettingsMenu = () => {
-  // Open / close photo source select menu
 const selectSrcMenuField = document.querySelector('.select-tag');
+const srcDropDownMenu = document.querySelector('.select-tag__list');
+const selectImgSrcForm = document.forms.src;
+  const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
+let openedImgSrcField = false;
 
+
+// Add to main field of photo src input the name of the selected item and setting data to settingsMenuData object 
+
+const selectImgSrcItem = (event) => {
+  selectSrcMenuField.innerHTML = `${event.target.innerHTML}`;
+  settingsMenuData.imageSource = event.target.dataset.source;
+  selectSrcMenuField.classList.remove('select-tag_active');
+  srcDropDownMenu.classList.remove('select-tag__list_active');
+  openedImgSrcField = false;
+  selectImgSrcFormItems.forEach((element) => {
+    element.removeEventListener('click', selectImgSrcItem);
+  });
+
+  // if (event.target.dataset.source == 'unsplash' || event.target.dataset.source == 'flickr') {
+  //   document.forms.tag.classList.add('select-img-tag_active');
+  //   document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
+  //   selectImgTagInput.classList.add('.inputtagactive');
+  // };
+}
+
+// Open / close photo source select menu
 const openCloseSrcMenu = () => {
-  const srcDropDownMenu = document.querySelector('.select-tag__list');
   selectSrcMenuField.classList.toggle('select-tag_active');
   srcDropDownMenu.classList.toggle('select-tag__list_active');
-  // ...
+  openedImgSrcField = !openedImgSrcField;
+    if (openedImgSrcField == true) {
+      selectImgSrcFormItems.forEach((element) => {
+        element.addEventListener('click', selectImgSrcItem);
+      });
+      openedImgSrcField = false;
+    };
 }
 selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
 
@@ -482,6 +511,13 @@ const changeSearchIcon = () => {
 }
 searchImgTagField.addEventListener('focus', changeSearchIcon);
 searchImgTagField.addEventListener('blur', changeSearchIcon);
+
+
+
+
+
+
+// Open img tag select input if Unsplash API or Flickr API are selected
 }
 
 // Close settings menu by Escape or click outside of settings menu
@@ -571,6 +607,7 @@ let selectImgTagContent = `<p>Enter a tag for background image collection</p>
 selectImgTag.innerHTML = selectImgTagContent;
 settingsMenu.append(selectImgTag);
 const cloneLine3 = line.cloneNode(true);
+cloneLine3.classList.add('select-img-tag__line');
 selectImgTag.after(cloneLine3);
 
 const hideVidgetItems = document.createElement('form');
@@ -670,7 +707,7 @@ const updateScreen = () => {
 const selectVidgetsForm = document.forms.vidgets;
 const selectVidgetsInputs = selectVidgetsForm.vidget;
 
-const getInfoFromVidgetsInputs = () =>{
+const getInfoFromVidgetsInputs = () => {
 let vidgetSet = new Set();
 selectVidgetsInputs.forEach((element) => {
   if (element.checked) {
@@ -719,6 +756,19 @@ const setRadioBackAfterReloadPage = () => {
 }
 window.onload = setRadioBackAfterReloadPage();
 
+// Set input photo src for background image accordingly recieved data from LocalStorage (settingsMenuData object)
+  const setInputImgSrcBackAfterReloadPage = () => {
+    document.forms.src.querySelectorAll('.select-tag__list__item').forEach((element) => {
+      if (element.dataset.source == settingsMenuData.imageSource) {
+        document.forms.src.querySelector('.select-tag').innerHTML = element.textContent;
+      };
+    });
+    getInfoFromVidgetsInputs();
+  }
+  window.onload = setInputImgSrcBackAfterReloadPage();
+
+
+
 // Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
 const setCheckboxesBackAfterReloadPage = () => {
   selectVidgetsInputs.forEach((element) => {
@@ -733,13 +783,6 @@ const setCheckboxesBackAfterReloadPage = () => {
 window.onload = setCheckboxesBackAfterReloadPage();
 
 
-// Open img tag select input if Unsplash API or Flickr API are selected
-const selectImgSrcForm = document.forms.src;
-const selectImgSrcFormHead = selectImgSrcForm.querySelector('.select-tag');
-const selectImgSrcFormListItems = selectImgSrcForm.querySelector('.select-tag__list');
-const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
-
-//select-tag__list__item_active
 
 
 
@@ -750,11 +793,10 @@ const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__li
 
 
 
-
-const setSelecImgSrcFormValue = () => {
-  selectImgSrcFormHead.innerHTML = '!!!!!!!!!!!!!!!'
-}
-document.addEventListener('select', setSelecImgSrcFormValue)
+// const setSelecImgSrcFormValue = () => {
+//   selectImgSrcFormHead.innerHTML = '!!!!!!!!!!!!!!!'
+// }
+// document.addEventListener('select', setSelecImgSrcFormValue)
 
 
 
