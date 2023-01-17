@@ -23,8 +23,6 @@
       max-height: 0;
       margin: 0 auto;
       opacity: 0;
-    }
-    &__list {
       transition: max-height 0.3s linear;
       &_active {
         margin-bottom: 6px;

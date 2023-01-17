@@ -10568,8 +10568,6 @@ body {
   max-height: 0;
   margin: 0 auto;
   opacity: 0;
-}
-.select-src .select-tag__list {
   transition: max-height 0.3s linear;
 }
 .select-src .select-tag__list_active {

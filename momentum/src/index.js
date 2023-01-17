@@ -551,7 +551,7 @@ let selectImgSourceContent = `<p>Photo source for background image</p>
 <div>
 <div class="select-tag select-tag_hover">GitHub</div>
   <ul class="select-tag__list">
-    <li class="select-tag__list__item select-tag__list__item_hover select-tag__list__item_active" data-source="github">GitHub</li>
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="github">GitHub</li>
     <li class="select-tag__list__item select-tag__list__item_hover" data-source="unsplash">Unsplash Api</li>
     <li class="select-tag__list__item select-tag__list__item_hover" data-source="flickr">Flickr Api</li>
   </ul>
@@ -736,14 +736,39 @@ window.onload = setCheckboxesBackAfterReloadPage();
 // Open img tag select input if Unsplash API or Flickr API are selected
 const selectImgSrcForm = document.forms.src;
 const selectImgSrcFormHead = selectImgSrcForm.querySelector('.select-tag');
+const selectImgSrcFormListItems = selectImgSrcForm.querySelector('.select-tag__list');
 const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 
-// const removeHoverFromFirstFormItem = () => {
-//   if (selectImgSrcFormItems[1].contains('select-tag__list__item_hover'))
-// }
+//select-tag__list__item_active
 
 
-console.log(selectImgSrcFormItems[0])
+
+
+
+
+
+
+
+
+
+const setSelecImgSrcFormValue = () => {
+  selectImgSrcFormHead.innerHTML = '!!!!!!!!!!!!!!!'
+}
+document.addEventListener('select', setSelecImgSrcFormValue)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
