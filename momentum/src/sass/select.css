@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.main-container {
+.todo {
   width: 90vw;
   height: 90vh;
   margin: 0 auto;
@@ -13,13 +13,28 @@
   border-radius: 10px;
   overflow: auto;
 }
-.main-container h2 {
+.todo__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo__head h2 {
   color: #eeeeee;
   margin: 0 0 1% 5%;
   padding-top: 2%;
   font-size: 3.5rem;
 }
-.main-container .btn {
+.todo__head .todo-close-btn {
+  margin-right: 5%;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.8;
+}
+.todo__head .todo-close-btn_hover:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.todo .btn {
   background-color: #FF7F50;
   color: #eeeeee;
   font-family: Arial, Helvetica, sans-serif;
@@ -32,35 +47,58 @@
   box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
   cursor: pointer;
 }
-.main-container .btn-todo_hover {
+.todo .btn-todo {
+  margin-left: 5%;
+}
+.todo .btn-todo_hover {
   transition: all 0.2s;
 }
-.main-container .btn-todo_hover:hover {
+.todo .btn-todo_hover:hover {
   background-color: #fb591d;
 }
-.main-container .btn-todo_active {
+.todo .btn-todo_active {
   transition: all 0.2s;
 }
-.main-container .btn-todo_active:active {
+.todo .btn-todo_active:active {
   background-color: #c54618;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
 }
-.main-container .container1 {
-  margin-left: 5%;
-}
-.main-container .container2 {
+.todo__field {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: 20px;
   margin-left: 5%;
 }
-.main-container .container2 .new-todo-note > p {
+.todo__field .new-todo-note > p {
   margin: 0;
   font-style: italic;
   cursor: pointer;
 }
-.main-container .container3 {
+.todo__field .new-todo-note {
+  width: 280px;
+  height: 280px;
+  overflow: auto;
+  word-wrap: break-word;
+  font-weight: normal;
+  font-size: 1.5rem;
+  padding: 15px 5px 15px 25px;
+  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.todo__field .new-todo-note_hover:hover {
+  box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.75);
+}
+.todo__field .new-todo-note_hidden {
+  opacity: 0;
+  z-index: -2;
+}
+.todo__field .new-todo-note_moved {
+  margin-left: 280px;
+}
+.todo__note {
   opacity: 0;
   position: absolute;
   top: 55%;
@@ -68,11 +106,11 @@
   z-index: -3;
   transition: all 0.2s;
 }
-.main-container .container3_active {
+.todo__note_active {
   opacity: 1;
   z-index: 2;
 }
-.main-container textarea {
+.todo textarea {
   padding: 42px 23px 28px;
   max-width: 270px;
   min-height: 200px;
@@ -86,64 +124,42 @@
   position: relative;
   overflow: auto;
 }
-.main-container .todo-btn-ok {
+.todo .todo-btn-ok {
   position: absolute;
   cursor: pointer;
   position: absolute;
   top: 8%;
   right: 14%;
 }
-.main-container .todo-btn-ok_hover {
+.todo .todo-btn-ok_hover {
   transition: all 0.2s;
 }
-.main-container .todo-btn-ok_hover:hover {
+.todo .todo-btn-ok_hover:hover {
   opacity: 0.7;
   transform: scale(1.1);
 }
-.main-container .todo-btn-ok_active {
+.todo .todo-btn-ok_active {
   transition: all 0.2s;
 }
-.main-container .todo-btn-ok_active:active {
+.todo .todo-btn-ok_active:active {
   transform: scale(0.97);
 }
-.main-container .todo-btn-close {
+.todo .todo-btn-close {
   position: absolute;
   cursor: pointer;
   top: 8%;
   right: 5%;
 }
-.main-container .todo-btn-close_hover {
+.todo .todo-btn-close_hover {
   transition: all 0.2s;
 }
-.main-container .todo-btn-close_hover:hover {
+.todo .todo-btn-close_hover:hover {
   opacity: 0.7;
   transform: scale(1.1);
 }
-.main-container .todo-btn-close_active {
+.todo .todo-btn-close_active {
   transition: all 0.2s;
 }
-.main-container .todo-btn-close_active:active {
+.todo .todo-btn-close_active:active {
   transform: scale(0.97);
-}
-.main-container .new-todo-note {
-  width: 280px;
-  height: 280px;
-  overflow: auto;
-  word-wrap: break-word;
-  font-weight: normal;
-  padding: 15px 5px 15px 25px;
-  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
-  z-index: 2;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-.main-container .new-todo-note_hover:hover {
-  box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.75);
-}
-.main-container .new-todo-note_hidden {
-  opacity: 0;
-  z-index: -2;
-}
-.main-container .new-todo-note_moved {
-  margin-left: 280px;
 }/*# sourceMappingURL=select.css.map */

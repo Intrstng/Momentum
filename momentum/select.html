@@ -14,13 +14,14 @@
     <title>Select</title>
 </head>
 <body>
-<div class="main-container">
-  <h2>Todo List</h2>
-  <div class="container1">
-    <button class="btn btn-todo btn-todo_hover btn-todo_active">Create Note</button>
+<div class="todo">
+  <div class="todo__head">
+    <h2>Todo List</h2>
+    <div class="todo-close-btn todo-close-btn_hover icono-crossCircle">X</div>
   </div>
-  <div class="container2"></div>
-  <div class="container3">
+    <button class="btn btn-todo btn-todo_hover btn-todo_active">Create Note</button>
+  <div class="todo__field"></div>
+  <div class="todo__note">
     <form name="todoform">
       <textarea name="todo" id="note-text" placeholder="Write Note..." maxlength="96"></textarea>
       <img class="todo-btn-ok todo-btn-ok_hover todo-btn-ok_active" src="./assets/svg/check-ok.svg" alt="Todo Ok">
