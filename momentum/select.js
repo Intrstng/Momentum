@@ -78,33 +78,22 @@ const createTodoNote = () => {
   newTodoNote.append(todoNoteText);
   todoNoteText.innerHTML = todoTextArea.value;
   
-
-  const arrayOfTodoNotes = Array.from(todoNoteItems)
+  // If Todo Note is completed and removed, place instead of it a new Todo note on this place
+  const arrayOfTodoNotes = Array.from(todoNoteItems);
 
   let indexOfEmptyNote = -1;
-  for ( let i = 0; i < arrayOfTodoNotes.length; i++ ) {
-    if ( arrayOfTodoNotes[i].classList.contains('new-todo-note_hidden') ) {
+  for (let i = 0; i < arrayOfTodoNotes.length; i++) {
+    if (arrayOfTodoNotes[i].classList.contains('new-todo-note_hidden')) {
       indexOfEmptyNote = i;
       break;
     }
   }
   if (indexOfEmptyNote !== -1) { 
     todoNotes[indexOfEmptyNote] = todoTextArea.value.replace('\n', '').trim();
+    document.querySelector('.new-todo-note_hidden').before(newTodoNote);
+    arrayOfTodoNotes[indexOfEmptyNote].remove();
   } if (indexOfEmptyNote === -1)  {
     todoNotes.push(todoTextArea.value.replace('\n', '').trim());
-  }
-
-
-  // If Todo Note is completed and removed, place instead of it a new Todo note on this place
-  const hiddenCompletedTodoNote = Array.from(todoNoteItems).find((element) => {
-    return element.classList.contains('new-todo-note_hidden');
-  });
-
-  if (hiddenCompletedTodoNote) {
-    document.querySelector('.new-todo-note_hidden').before(newTodoNote);
-    hiddenCompletedTodoNote.remove();
-  //  todoNotes[indexOfEmptyNote] = todoTextArea.value.replace('\n', '').trim();
-  } else {
     todoNotesConatiner.append(newTodoNote);
   }
 
@@ -156,7 +145,6 @@ const deleteTodoNote = (event) => {
   if (event.target.closest('.new-todo-note') && !event.target.closest('.new-todo-note p') && event.target.firstElementChild.style.textDecoration === 'line-through') {
     event.target.classList.add('new-todo-note_hidden');
   }
-  console.log('del after', todoNotes)
 }
 
 const deleteTodoNoteByDblclick = (event) => {
