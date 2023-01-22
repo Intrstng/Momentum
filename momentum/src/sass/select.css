@@ -2,78 +2,148 @@
   box-sizing: border-box;
 }
 
-.select-src {
-  width: 135px;
-}
-.select-src .select-tag {
-  display: block;
-  list-style: none;
-  padding: 5px 0px 5px 8px;
-  line-height: 25px;
-  width: 100%;
-  font-family: "Arial", sans-serif;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.7);
-  outline: none;
-  border: 0;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-.select-src .select-tag__list {
-  width: 0;
-  height: 0;
+.main-container {
+  width: 90vw;
+  height: 90vh;
   margin: 0 auto;
+  padding-bottom: 2%;
+  background-color: rgba(24, 78, 59, 0.6588235294);
+  font-family: "Architects Daughter", cursive;
+  font-size: 2.4rem;
+  border-radius: 10px;
+  overflow: auto;
 }
-.select-src .select-tag__list_active {
-  padding-left: 0;
-  width: 100%;
-  height: auto;
-  list-style: none;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-top: none;
-  border-radius: 0 0 0.4rem 0.4rem;
+.main-container h2 {
+  color: #eeeeee;
+  margin: 0 0 1% 5%;
+  padding-top: 2%;
+  font-size: 3.5rem;
 }
-.select-src .select-tag__list__item {
-  padding: 6px 6px 6px 12px;
-  font-size: 0.8rem;
-  background-color: #eee;
-  color: rgba(0, 0, 0, 0.6);
+.main-container .btn {
+  background-color: #FF7F50;
+  color: #eeeeee;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-size: 1.5rem;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 0.6rem;
+  box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
   cursor: pointer;
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
 }
-.select-src .select-tag__list__item:hover {
-  background-color: #32CD32;
-  color: rgb(255, 255, 255);
+.main-container .btn-todo_hover {
+  transition: all 0.2s;
 }
-.select-src .select-tag:before {
-  content: "";
+.main-container .btn-todo_hover:hover {
+  background-color: #fb591d;
+}
+.main-container .btn-todo_active {
+  transition: all 0.2s;
+}
+.main-container .btn-todo_active:active {
+  background-color: #c54618;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
+}
+.main-container .container1 {
+  margin-left: 5%;
+}
+.main-container .container2 {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-left: 5%;
+}
+.main-container .container2 .new-todo-note > p {
+  margin: 0;
+  font-style: italic;
+  cursor: pointer;
+}
+.main-container .container3 {
+  opacity: 0;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 10px;
-  margin: auto 0;
-  width: 17px;
-  height: 17px;
-  background: url("../../assets/svg/bottom-chevron.svg") no-repeat;
-  background-size: cover;
+  top: 55%;
+  left: 50%;
+  z-index: -3;
+  transition: all 0.2s;
 }
-.select-src .select-tag_active:before {
-  background: url("../../assets/svg/bottom-chevron-active.svg") no-repeat;
-  background-size: cover;
-  transform: rotate(-180deg);
+.main-container .container3_active {
+  opacity: 1;
+  z-index: 2;
 }
-.select-src .select-tag_hover {
-  transition: all 0.2s ease-out;
+.main-container textarea {
+  padding: 42px 23px 28px;
+  max-width: 270px;
+  min-height: 200px;
+  font-family: "Architects Daughter", cursive;
+  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
+  font-size: 24px;
+  font-style: italic;
+  border-radius: 10px;
+  outline: none;
+  color: rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: auto;
 }
-.select-src .select-tag_hover:hover {
+.main-container .todo-btn-ok {
+  position: absolute;
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.4rem 0.4rem 0 0;
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 8%;
+  right: 14%;
 }
-.select-src .select-tag_hover:hover:before {
-  background: url("../../assets/svg/bottom-chevron-active.svg") no-repeat;
-  background-size: cover;
+.main-container .todo-btn-ok_hover {
+  transition: all 0.2s;
+}
+.main-container .todo-btn-ok_hover:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+.main-container .todo-btn-ok_active {
+  transition: all 0.2s;
+}
+.main-container .todo-btn-ok_active:active {
+  transform: scale(0.97);
+}
+.main-container .todo-btn-close {
+  position: absolute;
+  cursor: pointer;
+  top: 8%;
+  right: 5%;
+}
+.main-container .todo-btn-close_hover {
+  transition: all 0.2s;
+}
+.main-container .todo-btn-close_hover:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+.main-container .todo-btn-close_active {
+  transition: all 0.2s;
+}
+.main-container .todo-btn-close_active:active {
+  transform: scale(0.97);
+}
+.main-container .new-todo-note {
+  width: 280px;
+  height: 280px;
+  overflow: auto;
+  word-wrap: break-word;
+  font-weight: normal;
+  padding: 15px 5px 15px 25px;
+  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.main-container .new-todo-note_hover:hover {
+  box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.75);
+}
+.main-container .new-todo-note_hidden {
+  opacity: 0;
+  z-index: -2;
+}
+.main-container .new-todo-note_moved {
+  margin-left: 280px;
 }/*# sourceMappingURL=select.css.map */

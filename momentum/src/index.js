@@ -461,13 +461,13 @@ let settingsMenuData = {
 const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
 
-const actionsInSettingsMenu = () => {
+// Actions when settings menu is opened
+const actionsInOpenedSettingsMenu = () => {
 const selectSrcMenuField = document.querySelector('.select-tag');
 const srcDropDownMenu = document.querySelector('.select-tag__list');
 const selectImgSrcForm = document.forms.src;
   const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 let openedImgSrcField = false;
-
 
 // Add to main field of photo src input the name of the selected item and setting data to settingsMenuData object 
 
@@ -505,29 +505,23 @@ selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
 // Change icon in photo src field
 const searchImgTagField = document.getElementById('image-tag');
 
-const changeSearchIcon = () => {
+const changeSearchIcon = (event) => {
   const searchImgTagBlock = document.querySelector('.search-box');
-  searchImgTagBlock.classList.toggle('search-box_active');
+  if (event.type === 'focus') searchImgTagBlock.classList.add('search-box_active');
+  if (event.type === 'blur') searchImgTagBlock.classList.remove('search-box_active');
 }
 searchImgTagField.addEventListener('focus', changeSearchIcon);
 searchImgTagField.addEventListener('blur', changeSearchIcon);
-
-
-
-
-
-
-// Open img tag select input if Unsplash API or Flickr API are selected
 }
 
 // Close settings menu by Escape or click outside of settings menu
 
 const closeMenuByAction = () => {
   document.addEventListener('keyup', (event) => {
-    // Close settings meny by Escape
+    // Close settings menu by Escape
     if (event.code === 'Escape') {
       showSettingsMenu();
-    };
+    }
   });
     // Close settings menu by click outside of settings menu
   document.addEventListener('click', (event) => {
@@ -538,7 +532,7 @@ const closeMenuByAction = () => {
         }
     }
   });
-};
+}
 
 // Close settings menu
 
@@ -551,119 +545,11 @@ const showSettingsMenu = () => {
   } else {
     settingsMenu.style.opacity = '0';
     settingsMenu.classList.remove('settings-menu_active');
-  };
-}
-
-// Build (open) settings menu
-const buildSettingsMenu = () => {
-const settingsMenuCloseBtn = document.createElement('div');
-settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
-settingsMenu.append(settingsMenuCloseBtn);
-
-const line = document.createElement('div');
-line.classList.add('line');
-
-const selectLangMenu = document.createElement('form');
-selectLangMenu.classList.add('select-lang');
-selectLangMenu.name = 'lang';
-let selectLangMenuContent = `<p>Select language</p>
-  <div class="lang-radio">
-    <input type="radio" id="lang-eng" name="radio" value="eng" checked>
-    <label for="lang-eng" class="lang-label">English</label>
-  </div>
-  <div class="lang-radio">
-    <input type="radio" id="lang-ru" name="radio" value="ru">
-    <label for="lang-ru" class="lang-label">Russian</label>
-  </div>`;
-selectLangMenu.innerHTML = selectLangMenuContent;
-settingsMenu.append(selectLangMenu);
-const cloneLine1 = line.cloneNode(true);
-selectLangMenu.after(cloneLine1);
-
-const selectImgSource = document.createElement('form');
-selectImgSource.classList.add('select-src');
-selectImgSource.name = 'src';
-let selectImgSourceContent = `<p>Photo source for background image</p>
-<div>
-<div class="select-tag select-tag_hover">GitHub</div>
-  <ul class="select-tag__list">
-    <li class="select-tag__list__item select-tag__list__item_hover" data-source="github">GitHub</li>
-    <li class="select-tag__list__item select-tag__list__item_hover" data-source="unsplash">Unsplash Api</li>
-    <li class="select-tag__list__item select-tag__list__item_hover" data-source="flickr">Flickr Api</li>
-  </ul>
-  </div>`;
-selectImgSource.innerHTML = selectImgSourceContent;
-settingsMenu.append(selectImgSource);
-const cloneLine2 = line.cloneNode(true);
-selectImgSource.after(cloneLine2);
-
-const selectImgTag = document.createElement('form');
-selectImgTag.classList.add('select-img-tag');
-selectImgTag.name = 'tag';
-let selectImgTagContent = `<p>Enter a tag for background image collection</p>
-  <div class="search-box">
-    <input type="text" id="image-tag" placeholder="nature" name="imgtag">
-  </div>`;
-selectImgTag.innerHTML = selectImgTagContent;
-settingsMenu.append(selectImgTag);
-const cloneLine3 = line.cloneNode(true);
-cloneLine3.classList.add('select-img-tag__line');
-selectImgTag.after(cloneLine3);
-
-const hideVidgetItems = document.createElement('form');
-hideVidgetItems.classList.add('hide-vidgets');
-hideVidgetItems.name = 'vidgets';
-let hideVidgetItemsContent = `<p>Hide/show block</p>
-  <label for="block-time" class="checkbox-ios">
-    <input type="checkbox" id="block-time" name="vidget" value="time" checked>Time
-    <span class="checkbox-ios-switch"></span>
-  </label>
-
-    <label for="block-date" class="checkbox-ios">
-      <input type="checkbox" id="block-date" name="vidget" value="date" checked>Date
-      <span class="checkbox-ios-switch"></span>
-    </label>
-
-      <label for="block-greeting" class="checkbox-ios">
-        <input type="checkbox" id="block-greeting" name="vidget" value="greeting" checked>Greeting
-        <span class="checkbox-ios-switch"></span>
-      </label>
-
-        <label for="block-quote" class="checkbox-ios">
-          <input type="checkbox" id="block-quote" name="vidget" value="quote" checked>Quote
-          <span class="checkbox-ios-switch"></span>
-        </label>
-
-          <label for="block-weather" class="checkbox-ios">
-            <input type="checkbox" id="block-weather" name="vidget" value="weather" checked>Weather
-            <span class="checkbox-ios-switch"></span>
-          </label>
-
-            <label for="block-player" class="checkbox-ios">
-              <input type="checkbox" id="block-player" name="vidget" value="player" checked>Audio player
-              <span class="checkbox-ios-switch"></span>
-            </label>
-
-              <label for="block-todo" class="checkbox-ios">
-                <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
-                <span class="checkbox-ios-switch"></span>
-              </label>`;
-hideVidgetItems.innerHTML = hideVidgetItemsContent;
-settingsMenu.append(hideVidgetItems);
-const cloneLine4 = line.cloneNode(true);
-hideVidgetItems.after(cloneLine4);
-
-actionsInSettingsMenu();
-}
-window.onload = buildSettingsMenu();
-settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
+  }
 
 // Close menu by close btn (icon) in settings menu
 const closeSettingsBtn = document.querySelector('.close-settings-btn');
 closeSettingsBtn.addEventListener('click', showSettingsMenu);
-
-
-
 
 // Choose settings
 // Select Language
@@ -685,11 +571,31 @@ selectLangForm.addEventListener('click', (event) => {
 // Choose img tags
 const selectImgTagForm = document.forms.tag;
 const selectImgTagInput = selectImgTagForm.imgtag;
+selectImgTagForm.imgtag.value = selectImgTagForm.imgtag.placeholder;
 
-const getTagInfoFromInput = () => {
+// Hover input tag select
+const hoverTagInput = (event) => {
+  if (event.type === 'mouseenter') selectImgTagForm.imgtag.style.boxShadow = '0 0 6px 1px rgba(255, 255, 255, 0.2)';
+  if (event.type === 'mouseout') selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
+  //if (event.type === 'keydown' && event.code === 'Enter') selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
+}
+selectImgTagForm.imgtag.addEventListener('mouseenter', hoverTagInput);
+selectImgTagForm.imgtag.addEventListener('mouseout', hoverTagInput);
+
+const getTagInfoFromInputEnter = (event) => {
+  if (event.code != 'Enter') return;
+  event.preventDefault();
+  settingsMenuData.tag = selectImgTagForm.imgtag.value;
+  document.querySelector('.search-box').classList.remove('search-box_active');
+  //selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
+  //hoverTagInput();
+}
+
+const getTagInfoFromInputBlur = () => {
   settingsMenuData.tag = selectImgTagForm.imgtag.value;
 }
-selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
+selectImgTagInput.addEventListener('keydown', getTagInfoFromInputEnter);
+selectImgTagInput.addEventListener('blur', getTagInfoFromInputBlur);
 
 // Update screen after showing/hiding vidgets
 const updateScreen = () => {
@@ -767,7 +673,12 @@ window.onload = setRadioBackAfterReloadPage();
   }
   window.onload = setInputImgSrcBackAfterReloadPage();
 
-
+// Set input tag for background image collection accordingly recieved data from LocalStorage (settingsMenuData object)
+const setInputImgTagBackAfterReloadPage = () => {
+  selectImgTagForm.imgtag.placeholder = settingsMenuData.tag;
+  getInfoFromVidgetsInputs();
+}
+window.onload = setInputImgTagBackAfterReloadPage();
 
 // Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
 const setCheckboxesBackAfterReloadPage = () => {
@@ -781,6 +692,111 @@ const setCheckboxesBackAfterReloadPage = () => {
   getInfoFromVidgetsInputs();
 }
 window.onload = setCheckboxesBackAfterReloadPage();
+}
+
+// Build (open) settings menu
+const buildSettingsMenu = () => {
+const settingsMenuCloseBtn = document.createElement('div');
+settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
+settingsMenu.append(settingsMenuCloseBtn);
+
+const line = document.createElement('div');
+line.classList.add('line');
+
+const selectLangMenu = document.createElement('form');
+selectLangMenu.classList.add('select-lang');
+selectLangMenu.name = 'lang';
+let selectLangMenuContent = `<p>Select language</p>
+  <div class="lang-radio">
+    <input type="radio" id="lang-eng" name="radio" value="eng" checked>
+    <label for="lang-eng" class="lang-label">English</label>
+  </div>
+  <div class="lang-radio">
+    <input type="radio" id="lang-ru" name="radio" value="ru">
+    <label for="lang-ru" class="lang-label">Russian</label>
+  </div>`;
+selectLangMenu.innerHTML = selectLangMenuContent;
+settingsMenu.append(selectLangMenu);
+const cloneLine1 = line.cloneNode(true);
+selectLangMenu.after(cloneLine1);
+
+const selectImgSource = document.createElement('form');
+selectImgSource.classList.add('select-src');
+selectImgSource.name = 'src';
+let selectImgSourceContent = `<p>Photo source for background image</p>
+<div>
+<div class="select-tag select-tag_hover">GitHub</div>
+  <ul class="select-tag__list">
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="github">GitHub</li>
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="unsplash">Unsplash Api</li>
+    <li class="select-tag__list__item select-tag__list__item_hover" data-source="flickr">Flickr Api</li>
+  </ul>
+  </div>`;
+selectImgSource.innerHTML = selectImgSourceContent;
+settingsMenu.append(selectImgSource);
+const cloneLine2 = line.cloneNode(true);
+selectImgSource.after(cloneLine2);
+
+const selectImgTag = document.createElement('form');
+selectImgTag.classList.add('select-img-tag');
+selectImgTag.name = 'tag';
+let selectImgTagContent = `<p>Enter a tag for background image collection</p>
+  <div class="search-box">
+    <input type="text" id="image-tag" name="imgtag">
+  </div>`;
+selectImgTag.innerHTML = selectImgTagContent;
+settingsMenu.append(selectImgTag);
+const cloneLine3 = line.cloneNode(true);
+cloneLine3.classList.add('select-img-tag__line');
+selectImgTag.after(cloneLine3);
+
+const hideVidgetItems = document.createElement('form');
+hideVidgetItems.classList.add('hide-vidgets');
+hideVidgetItems.name = 'vidgets';
+let hideVidgetItemsContent = `<p>Hide/show block</p>
+  <label for="block-time" class="checkbox-ios">
+    <input type="checkbox" id="block-time" name="vidget" value="time" checked>Time
+    <span class="checkbox-ios-switch"></span>
+  </label>
+
+    <label for="block-date" class="checkbox-ios">
+      <input type="checkbox" id="block-date" name="vidget" value="date" checked>Date
+      <span class="checkbox-ios-switch"></span>
+    </label>
+
+      <label for="block-greeting" class="checkbox-ios">
+        <input type="checkbox" id="block-greeting" name="vidget" value="greeting" checked>Greeting
+        <span class="checkbox-ios-switch"></span>
+      </label>
+
+        <label for="block-quote" class="checkbox-ios">
+          <input type="checkbox" id="block-quote" name="vidget" value="quote" checked>Quote
+          <span class="checkbox-ios-switch"></span>
+        </label>
+
+          <label for="block-weather" class="checkbox-ios">
+            <input type="checkbox" id="block-weather" name="vidget" value="weather" checked>Weather
+            <span class="checkbox-ios-switch"></span>
+          </label>
+
+            <label for="block-player" class="checkbox-ios">
+              <input type="checkbox" id="block-player" name="vidget" value="player" checked>Audio player
+              <span class="checkbox-ios-switch"></span>
+            </label>
+
+              <label for="block-todo" class="checkbox-ios">
+                <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
+                <span class="checkbox-ios-switch"></span>
+              </label>`;
+hideVidgetItems.innerHTML = hideVidgetItemsContent;
+settingsMenu.append(hideVidgetItems);
+const cloneLine4 = line.cloneNode(true);
+hideVidgetItems.after(cloneLine4);
+
+actionsInOpenedSettingsMenu();
+}
+window.onload = buildSettingsMenu();
+settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
 
 
 
@@ -793,10 +809,8 @@ window.onload = setCheckboxesBackAfterReloadPage();
 
 
 
-// const setSelecImgSrcFormValue = () => {
-//   selectImgSrcFormHead.innerHTML = '!!!!!!!!!!!!!!!'
-// }
-// document.addEventListener('select', setSelecImgSrcFormValue)
+
+
 
 
 

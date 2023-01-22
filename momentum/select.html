@@ -4,11 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./src/sass/select.css">
     <title>Select</title>
 </head>
 <body>
-  <form class="select-src">
+<div class="main-container">
+  <h2>Todo List</h2>
+  <div class="container1">
+    <button class="btn btn-todo btn-todo_hover btn-todo_active">Create Note</button>
+  </div>
+  <div class="container2"></div>
+  <div class="container3">
+    <form name="todoform">
+      <textarea name="todo" id="note-text" placeholder="Write Note..." maxlength="96"></textarea>
+      <img class="todo-btn-ok todo-btn-ok_hover todo-btn-ok_active" src="./assets/svg/check-ok.svg" alt="Todo Ok">
+      <img class="todo-btn-close todo-btn-close_hover todo-btn-close_active" src="./assets/svg/check-close.svg" alt="Todo Close">
+   </form>
+  </div>
+</div>
+
+
+  <!-- <form class="select-src">
   <p>Photo source for background image</p>
   <div class="select-tag select-tag_hover select-tag_active">GitHub</div>
     <ul class="select-tag__list select-tag__list_active">
@@ -16,7 +38,7 @@
       <li class="select-tag__list__item select-tag__list__item_hover select-tag__list__item_active" data-source="unsplash">Unsplash Api</li>
       <li class="select-tag__list__item select-tag__list__item_hover select-tag__list__item_active" data-source="flickr">Flickr Api</li>
     </ul>
-  </form>
+  </form> -->
     <script src="select.js"></script>
 </body>
 </html>
