@@ -88,6 +88,7 @@ const createTodoNote = () => {
       break;
     }
   }
+
   if (indexOfEmptyNote !== -1) { 
     todoNotes[indexOfEmptyNote] = todoTextArea.value.replace('\n', '').trim();
     document.querySelector('.new-todo-note_hidden').before(newTodoNote);
@@ -161,7 +162,7 @@ todoNotesConatiner.addEventListener('click', deleteTodoNote);
 todoNotesConatiner.addEventListener('dblclick', deleteTodoNoteByDblclick);
 
 // Set / get active Todo Notes to / from LocalStorage
-const userName = document.querySelector('.name');
+//const userName = document.querySelector('.name');
 
 const setTodoToLocalStorage = () => {
   localStorage.setItem('todo', JSON.stringify(todoNotes));
@@ -176,16 +177,15 @@ window.onload = getTodoToLocalStorage();
 // todoNotes = [] // <-- cancel data in LocalStorage (use during the developing)
 // Show Todo Notes from LocalStorage
 const createTodoNotesFromLocalStorage = () => {
-  todoNotes.forEach((element, index) => {
+  todoNotes.forEach((element) => {
     const newTodoNote = document.createElement('div');
     newTodoNote.classList.add('new-todo-note', 'new-todo-note_hover');
     const todoNoteText = document.createElement('p');
-    const todoNoteItems = document.getElementsByClassName('new-todo-note');
     newTodoNote.append(todoNoteText);
     todoNoteText.innerHTML = element;
 
     // Delete empty elements in the end of todoNotes array
-    todoNotes.join(' ').trim().split(' ');
+    todoNotes = todoNotes.join(' ').trim().split(' ');
     // Show Todo Note
     todoNotesConatiner.append(newTodoNote);
     if (element === '') {
@@ -212,26 +212,27 @@ window.onload = createTodoNotesFromLocalStorage();
 // Close Todo Notes app
 
 const closeTodoNotesApp = () => {
-                                            // Close settings menu by Escape
-                                            document.addEventListener('keyup', (event) => {
-                                            if (event.code === 'Escape') {
-                                              showTodoApp();
-                                            }
-                                          });
-    // Close settings menu by click outside of settings menu
-  document.addEventListener('click', (event) => {
-    if (todoApp.style.opacity === '1') {
-       const withinBoundaries = event.composedPath().includes(todoApp);
-       if (!withinBoundaries && !(event.target === todoAppOpenBtn)) {
-        showTodoApp();
-        }
-    }
-  });
+  // Close settings menu by Escape
+  document.addEventListener('keyup', (event) => {
+  if (event.code === 'Escape') {
+    showTodoApp();
+  }
+});
+// Close settings menu by click outside of settings menu
+document.addEventListener('click', (event) => {
+if (todoApp.style.opacity === '1') {
+const withinBoundaries = event.composedPath().includes(todoApp);
+if (!withinBoundaries && !(event.target === todoAppOpenBtn)) {
+showTodoApp();
 }
-  document.querySelector('.todo-close-btn').addEventListener('click', function() {
+}
+});
+}
+document.querySelector('.todo-close-btn').addEventListener('click', function() {
+
+console.log('ds')
+todoApp.style.opacity === '0';
 
 
-    todoApp.style.opacity === '0';
+});
 
-
-  });
