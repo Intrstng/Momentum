@@ -5,56 +5,55 @@
   height: 30vh;
   min-height: 160px;  
   padding: 20px;
-
-.copyright {
-  width: 93vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  &__settings {
-      @extend %transition-all;
+  .copyright {
+    width: 93vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__settings {
+        @extend %transition-all;
+        opacity: 0.8;
+        cursor: pointer;
+        &_hover {
+          &:hover {
+            transform: rotate(90deg)
+          }
+        }
+        &_active {
+          &:active {
+            opacity: 1;
+          }
+        }
+    }
+    &__icons {
+      display: flex;
+      align-items: center;
+      & span {
+        margin-right: 10px;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+    }
+    &__icon {
+      height: 1.6rem;
+      max-width: 3.9rem;
       opacity: 0.8;
-      cursor: pointer;
+      @extend %transition-all;
+    }
+    &__link {
+      display: inline-block;
       &_hover {
-        &:hover {
-          transform: rotate(90deg)
+        &:hover .copyright__icon {
+          transform: scale(1.13);
         }
       }
       &_active {
-        &:active {
+        &:active .copyright__icon {
           opacity: 1;
         }
       }
-  }
-  &__icons {
-    display: flex;
-    align-items: center;
-    & span {
-      margin-right: 10px;
-      font-size: 0.9rem;
-      opacity: 0.8;
     }
   }
-  &__icon {
-    height: 1.6rem;
-    max-width: 3.9rem;
-    opacity: 0.8;
-    @extend %transition-all;
-  }
-  &__link {
-    display: inline-block;
-    &_hover {
-      &:hover .copyright__icon {
-        transform: scale(1.13);
-      }
-    }
-    &_active {
-      &:active .copyright__icon {
-        opacity: 1;
-      }
-    }
-  }
-}
 }
 
 .git-img {

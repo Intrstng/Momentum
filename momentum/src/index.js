@@ -469,6 +469,7 @@ const selectImgSrcForm = document.forms.src;
   const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 let openedImgSrcField = false;
 
+
 // Add to main field of photo src input the name of the selected item and setting data to settingsMenuData object 
 
 const selectImgSrcItem = (event) => {
@@ -515,17 +516,17 @@ searchImgTagField.addEventListener('blur', changeSearchIcon);
 }
 
 // Close settings menu by Escape or click outside of settings menu
-
+let openedSettingsMenu = false;
 const closeMenuByAction = () => {
   document.addEventListener('keyup', (event) => {
     // Close settings menu by Escape
-    if (event.code === 'Escape') {
+    if (event.code === 'Escape' && openedSettingsMenu) {
       showSettingsMenu();
     }
   });
     // Close settings menu by click outside of settings menu
   document.addEventListener('click', (event) => {
-    if (settingsMenu.style.opacity == '1') {
+    if (openedSettingsMenu) {
        const withinBoundaries = event.composedPath().includes(settingsMenu);
        if (!withinBoundaries && !(event.target == settingsMenuOpenBtn)) {
           showSettingsMenu();
@@ -536,14 +537,13 @@ const closeMenuByAction = () => {
 
 // Close settings menu
 
-settingsMenu.style.opacity = '0';
 const showSettingsMenu = () => {
-  if (settingsMenu.style.opacity == '0') {
-    settingsMenu.style.opacity = '1';
+  if (!openedSettingsMenu) {
+    openedSettingsMenu = true;
     settingsMenu.classList.add('settings-menu_active');
     closeMenuByAction();
   } else {
-    settingsMenu.style.opacity = '0';
+    openedSettingsMenu = false;
     settingsMenu.classList.remove('settings-menu_active');
   }
 
@@ -808,22 +808,44 @@ let todoOpened = false;
 let todoNotes = [];
 
 
+// Close Todo Notes app
+const closeTodoNotesApp = () => {
+  // Close Todo Notes app by Escape
+  document.addEventListener('keyup', (event) => {
+    if (event.code === 'Escape' && todoAppOpened && todoOpened) return;
+      if (event.code === 'Escape' && todoAppOpened) {
+        showTodoApp();
+      }
+});
+    // Close settings menu by click outside of settings menu
+    document.addEventListener('click', (event) => {
+      if (todoAppOpened) {
+      const withinBoundaries = event.composedPath().includes(todoApp);
+        if (!withinBoundaries && !(event.target === showTodoAppBtn)) {
+        showTodoApp();
+        }
+      }
+    });
+}
 
+
+// Open Todo Notes app
 const showTodoApp = () => {
   if (!todoAppOpened) {
-    console.log('dd')
     todoApp.classList.add('todo_active');
     createTodoNoteBtn.addEventListener('click', showTodoCreateItem);
+    document.querySelector('.todo-close-btn').addEventListener('click', showTodoApp);
     todoAppOpened = true;
     return;
   } if (todoAppOpened) {
     todoApp.classList.remove('todo_active');
     createTodoNoteBtn.removeEventListener('click', showTodoCreateItem);
+    document.querySelector('.todo-close-btn').removeEventListener('click', showTodoApp);
     todoAppOpened = false;
   }
 }
-
 showTodoAppBtn.addEventListener('click', showTodoApp)
+
 
 // Build Todo App
 const buildTodoApp = () => {
@@ -843,6 +865,7 @@ const buildTodoApp = () => {
           </form>
         </div>`;
   todoApp.innerHTML = todoContent;
+  closeTodoNotesApp();
 };
 window.onload = buildTodoApp();
 
@@ -1052,7 +1075,6 @@ const hoverTodoNote = (event) => {
    })
 }
 window.onload = createTodoNotesFromLocalStorage();
-
 
 
 
