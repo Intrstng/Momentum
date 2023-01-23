@@ -785,7 +785,7 @@ let hideVidgetItemsContent = `<p>Hide/show block</p>
             </label>
 
               <label for="block-todo" class="checkbox-ios">
-                <input type="checkbox" id="block-todo" name="vidget" value="todo" checked>Todo
+                <input type="checkbox" id="block-todo" name="vidget" value="todobtn" checked>Todo
                 <span class="checkbox-ios-switch"></span>
               </label>`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
@@ -801,7 +801,7 @@ settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
 
 
 // Todo App
-const showTodoAppBtn = document.querySelector('.copyright__todo');
+const showTodoAppBtn = document.querySelector('.todobtn');
 const todoApp = document.querySelector('.todo');
 let todoAppOpened = false;
 let todoOpened = false;

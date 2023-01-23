@@ -10706,15 +10706,15 @@ body {
   z-index: -1;
 }
 
-.copyright__todo {
+.copyright .todobtn {
   color: #C5B358;
   margin-left: 0.7rem;
   transition: transform 0.2s ease, color 0.2s, opacity 0.2s;
 }
-.copyright__todo_hover:hover {
+.copyright .todobtn_hover:hover {
   transform: scale(1.15);
 }
-.copyright__todo_active:active {
+.copyright .todobtn_active:active {
   opacity: 0.8;
   color: #BEA732;
 }
