@@ -10,18 +10,29 @@ let settingsMenuData = {
   language: 'en',
   imageSource: 'github',
   tag: 'nature',
-  vidgets: [], /* 'time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo' */
+  vidgets: ['time', 'date', 'greeting', 'quote', 'weather', 'player', 'todobtn'],
 };
 
 const localizationObj = JSON.parse(JSON.stringify(translation));
 
+// Set the inputs selections of settings menu from LocalStorage after reload of the page.
+const getInputsPosInLocalStorage = () => {
+  localStorage.getItem('inputs') && (settingsMenuData = JSON.parse(localStorage.getItem('inputs')));
+}
+window.onload = getInputsPosInLocalStorage();
 
-
-// const getLangStorage = () => {
-//   localStorage.getItem('lang') && (settingsMenuData.language = localStorage.getItem('lang'));
-// }
-// window.onload = getLangStorage();
-// console.log(settingsMenuData)
+// Initial vidgets show on screen
+const updateScreen = () => {
+  let vidgets = document.getElementsByClassName('vidget');
+    [...vidgets].forEach((element) => {
+    if (settingsMenuData.vidgets.indexOf(element.id) != -1) {
+      document.querySelector(`.${element.id}`).classList.remove(`vidget_hidden`);
+    } else {
+      document.querySelector(`.${element.id}`).classList.add(`vidget_hidden`);
+    }
+  });
+}
+window.onload = updateScreen();
 
 // Часы
 
@@ -52,14 +63,7 @@ const showDate = (lang = 'en') => {
   lang === 'en' ? lang = 'en-US' : lang;
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const date = new Date();
-  const options = {
-    week: 'long',
-    month: 'long',
-    day: 'numeric',
-  };
-  // const getWeekDay = () => {
-  //   return days[date.getDay()];
-  // }
+
   const getCurrentDateDependOnLang = (lang = 'en') => {
   
   // return date.toLocaleDateString(lang, options);
@@ -72,7 +76,6 @@ const showDate = (lang = 'en') => {
   calendar.textContent = getCurrentDateDependOnLang(lang);
 }
 
-// --------------------------------------------------------------- //
 // Greeting (+ localisation)
 
 const greeting = document.querySelector('.greeting-container');
@@ -103,20 +106,20 @@ const userNamePlaceholder = (lang = 'en') => {
   if (lang === 'en') userName.setAttribute('placeholder', `${localizationObj['greeting-name'][lang]}`);
   if (lang === 'ru') userName.setAttribute('placeholder', `${localizationObj['greeting-name'][lang]}`);
 }
-window.onload = userNamePlaceholder(localStorage.getItem('lang'));
+window.onload = userNamePlaceholder(settingsMenuData.language);
 
 // Сохранение имени пользователя
 const setLocalStorage = () => {
   localStorage.setItem('name', userName.value);
 }
-// userName.addEventListener('blur', setLocalStorage);
+  // userName.addEventListener('blur', setLocalStorage);
 window.addEventListener('beforeunload', setLocalStorage);
 
 const getLocalStorage = () => {
   localStorage.getItem('name') && (userName.value = localStorage.getItem('name'));
 }
 window.onload = getLocalStorage();
-// ------------------------------------------------- //
+
 
 // Смена фонового изображения
 
@@ -174,9 +177,8 @@ const changeBackgroundImg = (e) => {
 slidePrevBtn.addEventListener('click', changeBackgroundImg);
 slideNextBtn.addEventListener('click', changeBackgroundImg);
 
-// ------------------------------------------------- //
-// Виджет погоды
 
+// Виджет погоды
 // Город
 const city = document.querySelector('.city');
 
@@ -241,7 +243,6 @@ const getWeather = (lang = 'en') => {
 window.onload = getWeather(settingsMenuData.language);
 city.addEventListener('change', getWeather);
 
-// ------------------------------------------------- //
 // Виджет Цитата
 const quoteBtn = document.querySelector('.change-quote');
 const quote = document.querySelector('.quote-block');
@@ -303,10 +304,9 @@ const selectQuotesSourceDependOnLang = (lang = 'en') => {
 }
 window.onload = selectQuotesSourceDependOnLang(settingsMenuData.language);
 
-// ----------------------------------------------- //
+
 // Аудиоплеер
 
-// const audio = document.querySelector('audio');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 const playBtn = document.querySelector('.play');
@@ -342,7 +342,7 @@ const markSelectedTrack = (action) => {
 const showGreetingTrackTitle = (lang = 'en') => {
   trackBlock.textContent = `${localizationObj['music-song'][lang]}`;
 }
-window.onload = showGreetingTrackTitle(localStorage.getItem('lang'));
+window.onload = showGreetingTrackTitle(settingsMenuData.language);
 
 const showTrackInfo = () => {
   trackBlock.textContent = playList[playNum].title;
@@ -507,7 +507,6 @@ const selectTrackInPlaylist = (event) => {
 playlist.addEventListener('click', selectTrackInPlaylist);
 
 
-
 // Settings menu
 const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
@@ -592,9 +591,11 @@ const showSettingsMenu = () => {
     openedSettingsMenu = true;
     settingsMenu.classList.add('settings-menu_active');
     closeMenuByAction();
+        getInputsPosInLocalStorage();
   } else {
     openedSettingsMenu = false;
     settingsMenu.classList.remove('settings-menu_active');
+        setInputsPosInLocalStorage();
   }
 
 // Close menu by close btn (icon) in settings menu
@@ -614,17 +615,14 @@ const selectLanguage = (event) => {
   for (let element of selectLangRadioInputs) {
     if (element.checked) {
       selectedLang = element.value;
-      //buildSettingsMenu(selectedLang);
       showGreetingTrackTitle(selectedLang);
       userNamePlaceholder(selectedLang);
       selectQuotesSourceDependOnLang(selectedLang);
       getWeather(selectedLang);
       translateSettingsMenu(selectedLang);
-      getLangStorage();
     }
   }
   settingsMenuData.language = selectedLang;
-  console.log(settingsMenuData.language); 
 }
 selectLangForm.addEventListener('click', selectLanguage);
 
@@ -647,8 +645,6 @@ const getTagInfoFromInputEnter = (event) => {
   event.preventDefault();
   settingsMenuData.tag = selectImgTagForm.imgtag.value;
   document.querySelector('.search-box').classList.remove('search-box_active');
-  //selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
-  //hoverTagInput();
 }
 
 const getTagInfoFromInputBlur = () => {
@@ -657,17 +653,18 @@ const getTagInfoFromInputBlur = () => {
 selectImgTagInput.addEventListener('keydown', getTagInfoFromInputEnter);
 selectImgTagInput.addEventListener('blur', getTagInfoFromInputBlur);
 
-// Update screen after showing/hiding vidgets
-const updateScreen = () => {
-  let vidgets = document.getElementsByClassName('vidget');
-    [...vidgets].forEach((element) => {
-    if (settingsMenuData.vidgets.indexOf(element.id) != -1) {
-      document.querySelector(`.${element.id}`).classList.remove(`vidget_hidden`);
-    } else {
-      document.querySelector(`.${element.id}`).classList.add(`vidget_hidden`);
-    }
-  });
-}
+    // Update screen after showing/hiding vidgets
+    // const updateScreen = () => {
+    //   let vidgets = document.getElementsByClassName('vidget');
+    // //console.log ('updateScreen',settingsMenuData);
+    //     [...vidgets].forEach((element) => {
+    //     if (settingsMenuData.vidgets.indexOf(element.id) != -1) {
+    //       document.querySelector(`.${element.id}`).classList.remove(`vidget_hidden`);
+    //     } else {
+    //       document.querySelector(`.${element.id}`).classList.add(`vidget_hidden`);
+    //     }
+    //   });
+    // }
 
 // Choose hide/show block (vidgets)
 const selectVidgetsForm = document.forms.vidgets;
@@ -683,31 +680,13 @@ selectVidgetsInputs.forEach((element) => {
   }
 });
   settingsMenuData.vidgets = [...vidgetSet];
-  //console.log('settings object', settingsMenuData.vidgets);
   updateScreen();
 }
-                                //window.onload = getInfoFromVidgetsInputs();
-                                //window.onload = updateScreen(); // или поместить после "window.onload = setCheckboxesBackAfterReloadPage();"
 
 selectVidgetsForm.addEventListener ('click', (event) => {
- if (event.target.nodeName != 'INPUT') return; 
- getInfoFromVidgetsInputs();
+  if (event.target.nodeName != 'INPUT') return; 
+  getInfoFromVidgetsInputs();
 });
-
-
-// Save the inputs selections of settings menu to LocalStorage (settingsMenuData object with all settings is stored in LocalStorage)
-
-const setInputsPosInLocalStorage = () => {
-  localStorage.setItem('inputs', JSON.stringify(settingsMenuData));
-}
-// userName.addEventListener('blur', setLocalStorage);
-window.addEventListener('beforeunload', setInputsPosInLocalStorage);
-
-// Set the inputs selections of settings menu from LocalStorage after reload of the page.
-const getInputsPosInLocalStorage = () => {
-  localStorage.getItem('inputs') && (settingsMenuData = JSON.parse(localStorage.getItem('inputs')));
-}
-window.onload = getInputsPosInLocalStorage();
 
 // Set input radio language select accordingly recieved data from LocalStorage (settingsMenuData object)
 const setRadioBackAfterReloadPage = () => {
@@ -720,7 +699,7 @@ const setRadioBackAfterReloadPage = () => {
 });
   getInfoFromVidgetsInputs();
 }
-window.onload = setRadioBackAfterReloadPage();
+setRadioBackAfterReloadPage();
 
 // Set input photo src for background image accordingly recieved data from LocalStorage (settingsMenuData object)
   const setInputImgSrcBackAfterReloadPage = () => {
@@ -742,16 +721,19 @@ window.onload = setRadioBackAfterReloadPage();
 
   // Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
   const setCheckboxesBackAfterReloadPage = () => {
+    localStorage.getItem('inputs') && (settingsMenuData = JSON.parse(localStorage.getItem('inputs')));
     selectVidgetsInputs.forEach((element) => {
       if (settingsMenuData.vidgets.indexOf(element.value) != -1) {
+        console.log("dd")
         element.checked = true;
       } else {
         element.checked = false;
       }
     });
     getInfoFromVidgetsInputs();
+   // setInputsPosInLocalStorage();
   }
-  window.onload = setCheckboxesBackAfterReloadPage();
+  setCheckboxesBackAfterReloadPage();
 }
 
 // Translate settings menu
@@ -876,12 +858,11 @@ hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
 hideVidgetItems.after(cloneLine4);
-translateSettingsMenu(settingsMenuData.language);
+translateSettingsMenu(lang);
 actionsInOpenedSettingsMenu();
 }
 window.onload = buildSettingsMenu(settingsMenuData.language);
 settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
-
 
 
 // Todo App
@@ -890,7 +871,6 @@ const todoApp = document.querySelector('.todo');
 let todoAppOpened = false;
 let todoOpened = false;
 let todoNotes = [];
-
 
 // Close Todo Notes app
 const closeTodoNotesApp = () => {
@@ -912,7 +892,6 @@ const closeTodoNotesApp = () => {
     });
 }
 
-
 // Open Todo Notes app
 const showTodoApp = () => {
   if (!todoAppOpened) {
@@ -932,7 +911,6 @@ showTodoAppBtn.addEventListener('click', showTodoApp)
 
 // Translate Todo app
 const translateTodoApp = (lang= 'en') => {
-//  ${localizationObj['language-en'][lang]}
   document.querySelector('.todo__head h2').textContent = `${localizationObj['todolist-title'][lang]}`;
   document.querySelector('.btn-todo').textContent = `${localizationObj['todolist-btn'][lang]}`;
   document.forms.todoform.todo.placeholder = `${localizationObj['todolist-create'][lang]}`;
@@ -1008,7 +986,7 @@ const showTodoCreateItem = () => {
     todoNotesCreateItem.removeEventListener('keyup', createTodoNoteByEnter);
   } 
 }
-                                                          //createTodoNoteBtn.addEventListener('click', showTodoCreateItem);
+//createTodoNoteBtn.addEventListener('click', showTodoCreateItem);
 
 const marginTodoNote = () => {
   const marginValues = ['-5px', '1px', '5px', '10px', '15px', '20px'];
@@ -1122,8 +1100,6 @@ todoNotesConatiner.addEventListener('click', deleteTodoNote);
 todoNotesConatiner.addEventListener('dblclick', deleteTodoNoteByDblclick);
 
 // Set / get active Todo Notes to / from LocalStorage
-                                          //const userName = document.querySelector('.name');
-
 const setTodoToLocalStorage = () => {
   localStorage.setItem('todo', JSON.stringify(todoNotes));
 }
@@ -1169,12 +1145,18 @@ const hoverTodoNote = (event) => {
 window.onload = createTodoNotesFromLocalStorage();
 
 
+// Save the inputs selections of settings menu to LocalStorage (settingsMenuData object with all settings is stored in LocalStorage)
+
+function setInputsPosInLocalStorage () {
+  localStorage.setItem('inputs', JSON.stringify(settingsMenuData));
+}
+window.addEventListener('beforeunload', setInputsPosInLocalStorage);
+
+// Save lang input selection of settings menu to LocalStorage (settingsMenuData object with all settings is stored in LocalStorage)
 const setLangStorage = () => {
   localStorage.setItem('lang', settingsMenuData.language);
 }
 window.addEventListener('beforeunload', setLangStorage);
-
-
 
 
 
