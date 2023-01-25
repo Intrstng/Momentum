@@ -531,11 +531,17 @@ const selectImgSrcItem = (event) => {
     element.removeEventListener('click', selectImgSrcItem);
   });
 
+
+
   // if (event.target.dataset.source == 'unsplash' || event.target.dataset.source == 'flickr') {
   //   document.forms.tag.classList.add('select-img-tag_active');
   //   document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
   //   selectImgTagInput.classList.add('.inputtagactive');
   // };
+
+
+
+
 }
 
 // Open / close photo source select menu

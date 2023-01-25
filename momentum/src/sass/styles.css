@@ -10986,7 +10986,6 @@ body {
 .footer .copyright__link_active:active .copyright__icon {
   opacity: 1;
 }
-
-.git-img {
+.footer .copyright__link .git-img {
   margin-right: 8px;
 }/*# sourceMappingURL=styles.css.map */

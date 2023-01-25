@@ -4,9 +4,9 @@
   margin-bottom: 6px;
   max-height: 75px;
   opacity: 1;
-  // max-height: 0;
-  // opacity: 0;
-  // transition: max-height 0.3s linear;
+                                  // max-height: 0;
+                                  // opacity: 0;
+                                  // transition: max-height 0.3s linear;
   & > p {
     font-weight: bold;
     padding-right: 5px;
@@ -68,6 +68,13 @@
       }
     }
   }
+
+
+
+
+
+
+
   // &_active {
   //   max-height: 75px;
   //   opacity: 1;
