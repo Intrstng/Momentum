@@ -1,14 +1,20 @@
 .select-lang {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: nowrap;
   & > p {
   align-self: flex-start;
   font-weight: bold;
+  flex-basis: 50%;
   }
   .lang-radio {
+    &:first-of-type {
+      flex-basis: 27%;
+    }
+    &:last-of-type {
+      flex-basis: 23%;
+    }
     padding-top: 28px;
+    margin-bottom: 6px;
     font-size: 0.7rem;
     input[type="radio"] {
       position: absolute;
@@ -16,6 +22,7 @@
       opacity: 0;
       + {
         .lang-label {
+          position: relative;
           &:before {
             content: '';
             background: $color-checkbox-bgnd;
@@ -24,9 +31,9 @@
             display: inline-block;
             width: 1.2rem;
             height: 1.2rem;
-            position: relative;
+            position: absolute;
             top: -1.9rem;
-            left: 1.35rem;
+            left: 0;
             vertical-align: top;
             cursor: pointer;
             text-align: center;

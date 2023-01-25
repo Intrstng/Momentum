@@ -10146,6 +10146,7 @@ body {
   min-height: 28px;
   font-size: 2rem;
   margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 .greeting {
@@ -10498,22 +10499,31 @@ body {
 
 .select-lang {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: nowrap;
 }
 .select-lang > p {
   align-self: flex-start;
   font-weight: bold;
+  flex-basis: 50%;
 }
 .select-lang .lang-radio {
   padding-top: 28px;
+  margin-bottom: 6px;
   font-size: 0.7rem;
+}
+.select-lang .lang-radio:first-of-type {
+  flex-basis: 27%;
+}
+.select-lang .lang-radio:last-of-type {
+  flex-basis: 23%;
 }
 .select-lang .lang-radio input[type=radio] {
   position: absolute;
   z-index: -1;
   opacity: 0;
+}
+.select-lang .lang-radio input[type=radio] + .lang-label {
+  position: relative;
 }
 .select-lang .lang-radio input[type=radio] + .lang-label:before {
   content: "";
@@ -10523,9 +10533,9 @@ body {
   display: inline-block;
   width: 1.2rem;
   height: 1.2rem;
-  position: relative;
+  position: absolute;
   top: -1.9rem;
-  left: 1.35rem;
+  left: 0;
   vertical-align: top;
   cursor: pointer;
   text-align: center;
@@ -10549,6 +10559,7 @@ body {
 }
 .select-src > p {
   margin-bottom: 6px;
+  padding-right: 5px;
   width: 125px;
   font-weight: bold;
 }
@@ -10645,6 +10656,7 @@ body {
 }
 .select-img-tag > p {
   font-weight: bold;
+  padding-right: 5px;
 }
 .select-img-tag .search-box {
   position: relative;
@@ -10732,10 +10744,10 @@ body {
   height: 88vh;
   margin: 0 auto;
   padding-bottom: 2%;
-  background-color: rgba(24, 78, 59, 0.6588235294);
+  background-color: rgba(6, 90, 82, 0.85);
   font-family: "Architects Daughter", cursive;
   font-size: 2.4rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
   overflow: auto;
   opacity: 0;
   z-index: -2;
@@ -10751,12 +10763,12 @@ body {
 }
 .copyright .todo__head h2 {
   color: #eeeeee;
-  margin: 0 0 1% 5%;
+  margin: 0 0 1% 4.2%;
   padding-top: 2%;
   font-size: 3rem;
 }
 .copyright .todo__head .todo-close-btn {
-  margin-right: 5%;
+  margin-right: 3%;
   cursor: pointer;
   transition: all 0.2s;
   color: #FFFFFF;
@@ -10774,15 +10786,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   letter-spacing: 0.5px;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.3rem;
+  font-size: 1.1rem;
+  padding: 0.8rem 1rem;
+  line-height: 1.3rem;
   border: none;
   border-radius: 0.6rem;
-  box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 14px 0px rgba(0, 0, 0, 0.75);
   cursor: pointer;
 }
 .copyright .todo .btn-todo {
-  max-width: 165px;
+  max-width: 150px;
   margin-left: 5%;
 }
 .copyright .todo .btn-todo_hover {
@@ -10820,13 +10833,13 @@ body {
   color: rgba(0, 0, 0, 0.75);
   padding: 1.8rem 1.5rem 1.5rem 2.5rem;
   text-align: left;
-  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 14px 28px 0px rgba(0, 0, 0, 0.75);
   z-index: 2;
   transition: all 0.2s;
   cursor: pointer;
 }
 .copyright .todo__field .new-todo-note_hover:hover {
-  box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 10px 18px 0px rgba(0, 0, 0, 0.75);
 }
 .copyright .todo__field .new-todo-note_hidden {
   opacity: 0;
@@ -10849,7 +10862,7 @@ body {
   max-width: 270px;
   min-height: 210px;
   font-family: "Architects Daughter", cursive;
-  box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.75);
   font-size: 1.3rem;
   font-style: italic;
   border-radius: 1rem;
@@ -10857,6 +10870,10 @@ body {
   color: rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: auto;
+  transition: all 0.2s;
+}
+.copyright .todo textarea:hover {
+  box-shadow: 0px 10px 18px 0px rgba(0, 0, 0, 0.75);
 }
 .copyright .todo .todo-btn-ok {
   position: absolute;

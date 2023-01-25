@@ -2,11 +2,32 @@
 
 // import  TimeDate  from './js/TimeDate';
 import playList from './js/Playlist.js';
+import translation from '../assets/locales/translation.js';
+
+// Настройки в Settings menu
+let settingsMenuData = {
+  title: 'settings',
+  language: 'en',
+  imageSource: 'github',
+  tag: 'nature',
+  vidgets: [], /* 'time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo' */
+};
+
+const localizationObj = JSON.parse(JSON.stringify(translation));
+
+
+
+// const getLangStorage = () => {
+//   localStorage.getItem('lang') && (settingsMenuData.language = localStorage.getItem('lang'));
+// }
+// window.onload = getLangStorage();
+// console.log(settingsMenuData)
 
 // Часы
 
 const time = document.querySelector('.time');
-const showTime = (lang = 'en-US') => {
+const showTime = (lang = 'en') => {
+  lang === 'en' ? lang = 'en-US' : lang;
   const date = new Date();
 
   const dtf = new Intl.DateTimeFormat(lang, { hour12: false,
@@ -14,21 +35,21 @@ const showTime = (lang = 'en-US') => {
                                               hour: 'numeric',
                                               minute: 'numeric',
                                               second: 'numeric' });
-
   // time.textContent = date.toLocaleTimeString();
   time.textContent = dtf.format(date);
   setTimeout(() => {
-    showTime();
-    showDate();
-    showGreeting();
+    showTime(settingsMenuData.language);
+    showDate(settingsMenuData.language);
+    showGreeting(settingsMenuData.language);
   }, 1000);
-} 
-window.onload = showTime();
+}
+window.onload = showTime(settingsMenuData.language);
 
 
 // Календарь
 const calendar = document.querySelector('.date');
-const showDate = () => {
+const showDate = (lang = 'en') => {
+  lang === 'en' ? lang = 'en-US' : lang;
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const date = new Date();
   const options = {
@@ -39,7 +60,8 @@ const showDate = () => {
   // const getWeekDay = () => {
   //   return days[date.getDay()];
   // }
-  const getCurrentDateDependOnLang = (lang = 'en-US') => {
+  const getCurrentDateDependOnLang = (lang = 'en') => {
+  
   // return date.toLocaleDateString(lang, options);
     const dtf = Intl.DateTimeFormat(lang, { weekday: 'long',
                                             month: 'long',
@@ -47,29 +69,43 @@ const showDate = () => {
     return dtf.format(date);
   }
   //calendar.textContent = `${getWeekDay()}, ${getCurrentDateDependOnLang()}`;
-  calendar.textContent = getCurrentDateDependOnLang();
+  calendar.textContent = getCurrentDateDependOnLang(lang);
 }
 
 // --------------------------------------------------------------- //
-// Приветствие
+// Greeting (+ localisation)
 
 const greeting = document.querySelector('.greeting-container');
-const getTimeOfDay = () => {
+const getTimeOfDay = (lang = 'en') => {
   const date = new Date();
   const hour = date.getHours();
-  if (hour < 6) return 'night';
-  else if (hour < 12) return 'morning';
-  else if (hour < 18) return 'afternoon';
-  return 'evening';
+  if (hour < 6) {
+    return `${localizationObj['greeting-night'][lang]}`;
+  }
+  else if (hour < 12) {
+    return `${localizationObj['greeting-morning'][lang]}`;
+  }
+  else if (hour < 18) {
+    return `${localizationObj['greeting-afternoon'][lang]}`;
+  } else {
+    return `${localizationObj['greeting-night'][lang]}`;
+  }
 }
-const showGreeting = (lang = 'en-US') => {
-  greeting.textContent = `Good ${getTimeOfDay()}`;
+const showGreeting = (lang = 'en') => {
+  if (lang === 'en') greeting.textContent = `Good ${getTimeOfDay(lang)}`;
+  if (lang === 'ru') greeting.textContent = getTimeOfDay(lang);
 }
 
+
+// userName Placeholder localisation
+const userName = document.querySelector('.name');
+const userNamePlaceholder = (lang = 'en') => {
+  if (lang === 'en') userName.setAttribute('placeholder', `${localizationObj['greeting-name'][lang]}`);
+  if (lang === 'ru') userName.setAttribute('placeholder', `${localizationObj['greeting-name'][lang]}`);
+}
+window.onload = userNamePlaceholder(localStorage.getItem('lang'));
 
 // Сохранение имени пользователя
-const userName = document.querySelector('.name');
-
 const setLocalStorage = () => {
   localStorage.setItem('name', userName.value);
 }
@@ -161,21 +197,30 @@ const weatherError = document.querySelector('.weather-error');
 const weatherDescription = document.querySelector('.description-container');
 const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
-const lang = 'lang=ru';
 const units = 'units=metric';
-const measure = 'м/с'
+let errorText = '';
+let consoleErrorText = '';
 
 // Мой API
 // https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=ru&appid=0a4ec74fecebfa7150be3ee22aad22ca&units=metric
 
-const getWeather = () => {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&${lang}&appid=0a4ec74fecebfa7150be3ee22aad22ca&${units}`;
+const getWeather = (lang = 'en') => {
+  if (lang === 'en') {
+      errorText = 'Error, invalid values ​​entered. Error code';
+      consoleErrorText = 'Looks like there was a problem. Status Code';
+  }
+  if (lang === 'ru') {
+      errorText = 'Ошибка, введены некорректные значения. Код ошибки';
+      consoleErrorText = 'Возникла проблема. Код ошибки';
+  }
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=0a4ec74fecebfa7150be3ee22aad22ca&${units}`;
   fetch(url)
     .then(  
       function(response) {  
         if (response.status !== 200) {
-          weatherError.textContent = `Ошибка, введены некорректные значения. Status Code: ${response.status}`; 
-          console.log(`Looks like there was a problem. Status Code: ${response.status}`);  
+          weatherError.textContent = `${errorText}: ${response.status}`; 
+          console.log(`${consoleErrorText}: ${response.status}`);  
           return;  
         }
         response.json().then(function(data) {
@@ -183,8 +228,8 @@ const getWeather = () => {
           weatherIcon.classList.add(`owf-${data.weather[0].id}`)
           weatherDescription.firstElementChild.textContent = `${Math.round(data.main.temp)} ${String.fromCodePoint(8451)}`; // Farenheit 8457
           weatherDescription.lastElementChild.textContent = data.weather[0].description;
-          wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} ${measure}`;
-          humidity.textContent = `Humidity: ${Math.round(data.main.humidity)} ${String.fromCodePoint(37)}`;
+          wind.textContent = `${localizationObj['weather-wind'][lang]}: ${Math.round(data.wind.speed)} ${localizationObj['weather-units'][lang]}`;
+          humidity.textContent = `${localizationObj['weather-humidity'][lang]}: ${Math.round(data.main.humidity)} ${String.fromCodePoint(37)}`;
           //console.log(data.weather[0].id);  
         });  
       }  
@@ -193,7 +238,7 @@ const getWeather = () => {
       console.log('Fetch Error :-S', err);  
     })
 }
-window.onload = getWeather();
+window.onload = getWeather(settingsMenuData.language);
 city.addEventListener('change', getWeather);
 
 // ------------------------------------------------- //
@@ -246,9 +291,17 @@ const getQuotes = async (url) => {
 //   console.log('Fetch Error :-S', err);  
 // })
 // }
-
-              getQuotes(quotesUrls.online);
-              quoteBtn.addEventListener('click', () => getQuotes(quotesUrls.online));
+const selectQuotesSourceDependOnLang = (lang = 'en') => {
+  if (lang === 'en') {
+    getQuotes(quotesUrls.online);
+    quoteBtn.addEventListener('click', () => getQuotes(quotesUrls.online));
+  }
+  if (lang === 'ru') {
+    getQuotes(quotesUrls.ru);
+    quoteBtn.addEventListener('click', () => getQuotes(quotesUrls.ru));
+  }
+}
+window.onload = selectQuotesSourceDependOnLang(settingsMenuData.language);
 
 // ----------------------------------------------- //
 // Аудиоплеер
@@ -285,6 +338,11 @@ const markSelectedTrack = (action) => {
   (action === 'remove') ? playlist.children[playNum].classList.remove('item-active') :
   playlist.children[playNum].classList.add('item-active');
 }
+
+const showGreetingTrackTitle = (lang = 'en') => {
+  trackBlock.textContent = `${localizationObj['music-song'][lang]}`;
+}
+window.onload = showGreetingTrackTitle(localStorage.getItem('lang'));
 
 const showTrackInfo = () => {
   trackBlock.textContent = playList[playNum].title;
@@ -451,13 +509,6 @@ playlist.addEventListener('click', selectTrackInPlaylist);
 
 
 // Settings menu
-let settingsMenuData = {
-    title: 'settings',
-    language: 'eng',
-    imageSource: 'github',
-    tag: 'nature',
-    vidgets: [], /* 'time', 'date', 'greeting', 'quote', 'weather', 'player', 'todo' */
-  };
 const settingsMenu = document.querySelector('.settings-menu');
 const settingsMenuOpenBtn = document.querySelector('.copyright__settings');
 
@@ -468,7 +519,6 @@ const srcDropDownMenu = document.querySelector('.select-tag__list');
 const selectImgSrcForm = document.forms.src;
   const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 let openedImgSrcField = false;
-
 
 // Add to main field of photo src input the name of the selected item and setting data to settingsMenuData object 
 
@@ -551,22 +601,32 @@ const showSettingsMenu = () => {
 const closeSettingsBtn = document.querySelector('.close-settings-btn');
 closeSettingsBtn.addEventListener('click', showSettingsMenu);
 
+
 // Choose settings
 // Select Language
 const selectLangForm = document.forms.lang;
 const selectLangRadioInputs = selectLangForm.radio;
 //console.log(selectLangRadioInputs)
-selectLangForm.addEventListener('click', (event) => {
+
+const selectLanguage = (event) => {
   if (event.target.nodeName !='INPUT') return;
-    let selectedLang = '';
-    for (let element of selectLangRadioInputs) {
-      if (element.checked) {
-        selectedLang = element.value;
-      }
+  let selectedLang = '';
+  for (let element of selectLangRadioInputs) {
+    if (element.checked) {
+      selectedLang = element.value;
+      //buildSettingsMenu(selectedLang);
+      showGreetingTrackTitle(selectedLang);
+      userNamePlaceholder(selectedLang);
+      selectQuotesSourceDependOnLang(selectedLang);
+      getWeather(selectedLang);
+      translateSettingsMenu(selectedLang);
+      getLangStorage();
     }
-    settingsMenuData.language = selectedLang;
-    //console.log(settingsMenuData.language); 
-});
+  }
+  settingsMenuData.language = selectedLang;
+  console.log(settingsMenuData.language); 
+}
+selectLangForm.addEventListener('click', selectLanguage);
 
 // Choose img tags
 const selectImgTagForm = document.forms.tag;
@@ -673,29 +733,53 @@ window.onload = setRadioBackAfterReloadPage();
   }
   window.onload = setInputImgSrcBackAfterReloadPage();
 
-// Set input tag for background image collection accordingly recieved data from LocalStorage (settingsMenuData object)
-const setInputImgTagBackAfterReloadPage = () => {
-  selectImgTagForm.imgtag.placeholder = settingsMenuData.tag;
-  getInfoFromVidgetsInputs();
-}
-window.onload = setInputImgTagBackAfterReloadPage();
+  // Set input tag for background image collection accordingly recieved data from LocalStorage (settingsMenuData object)
+  const setInputImgTagBackAfterReloadPage = () => {
+    selectImgTagForm.imgtag.placeholder = settingsMenuData.tag;
+    getInfoFromVidgetsInputs();
+  }
+  window.onload = setInputImgTagBackAfterReloadPage();
 
-// Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
-const setCheckboxesBackAfterReloadPage = () => {
-  selectVidgetsInputs.forEach((element) => {
-    if (settingsMenuData.vidgets.indexOf(element.value) != -1) {
-      element.checked = true;
-    } else {
-      element.checked = false;
-    }
-  });
-  getInfoFromVidgetsInputs();
+  // Set input checkboxes accordingly recieved data from LocalStorage (settingsMenuData object)
+  const setCheckboxesBackAfterReloadPage = () => {
+    selectVidgetsInputs.forEach((element) => {
+      if (settingsMenuData.vidgets.indexOf(element.value) != -1) {
+        element.checked = true;
+      } else {
+        element.checked = false;
+      }
+    });
+    getInfoFromVidgetsInputs();
+  }
+  window.onload = setCheckboxesBackAfterReloadPage();
 }
-window.onload = setCheckboxesBackAfterReloadPage();
+
+// Translate settings menu
+const translateSettingsMenu = (lang = 'en') => {
+  // select lang translation
+  document.forms.lang.firstElementChild.textContent = `${localizationObj['select-language'][lang]}`;
+  document.querySelectorAll('.lang-label')[0].textContent = `${localizationObj['language-en'][lang]}`;
+  document.querySelectorAll('.lang-label')[1].textContent = `${localizationObj['language-ru'][lang]}`;
+  
+  // photo src translation
+  document.forms.src.firstElementChild.textContent = `${localizationObj['selectImgSrcTitle'][lang]}`;
+
+  // photo tag translation
+  document.forms.tag.firstElementChild.textContent = `${localizationObj['selectImgTagTitle'][lang]}`;
+
+  // checkbox inputs translation
+  document.forms.vidgets.firstElementChild.textContent = `${localizationObj['checkBoxInputsTitle'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[0].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxTime'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[1].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxDate'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[2].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxGreeting'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[3].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxQuote'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[4].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxWeather'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[5].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxPlayer'][lang]}`;
+  document.querySelectorAll('.checkbox-ios')[6].firstElementChild.nextSibling.textContent = `${localizationObj['checkBoxTodo'][lang]}`;
 }
 
 // Build (open) settings menu
-const buildSettingsMenu = () => {
+const buildSettingsMenu = (lang = 'en') => {
 const settingsMenuCloseBtn = document.createElement('div');
 settingsMenuCloseBtn.classList.add('close-settings-btn', 'close-settings-btn_hover', 'close-settings-btn_active', 'icono-cross');
 settingsMenu.append(settingsMenuCloseBtn);
@@ -706,14 +790,14 @@ line.classList.add('line');
 const selectLangMenu = document.createElement('form');
 selectLangMenu.classList.add('select-lang');
 selectLangMenu.name = 'lang';
-let selectLangMenuContent = `<p>Select language</p>
+let selectLangMenuContent = `<p></p>
   <div class="lang-radio">
-    <input type="radio" id="lang-eng" name="radio" value="eng" checked>
-    <label for="lang-eng" class="lang-label">English</label>
+    <input type="radio" id="lang-eng" name="radio" value="en" checked>
+    <label for="lang-eng" class="lang-label"></label>
   </div>
   <div class="lang-radio">
     <input type="radio" id="lang-ru" name="radio" value="ru">
-    <label for="lang-ru" class="lang-label">Russian</label>
+    <label for="lang-ru" class="lang-label"></label>
   </div>`;
 selectLangMenu.innerHTML = selectLangMenuContent;
 settingsMenu.append(selectLangMenu);
@@ -723,7 +807,7 @@ selectLangMenu.after(cloneLine1);
 const selectImgSource = document.createElement('form');
 selectImgSource.classList.add('select-src');
 selectImgSource.name = 'src';
-let selectImgSourceContent = `<p>Photo source for background image</p>
+let selectImgSourceContent = `<p></p>
 <div>
 <div class="select-tag select-tag_hover">GitHub</div>
   <ul class="select-tag__list">
@@ -740,7 +824,7 @@ selectImgSource.after(cloneLine2);
 const selectImgTag = document.createElement('form');
 selectImgTag.classList.add('select-img-tag');
 selectImgTag.name = 'tag';
-let selectImgTagContent = `<p>Enter a tag for background image collection</p>
+let selectImgTagContent = `<p></p>
   <div class="search-box">
     <input type="text" id="image-tag" name="imgtag">
   </div>`;
@@ -753,49 +837,49 @@ selectImgTag.after(cloneLine3);
 const hideVidgetItems = document.createElement('form');
 hideVidgetItems.classList.add('hide-vidgets');
 hideVidgetItems.name = 'vidgets';
-let hideVidgetItemsContent = `<p>Hide/show block</p>
+let hideVidgetItemsContent = `<p></p>
   <label for="block-time" class="checkbox-ios">
-    <input type="checkbox" id="block-time" name="vidget" value="time" checked>Time
+    <input type="checkbox" id="block-time" name="vidget" value="time" checked>
     <span class="checkbox-ios-switch"></span>
   </label>
 
     <label for="block-date" class="checkbox-ios">
-      <input type="checkbox" id="block-date" name="vidget" value="date" checked>Date
+      <input type="checkbox" id="block-date" name="vidget" value="date" checked>
       <span class="checkbox-ios-switch"></span>
     </label>
 
       <label for="block-greeting" class="checkbox-ios">
-        <input type="checkbox" id="block-greeting" name="vidget" value="greeting" checked>Greeting
+        <input type="checkbox" id="block-greeting" name="vidget" value="greeting" checked>
         <span class="checkbox-ios-switch"></span>
       </label>
 
         <label for="block-quote" class="checkbox-ios">
-          <input type="checkbox" id="block-quote" name="vidget" value="quote" checked>Quote
+          <input type="checkbox" id="block-quote" name="vidget" value="quote" checked>
           <span class="checkbox-ios-switch"></span>
         </label>
 
           <label for="block-weather" class="checkbox-ios">
-            <input type="checkbox" id="block-weather" name="vidget" value="weather" checked>Weather
+            <input type="checkbox" id="block-weather" name="vidget" value="weather" checked>
             <span class="checkbox-ios-switch"></span>
           </label>
 
             <label for="block-player" class="checkbox-ios">
-              <input type="checkbox" id="block-player" name="vidget" value="player" checked>Audio player
+              <input type="checkbox" id="block-player" name="vidget" value="player" checked>
               <span class="checkbox-ios-switch"></span>
             </label>
 
               <label for="block-todo" class="checkbox-ios">
-                <input type="checkbox" id="block-todo" name="vidget" value="todobtn" checked>Todo
+                <input type="checkbox" id="block-todo" name="vidget" value="todobtn" checked>
                 <span class="checkbox-ios-switch"></span>
               </label>`;
 hideVidgetItems.innerHTML = hideVidgetItemsContent;
 settingsMenu.append(hideVidgetItems);
 const cloneLine4 = line.cloneNode(true);
 hideVidgetItems.after(cloneLine4);
-
+translateSettingsMenu(settingsMenuData.language);
 actionsInOpenedSettingsMenu();
 }
-window.onload = buildSettingsMenu();
+window.onload = buildSettingsMenu(settingsMenuData.language);
 settingsMenuOpenBtn.addEventListener('click', showSettingsMenu);
 
 
@@ -846,25 +930,33 @@ const showTodoApp = () => {
 }
 showTodoAppBtn.addEventListener('click', showTodoApp)
 
+// Translate Todo app
+const translateTodoApp = (lang= 'en') => {
+//  ${localizationObj['language-en'][lang]}
+  document.querySelector('.todo__head h2').textContent = `${localizationObj['todolist-title'][lang]}`;
+  document.querySelector('.btn-todo').textContent = `${localizationObj['todolist-btn'][lang]}`;
+  document.forms.todoform.todo.placeholder = `${localizationObj['todolist-create'][lang]}`;
+}
 
 // Build Todo App
 const buildTodoApp = () => {
   const todoApp = document.querySelector('.todo');
   const todoContent =
   `<div class="todo__head">
-    <h2>Todo List</h2>
+    <h2></h2>
       <div class="todo-close-btn todo-close-btn_hover todo-close-btn_active icono-crossCircle"></div>
   </div>
-    <button class="btn btn-todo btn-todo_hover btn-todo_active">Create Note</button>
+    <button class="btn btn-todo btn-todo_hover btn-todo_active"></button>
       <div class="todo__field"></div>
         <div class="todo__note">
           <form name="todoform">
-            <textarea name="todo" id="note-text" placeholder="Write Note..." maxlength="96"></textarea>
+            <textarea name="todo" id="note-text" maxlength="96"></textarea>
             <img class="todo-btn-ok todo-btn-ok_hover todo-btn-ok_active" src="./assets/svg/check-ok.svg" alt="Todo Ok">
             <img class="todo-btn-close todo-btn-close_hover todo-btn-close_active" src="./assets/svg/check-close.svg" alt="Todo Close">
           </form>
         </div>`;
   todoApp.innerHTML = todoContent;
+  translateTodoApp(settingsMenuData.language);
   closeTodoNotesApp();
 };
 window.onload = buildTodoApp();
@@ -1076,6 +1168,11 @@ const hoverTodoNote = (event) => {
 }
 window.onload = createTodoNotesFromLocalStorage();
 
+
+const setLangStorage = () => {
+  localStorage.setItem('lang', settingsMenuData.language);
+}
+window.addEventListener('beforeunload', setLangStorage);
 
 
 
