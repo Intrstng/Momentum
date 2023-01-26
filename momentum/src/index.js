@@ -145,7 +145,6 @@ const setBackgroundImg = () => {
     document.querySelector('body').style.backgroundImage = `url('${generateLinkToImg()}')`;
   }
 }
-
 window.onload = setBackgroundImg();
 
 // Слайдер
@@ -178,15 +177,25 @@ slidePrevBtn.addEventListener('click', changeBackgroundImg);
 slideNextBtn.addEventListener('click', changeBackgroundImg);
 
 
-// Виджет погоды
-// Город
+// Weather vidget
+// City
 const city = document.querySelector('.city');
+// Default city
+const setDefaultCity = (lang = 'en') => {
+  if (!city.value) city.value = `${localizationObj['default-city'][lang]}`;
+  return;
+}
+setDefaultCity(settingsMenuData.language);
 
+// Set city select to localStorage if it is not a default city
 const setCityLocalStorage = () => {
-  localStorage.setItem('city', city.value);
+  if ((city.value === `${localizationObj['default-city']['en']}`) || (city.value === `${localizationObj['default-city']['ru']}`)) {
+    return;
+  } else localStorage.setItem('city', city.value);
 }
 window.addEventListener('beforeunload', setCityLocalStorage);
 
+// Get city select from localStorage
 const getCityLocalStorage = () => {
   localStorage.getItem('city') && (city.value = localStorage.getItem('city'));
 }
@@ -226,6 +235,7 @@ const getWeather = (lang = 'en') => {
           return;  
         }
         response.json().then(function(data) {
+          weatherError.textContent = '';
           weatherIcon.className = 'weather-icon owf';
           weatherIcon.classList.add(`owf-${data.weather[0].id}`)
           weatherDescription.firstElementChild.textContent = `${Math.round(data.main.temp)} ${String.fromCodePoint(8451)}`; // Farenheit 8457
@@ -241,12 +251,13 @@ const getWeather = (lang = 'en') => {
     })
 }
 window.onload = getWeather(settingsMenuData.language);
-city.addEventListener('change', getWeather);
+city.addEventListener('change', () => getWeather(settingsMenuData.language));
 
 // Виджет Цитата
 const quoteBtn = document.querySelector('.change-quote');
 const quote = document.querySelector('.quote-block');
 const author = document.querySelector('.author');
+let qouteBtnListener = false;
 
 const quotesUrls = {
   by: './assets/json/belarusian_quotes.json',
@@ -266,6 +277,21 @@ const getQuotes = async (url) => {
   const res = await fetch(quotes);
   const data = await res.json();
   showQuote(data);
+}
+
+const getQuotesByClickQuoteBtn = async (lang = 'en') => {
+  let quotes;
+  if (lang === 'en') {
+    quotes = quotesUrls.online; 
+  }
+  if (lang === 'ru') {
+    quotes = quotesUrls.ru; 
+  }
+  const res = await fetch(quotes);
+  let data = await res.json();
+  let randomQuote = getRandomNum(0, data.length);
+  quote.textContent = `"${data[randomQuote].text}"`;
+  author.textContent = data[randomQuote].author;
 }
 
 // Функция getQuotesBackup выдает запасной (локальный) JSON с цитатами если основной JSON не приходит по API
@@ -292,17 +318,19 @@ const getQuotes = async (url) => {
 //   console.log('Fetch Error :-S', err);  
 // })
 // }
-const selectQuotesSourceDependOnLang = (lang = 'en') => {
+
+const selectQuotesSourceDependOnLangOnLoad = (lang = 'en') => {
   if (lang === 'en') {
     getQuotes(quotesUrls.online);
-    quoteBtn.addEventListener('click', () => getQuotes(quotesUrls.online));
   }
   if (lang === 'ru') {
     getQuotes(quotesUrls.ru);
-    quoteBtn.addEventListener('click', () => getQuotes(quotesUrls.ru));
   }
 }
-window.onload = selectQuotesSourceDependOnLang(settingsMenuData.language);
+window.onload = selectQuotesSourceDependOnLangOnLoad(localStorage.getItem('lang-temporary'));
+quoteBtn.addEventListener('click', () => getQuotesByClickQuoteBtn(localStorage.getItem('lang-temporary')));
+
+
 
 
 // Аудиоплеер
@@ -642,14 +670,25 @@ const selectLanguage = (event) => {
   for (let element of selectLangRadioInputs) {
     if (element.checked) {
       selectedLang = element.value;
+      settingsMenuData.language = selectedLang;
       showGreetingTrackTitle(selectedLang);
       userNamePlaceholder(selectedLang);
-      selectQuotesSourceDependOnLang(selectedLang);
+
+      quoteBtn.removeEventListener('click', () => getQuotesByClickQuoteBtn(localStorage.getItem('lang-temporary')));
+      localStorage.setItem('lang-temporary', selectedLang);
+      selectQuotesSourceDependOnLangOnLoad(localStorage.getItem('lang-temporary'));
+  
+
+      // Translate default city input
+      if ((!document.querySelector('.city').value || document.querySelector('.city').value === `${localizationObj['default-city']['en']}`) || (document.querySelector('.city').value === `${localizationObj['default-city']['ru']}`)) {
+        document.querySelector('.city').value = `${localizationObj['default-city'][selectedLang]}`;
+        getCityLocalStorage();
+      }
+    
       getWeather(selectedLang);
       translateSettingsMenu(selectedLang);
     }
   }
-  settingsMenuData.language = selectedLang;
 }
 selectLangForm.addEventListener('click', selectLanguage);
 
@@ -751,7 +790,6 @@ setRadioBackAfterReloadPage();
     localStorage.getItem('inputs') && (settingsMenuData = JSON.parse(localStorage.getItem('inputs')));
     selectVidgetsInputs.forEach((element) => {
       if (settingsMenuData.vidgets.indexOf(element.value) != -1) {
-        console.log("dd")
         element.checked = true;
       } else {
         element.checked = false;

@@ -1,4 +1,8 @@
 const translation = {
+  "default-city": {
+    "en": "Minsk",
+    "ru": "Минск",
+  },
   "greeting-morning": {
     "en": "morning",
     "ru": "Доброе утро",
