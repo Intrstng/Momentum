@@ -4,7 +4,7 @@
 import playList from './js/Playlist.js';
 import translation from '../assets/locales/translation.js';
 
-// Настройки в Settings menu
+// Settings data in Settings menu
 let settingsMenuData = {
   title: 'settings',
   language: 'en',
@@ -34,7 +34,7 @@ const updateScreen = () => {
 }
 window.onload = updateScreen();
 
-// Часы
+// Time
 
 const time = document.querySelector('.time');
 const showTime = (lang = 'en') => {
@@ -57,7 +57,7 @@ const showTime = (lang = 'en') => {
 window.onload = showTime(settingsMenuData.language);
 
 
-// Календарь
+// Calendar
 const calendar = document.querySelector('.date');
 const showDate = (lang = 'en') => {
   lang === 'en' ? lang = 'en-US' : lang;
@@ -108,7 +108,7 @@ const userNamePlaceholder = (lang = 'en') => {
 }
 window.onload = userNamePlaceholder(settingsMenuData.language);
 
-// Сохранение имени пользователя
+// Save user name
 const setLocalStorage = () => {
   localStorage.setItem('name', userName.value);
 }
@@ -121,7 +121,7 @@ const getLocalStorage = () => {
 window.onload = getLocalStorage();
 
 
-// Смена фонового изображения
+// Change background image
 
 const getRandomNum = (min = 1, max = 20) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
@@ -137,7 +137,7 @@ const generateLinkToImg = () => {
   return `https://raw.githubusercontent.com/Intrstng/stage1-tasks/assets/images/${getTimeOfDay()}/${randomNum}.webp`;
 }
 
-// Установка background image с плавным эффектом перехода
+// Set background image with a SMOOTH changing
 const setBackgroundImg = () => {
   const img = new Image();
   img.src = generateLinkToImg();
@@ -147,7 +147,7 @@ const setBackgroundImg = () => {
 }
 window.onload = setBackgroundImg();
 
-// Слайдер
+// Slider
 
 const slidePrevBtn = document.querySelector('.slide-prev');
 const slideNextBtn = document.querySelector('.slide-next');
@@ -212,7 +212,7 @@ const units = 'units=metric';
 let errorText = '';
 let consoleErrorText = '';
 
-// Мой API
+// My API
 // https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=ru&appid=0a4ec74fecebfa7150be3ee22aad22ca&units=metric
 
 const getWeather = (lang = 'en') => {
@@ -253,11 +253,10 @@ const getWeather = (lang = 'en') => {
 window.onload = getWeather(settingsMenuData.language);
 city.addEventListener('change', () => getWeather(settingsMenuData.language));
 
-// Виджет Цитата
+// Quote vidget
 const quoteBtn = document.querySelector('.change-quote');
 const quote = document.querySelector('.quote-block');
 const author = document.querySelector('.author');
-let qouteBtnListener = false;
 
 const quotesUrls = {
   by: './assets/json/belarusian_quotes.json',
@@ -266,12 +265,14 @@ const quotesUrls = {
   online: 'https://type.fit/api/quotes',
 }
 
+// Show quote and author on screen
 const showQuote = (quoteData) => {
   let randomQuote = getRandomNum(0, quoteData.length);
   quote.textContent = `"${quoteData[randomQuote].text}"`;
   author.textContent = quoteData[randomQuote].author;
 }
 
+// Get quote from source
 const getQuotes = async (url) => {
   const quotes = url;
   const res = await fetch(quotes);
@@ -279,19 +280,18 @@ const getQuotes = async (url) => {
   showQuote(data);
 }
 
+// Set source for quote by click quote button
 const getQuotesByClickQuoteBtn = async (lang = 'en') => {
   let quotes;
-  if (lang === 'en') {
-    quotes = quotesUrls.online; 
-  }
-  if (lang === 'ru') {
-    quotes = quotesUrls.ru; 
-  }
+    if (lang === 'en') {
+      quotes = quotesUrls.online; 
+    }
+      if (lang === 'ru') {
+        quotes = quotesUrls.ru; 
+      }
   const res = await fetch(quotes);
   let data = await res.json();
-  let randomQuote = getRandomNum(0, data.length);
-  quote.textContent = `"${data[randomQuote].text}"`;
-  author.textContent = data[randomQuote].author;
+  showQuote(data);
 }
 
 // Функция getQuotesBackup выдает запасной (локальный) JSON с цитатами если основной JSON не приходит по API
@@ -319,6 +319,7 @@ const getQuotesByClickQuoteBtn = async (lang = 'en') => {
 // })
 // }
 
+// Select qoute depend on lang on load
 const selectQuotesSourceDependOnLangOnLoad = (lang = 'en') => {
   if (lang === 'en') {
     getQuotes(quotesUrls.online);
@@ -327,13 +328,10 @@ const selectQuotesSourceDependOnLangOnLoad = (lang = 'en') => {
     getQuotes(quotesUrls.ru);
   }
 }
-window.onload = selectQuotesSourceDependOnLangOnLoad(localStorage.getItem('lang-temporary'));
-quoteBtn.addEventListener('click', () => getQuotesByClickQuoteBtn(localStorage.getItem('lang-temporary')));
+window.onload = selectQuotesSourceDependOnLangOnLoad(settingsMenuData.language);
+quoteBtn.addEventListener('click', () => getQuotesByClickQuoteBtn(settingsMenuData.language));
 
-
-
-
-// Аудиоплеер
+// Audio player
 
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
@@ -469,7 +467,7 @@ const setTrackProgress = (event) => {
 }
 trackTimeLine.addEventListener('click', setTrackProgress);
 
-// Play / pause одной кнопкой
+// Play / pause by one button
 audio.src = playList[playNum].src;
 
 function playAudio() {
@@ -496,7 +494,7 @@ playBtn.addEventListener('click', playAudio);
 playPrevBtn.addEventListener('click', playPrevAudio);
 playNextBtn.addEventListener('click', playNextAudio);
 
-// Генерация плейлиста в DOM
+// Generate playlist to DOM
 
 const genPlaylist = () => {
   playList.forEach((elem, index) => {
@@ -508,7 +506,7 @@ const genPlaylist = () => {
 }
 genPlaylist();
 
-// Play по нажатию на трек
+// Play by click on track
 
 const playSelectedTrack = (ev, element = ev.target) => {
   let trackNameArray = element.textContent.split(' ');
@@ -673,11 +671,11 @@ const selectLanguage = (event) => {
       settingsMenuData.language = selectedLang;
       showGreetingTrackTitle(selectedLang);
       userNamePlaceholder(selectedLang);
-
-      quoteBtn.removeEventListener('click', () => getQuotesByClickQuoteBtn(localStorage.getItem('lang-temporary')));
-      localStorage.setItem('lang-temporary', selectedLang);
-      selectQuotesSourceDependOnLangOnLoad(localStorage.getItem('lang-temporary'));
-  
+      quoteBtn.removeEventListener('click', () => getQuotesByClickQuoteBtn(selectedLang));
+        //selectQuotesSourceDependOnLangOnLoad(selectedLang);
+        getQuotesByClickQuoteBtn(selectedLang);
+      
+      translateTodoApp(selectedLang);
 
       // Translate default city input
       if ((!document.querySelector('.city').value || document.querySelector('.city').value === `${localizationObj['default-city']['en']}`) || (document.querySelector('.city').value === `${localizationObj['default-city']['ru']}`)) {
@@ -975,7 +973,7 @@ const showTodoApp = () => {
 showTodoAppBtn.addEventListener('click', showTodoApp)
 
 // Translate Todo app
-const translateTodoApp = (lang= 'en') => {
+function translateTodoApp (lang = 'en') {
   document.querySelector('.todo__head h2').textContent = `${localizationObj['todolist-title'][lang]}`;
   document.querySelector('.btn-todo').textContent = `${localizationObj['todolist-btn'][lang]}`;
   document.forms.todoform.todo.placeholder = `${localizationObj['todolist-create'][lang]}`;
