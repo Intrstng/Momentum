@@ -518,6 +518,35 @@ const srcDropDownMenu = document.querySelector('.select-tag__list');
 const selectImgSrcForm = document.forms.src;
   const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 let openedImgSrcField = false;
+let openedImgTagBlock = false;
+
+// Show / hide img tag select block
+      // const showImgTagBlock = (e) => {
+      //   if (!openedImgTagBlock && (e.target.dataset.source == 'unsplash' || e.target.dataset.source == 'flickr')) {
+      //     openedImgTagBlock = true;
+      //     document.forms.tag.classList.add('select-img-tag_active');
+      //     document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
+      //   };
+      //   if (openedImgTagBlock && (e.target.dataset.source == 'github')) {
+      //     openedImgTagBlock = false;
+      //     document.forms.tag.classList.remove('select-img-tag_active');
+      //     document.querySelector('.select-img-tag__line').classList.remove('select-img-tag__line_active');
+      //   };
+      // }
+      
+// Show / hide img tag select block
+const showImgTagBlock = () => {
+  if (!openedImgTagBlock && (settingsMenuData.imageSource == 'unsplash' || settingsMenuData.imageSource == 'flickr')) {
+    openedImgTagBlock = true;
+    document.forms.tag.classList.add('select-img-tag_active');
+    document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
+  };
+  if (openedImgTagBlock && (settingsMenuData.imageSource == 'github')) {
+    openedImgTagBlock = false;
+    document.forms.tag.classList.remove('select-img-tag_active');
+    document.querySelector('.select-img-tag__line').classList.remove('select-img-tag__line_active');
+  };
+}
 
 // Add to main field of photo src input the name of the selected item and setting data to settingsMenuData object 
 
@@ -530,18 +559,7 @@ const selectImgSrcItem = (event) => {
   selectImgSrcFormItems.forEach((element) => {
     element.removeEventListener('click', selectImgSrcItem);
   });
-
-
-
-  // if (event.target.dataset.source == 'unsplash' || event.target.dataset.source == 'flickr') {
-  //   document.forms.tag.classList.add('select-img-tag_active');
-  //   document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
-  //   selectImgTagInput.classList.add('.inputtagactive');
-  // };
-
-
-
-
+  showImgTagBlock();
 }
 
 // Open / close photo source select menu
@@ -557,6 +575,9 @@ const openCloseSrcMenu = () => {
     };
 }
 selectSrcMenuField.addEventListener('click', openCloseSrcMenu);
+
+// Show img tag block after openning of settings menu
+  showImgTagBlock();
 
 // Change icon in photo src field
 const searchImgTagField = document.getElementById('image-tag');
@@ -814,7 +835,7 @@ selectImgTag.classList.add('select-img-tag');
 selectImgTag.name = 'tag';
 let selectImgTagContent = `<p></p>
   <div class="search-box">
-    <input type="text" id="image-tag" name="imgtag">
+    <input type="text" id="image-tag" name="imgtag" class="imgtag imgtag_hidden">
   </div>`;
 selectImgTag.innerHTML = selectImgTagContent;
 settingsMenu.append(selectImgTag);

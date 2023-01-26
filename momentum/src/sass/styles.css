@@ -10583,6 +10583,7 @@ body {
   width: 135px;
   max-height: 0;
   margin: 0 auto;
+  display: none;
   opacity: 0;
   transition: max-height 0.3s linear;
 }
@@ -10591,6 +10592,7 @@ body {
   padding-left: 0;
   width: 135px;
   max-height: 75px;
+  display: block;
   opacity: 1;
   list-style: none;
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
@@ -10648,11 +10650,19 @@ body {
 }
 
 .select-img-tag {
-  display: flex;
   flex-wrap: nowrap;
   margin-bottom: 6px;
   max-height: 75px;
-  opacity: 1;
+  display: none;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s linear;
+}
+.select-img-tag__line {
+  display: none;
+}
+.select-img-tag__line_active {
+  display: block;
 }
 .select-img-tag > p {
   font-weight: bold;
@@ -10681,7 +10691,6 @@ body {
   padding: 5px 5px 5px 8px;
   width: 135px;
   max-height: 25px;
-  opacity: 1;
   font-family: "Arial", sans-serif;
   font-size: 0.7rem;
   font-weight: bold;
@@ -10708,6 +10717,17 @@ body {
 }
 .select-img-tag .search-box input[type=text]:hover {
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
+}
+.select-img-tag_active {
+  display: flex;
+  max-height: 75px;
+  opacity: 1;
+}
+.select-img-tag__line {
+  opacity: 0;
+}
+.select-img-tag__line_active {
+  opacity: 1;
 }
 
 .vidget {
