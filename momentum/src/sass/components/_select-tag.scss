@@ -36,7 +36,7 @@
           background-size: cover;
       }
     }
-    input[type="text"] {
+    .imgtag-input {
       padding: 5px 5px 5px 8px;
       width: 135px;
       max-height: 25px;
@@ -52,6 +52,13 @@
       background-color: #eee;
       box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
       @extend %transition-all;
+      &_error {
+        background-color: rgba(255, 0, 0, 0.4);
+        &::placeholder {
+          color: $color-light;
+          letter-spacing: 1px;
+        }
+      }
       &:focus {
         //box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2); // перенес выполнение в js
         &::-webkit-input-placeholder {
@@ -72,13 +79,6 @@
       }
     }
   }
-
-
-
-
-
-
-
   &_active {
     display: flex;
     max-height: 75px;

@@ -1,0 +1,15 @@
+.main {
+  .img-tag-error {
+    @extend %font-primary;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    opacity: 0;
+    z-index: -2;
+    @extend %transition;
+    &_active {
+      opacity: 0.8;
+      z-index: 2;
+    }
+  }
+}

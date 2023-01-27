@@ -47,6 +47,10 @@ const translation = {
     "en": "Looks like there was a problem. Status Code",
     "ru": "Возникла проблема. Код ошибки",
   },
+  "img-tag-error": {
+    "en": "You entered an invalid tag for the background image collection. Temporarily applied tag «nature»",
+    "ru": "Вы ввели не верный тег для коллекции фоновых изображений. Временно применен тег nature",
+  },
   "select-language": {
     "en": "Select language",
     "ru": "Выберите язык",
@@ -60,11 +64,11 @@ const translation = {
     "ru": "Русский",
   },
   "selectImgSrcTitle": {
-    "en": "Photo source for background image",
+    "en": "Photo source for the background image",
     "ru": "Источник фото для фонового изображения",
   },
   "selectImgTagTitle": {
-    "en": "Enter a tag for background image collection",
+    "en": "Enter a tag for the background image collection",
     "ru": "Введите тег для коллекции фоновых изображений",
   },
   "checkBoxInputsTitle": {

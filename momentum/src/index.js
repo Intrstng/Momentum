@@ -14,6 +14,8 @@ let settingsMenuData = {
 };
 
 const localizationObj = JSON.parse(JSON.stringify(translation));
+const defaultImgTag = 'nature';
+
 
 // Set the inputs selections of settings menu from LocalStorage after reload of the page.
 const getInputsPosInLocalStorage = () => {
@@ -72,7 +74,7 @@ const showDate = (lang = 'en') => {
                                             day: 'numeric' });
     return dtf.format(date);
   }
-  //calendar.textContent = `${getWeekDay()}, ${getCurrentDateDependOnLang()}`;
+  // calendar.textContent = `${getWeekDay()}, ${getCurrentDateDependOnLang()}`;
   calendar.textContent = getCurrentDateDependOnLang(lang);
 }
 
@@ -100,7 +102,7 @@ const showGreeting = (lang = 'en') => {
 }
 
 
-// userName Placeholder localisation
+// UserName Placeholder localisation
 const userName = document.querySelector('.name');
 const userNamePlaceholder = (lang = 'en') => {
   if (lang === 'en') userName.setAttribute('placeholder', `${localizationObj['greeting-name'][lang]}`);
@@ -112,7 +114,6 @@ window.onload = userNamePlaceholder(settingsMenuData.language);
 const setLocalStorage = () => {
   localStorage.setItem('name', userName.value);
 }
-  // userName.addEventListener('blur', setLocalStorage);
 window.addEventListener('beforeunload', setLocalStorage);
 
 const getLocalStorage = () => {
@@ -130,18 +131,34 @@ const getRandomNum = (min = 1, max = 20) => {
 let randomNum = getRandomNum();
 
 const generateLinkToImgFromGitHub = () => {
-  //console.log("in", randomNum);
   randomNum < 10 ? (randomNum = randomNum.toString().padStart(2, '0')) : randomNum;
-  // randomNum < 10 ? (randomNum = `0${randomNum}`) : randomNum;
-  //console.log("out", randomNum);
   return `https://raw.githubusercontent.com/Intrstng/stage1-tasks/assets/images/${getTimeOfDay()}/${randomNum}.webp`;
 }
 
-// Get resolution of API img
+// Set background image with a SMOOTH changing
+const setBackgroundImg = (source, link) => {
+  const img = new Image();
+  if (source === 'github') {
+    img.src = generateLinkToImgFromGitHub();
+    img.onload = () => {
+      document.querySelector('body').style.backgroundImage = `url('${generateLinkToImgFromGitHub()}')`;
+    }
+  } else if ((source === 'unsplash') || (source === 'flickr')) {
+    img.src = link;
+    console.log(img.src)
+    img.onload = () => {
+      document.querySelector('body').style.backgroundImage = `url('${link}')`;
+    }
+  }
+}
+
+// Get resolution of img from API source (unsplash or flickr)
 const getImgApiResolution = (src, res = '1080') => {
   let imgResolution;
   let resSmallS3, smallS3Value, resThumb, resValue, resSmall, smallValue, resRegular, regularValue, fullValue;
-    if (src === 'unsplash') {
+    if (src === 'github') {
+      return;
+    } else if (src === 'unsplash') {
       resSmallS3 = 90;
       smallS3Value = 'small_s3';
         resThumb = 200;
@@ -151,31 +168,32 @@ const getImgApiResolution = (src, res = '1080') => {
             resRegular = 1080;
             regularValue = 'regular';
               fullValue = 'full';
-    }
-    if (src === 'flickr') {
-      resSmallS3 = 100;
-      smallS3Value = 't';
-        resThumb = 240;
-        resValue = 's';
-          resSmall = 400;
-          smallValue = 'w';
-            resRegular = 1600;
-            regularValue = 'h';
-              fullValue = 'k';
-    }
-  if (res <= resSmallS3) { 
-    imgResolution = smallS3Value;
-  } else if (res <= resThumb) {
-    imgResolution = resValue;
-  } else if (res <= resSmall) {
-    imgResolution = smallValue;
-  } else if (res <= resRegular) {
-    imgResolution = regularValue;
-  } else {
-    imgResolution = fullValue;
-  }
+      } else if (src === 'flickr') {
+        resSmallS3 = 100;
+        smallS3Value = 't';
+          resThumb = 240;
+          resValue = 's';
+            resSmall = 400;
+            smallValue = 'w';
+              resRegular = 1600;
+              regularValue = 'h';
+                fullValue = 'k';
+        }
+
+        if (res <= resSmallS3) { 
+          imgResolution = smallS3Value;
+        } else if (res <= resThumb) {
+            imgResolution = resValue;
+          } else if (res <= resSmall) {
+              imgResolution = smallValue;
+            } else if (res <= resRegular) {
+                imgResolution = regularValue;
+              } else {
+                  imgResolution = fullValue;
+                }
   return imgResolution;
 }
+
 
 //My API
   // const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30`;
@@ -205,14 +223,14 @@ const generateLinkToImgFromApi = async (source, tag) => {
   //My API for Unsplash
   // const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30`;
   // ----- //
-
-  const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17`; 
-  const imgFlickrUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=354ed4fae36485a805f9c98c33f66359&tags=${tag}&extras=url_${imgResolution}&format=json&nojsoncallback=1`;
   
+ const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17`; 
+ const imgFlickrUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=354ed4fae36485a805f9c98c33f66359&tags=${tag}&extras=url_${imgResolution}&format=json&nojsoncallback=1`;
+ let imgLink;
   if (source === 'unsplash') {
     const res = await fetch(imgUnsplashUrl);
     const data = await res.json();
-    return data.urls[imgResolution];
+    imgLink = data.urls[imgResolution];
   }
     if (source === 'flickr') {
       const res = await fetch(imgFlickrUrl);
@@ -222,31 +240,29 @@ const generateLinkToImgFromApi = async (source, tag) => {
       const notEmptyImgDataArray = imgDataArray.filter((element) => {
         return element[`url_${imgResolution}`];
       });
-      console.log(imgDataArray)
-      console.log(notEmptyImgDataArray)
-       const randomIndexImgDataArray = getRandomNum(0, notEmptyImgDataArray.length);
-       console.log(notEmptyImgDataArray.length)
-       console.log(randomIndexImgDataArray)
-      return notEmptyImgDataArray[randomIndexImgDataArray][`url_${imgResolution}`];
+      const randomIndexImgDataArray = getRandomNum(0, notEmptyImgDataArray.length);
+if (notEmptyImgDataArray.length === 0) {
+  alertImgTagIncorrectInput(settingsMenuData.language);
+}
+      imgLink = notEmptyImgDataArray[randomIndexImgDataArray][`url_${imgResolution}`];
     }
+    setBackgroundImg (source, imgLink);
+}
+//console.log('ttrr',generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag));
+window.onload = generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
+
+
+// Alert user if img tag is incorrectly entered and temporary change this tag for "nature" tag
+const alertImgTagIncorrectInput = (lang = 'en') => {
+  const imgErrorAlert = document.querySelector('.img-tag-error');
+  document.getElementById('image-tag').classList.add('imgtag-input_error');
+  console.log(`${localizationObj['img-tag-error'][lang]}`);
+  imgErrorAlert.textContent = `${localizationObj['img-tag-error'][lang]}`;
+  imgErrorAlert.classList.add('img-tag-error_active');
+  setTimeout(() => imgErrorAlert.classList.remove('img-tag-error_active'), 8000);
+  generateLinkToImgFromApi(settingsMenuData.imageSource, defaultImgTag);
 }
 
-console.log(generateLinkToImgFromApi('unsplash', 'cars')) //(source, tag)
-
-
-
-
-
-
-// Set background image with a SMOOTH changing
-const setBackgroundImg = () => {
-  const img = new Image();
-  img.src = generateLinkToImgFromGitHub();
-  img.onload = () => {
-    document.querySelector('body').style.backgroundImage = `url('${generateLinkToImgFromGitHub()}')`;
-  }
-}
-window.onload = setBackgroundImg();
 
 // Slider
 
@@ -254,19 +270,19 @@ const slidePrevBtn = document.querySelector('.slide-prev');
 const slideNextBtn = document.querySelector('.slide-next');
 
 const selectBackgroundImg = (slide) => {
-  if (slide === 'next') {
-   // console.log("next1", randomNum);
-      randomNum = parseInt(randomNum) + 1;
-      randomNum > 20 ? randomNum = 1 : randomNum;
-   //   console.log("next2", randomNum);
-      setBackgroundImg();
-    } else if (slide === 'prev') {
-    //  console.log("prev1", randomNum);
-      randomNum = parseInt(randomNum) - 1;
-      randomNum < 1 ? randomNum = 20 : randomNum;
-    //    console.log("prev2", randomNum);
-        setBackgroundImg();
-      }
+  if (settingsMenuData.imageSource === 'github') {
+    if (slide === 'next') {
+        randomNum = parseInt(randomNum) + 1;
+        randomNum > 20 ? randomNum = 1 : randomNum;
+        setBackgroundImg(settingsMenuData.imageSource);
+      } else if (slide === 'prev') {
+        randomNum = parseInt(randomNum) - 1;
+        randomNum < 1 ? randomNum = 20 : randomNum;
+          setBackgroundImg(settingsMenuData.imageSource);
+        }
+  } else if ((settingsMenuData.imageSource === 'unsplash') || (settingsMenuData.imageSource === 'flickr')) {
+      generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
+    }
 }
 
 const changeBackgroundImg = (e) => {
@@ -681,6 +697,7 @@ const selectImgSrcItem = (event) => {
   settingsMenuData.imageSource = event.target.dataset.source;
   selectSrcMenuField.classList.remove('select-tag_active');
   srcDropDownMenu.classList.remove('select-tag__list_active');
+  generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
   openedImgSrcField = false;
   selectImgSrcFormItems.forEach((element) => {
     element.removeEventListener('click', selectImgSrcItem);
@@ -710,7 +727,10 @@ const searchImgTagField = document.getElementById('image-tag');
 
 const changeSearchIcon = (event) => {
   const searchImgTagBlock = document.querySelector('.search-box');
-  if (event.type === 'focus') searchImgTagBlock.classList.add('search-box_active');
+  if (event.type === 'focus') {
+    searchImgTagBlock.classList.add('search-box_active');
+    document.getElementById('image-tag').classList.remove('imgtag-input_error');
+  }
   if (event.type === 'blur') searchImgTagBlock.classList.remove('search-box_active');
 }
 searchImgTagField.addEventListener('focus', changeSearchIcon);
@@ -772,9 +792,8 @@ const selectLanguage = (event) => {
       showGreetingTrackTitle(selectedLang);
       userNamePlaceholder(selectedLang);
       quoteBtn.removeEventListener('click', () => getQuotesByClickQuoteBtn(selectedLang));
-        //selectQuotesSourceDependOnLangOnLoad(selectedLang);
-        getQuotesByClickQuoteBtn(selectedLang);
-      
+          //selectQuotesSourceDependOnLangOnLoad(selectedLang);
+          getQuotesByClickQuoteBtn(selectedLang);
       translateTodoApp(selectedLang);
 
       // Translate default city input
@@ -793,29 +812,44 @@ selectLangForm.addEventListener('click', selectLanguage);
 // Choose img tags
 const selectImgTagForm = document.forms.tag;
 const selectImgTagInput = selectImgTagForm.imgtag;
-selectImgTagForm.imgtag.value = selectImgTagForm.imgtag.placeholder;
+selectImgTagInput.value = selectImgTagInput.placeholder;
 
 // Hover input tag select
 const hoverTagInput = (event) => {
-  if (event.type === 'mouseenter') selectImgTagForm.imgtag.style.boxShadow = '0 0 6px 1px rgba(255, 255, 255, 0.2)';
-  if (event.type === 'mouseout') selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
-  //if (event.type === 'keydown' && event.code === 'Enter') selectImgTagForm.imgtag.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
+  if (event.type === 'mouseenter') selectImgTagInput.style.boxShadow = '0 0 6px 1px rgba(255, 255, 255, 0.2)';
+  if (event.type === 'mouseout') selectImgTagInput.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
+  //if (event.type === 'keydown' && event.code === 'Enter') selectImgTagInput.style.boxShadow = '0 0 12px 4px rgba(0, 0, 0, 0.2)';
 }
-selectImgTagForm.imgtag.addEventListener('mouseenter', hoverTagInput);
-selectImgTagForm.imgtag.addEventListener('mouseout', hoverTagInput);
+selectImgTagInput.addEventListener('mouseenter', hoverTagInput);
+selectImgTagInput.addEventListener('mouseout', hoverTagInput);
 
-const getTagInfoFromInputEnter = (event) => {
-  if (event.code != 'Enter') return;
-  event.preventDefault();
-  settingsMenuData.tag = selectImgTagForm.imgtag.value;
-  document.querySelector('.search-box').classList.remove('search-box_active');
+// const getTagInfoFromInputEnter = (event) => {
+//   if (event.code != 'Enter') return;
+//   event.preventDefault();
+//   settingsMenuData.tag = selectImgTagInput.value;
+//   document.querySelector('.search-box').classList.remove('search-box_active');
+//   generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
+// }
+
+// const getTagInfoFromInputBlur = () => {
+//   settingsMenuData.tag = selectImgTagInput.value;
+//   generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
+// }
+// selectImgTagInput.addEventListener('keydown', getTagInfoFromInputEnter);
+// selectImgTagInput.addEventListener('blur', getTagInfoFromInputBlur);
+
+const getTagInfoFromInput = (event) => {
+  if (event.type === 'keydown' && event.code != 'Enter') return;
+  if (event.type === 'keydown') {
+    event.preventDefault();
+    document.querySelector('.search-box').classList.remove('search-box_active');
+  }
+  settingsMenuData.tag = selectImgTagInput.value;
+  generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
 }
 
-const getTagInfoFromInputBlur = () => {
-  settingsMenuData.tag = selectImgTagForm.imgtag.value;
-}
-selectImgTagInput.addEventListener('keydown', getTagInfoFromInputEnter);
-selectImgTagInput.addEventListener('blur', getTagInfoFromInputBlur);
+selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
+selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
 
     // Update screen after showing/hiding vidgets
     // const updateScreen = () => {
@@ -878,7 +912,7 @@ setRadioBackAfterReloadPage();
 
   // Set input tag for background image collection accordingly recieved data from LocalStorage (settingsMenuData object)
   const setInputImgTagBackAfterReloadPage = () => {
-    selectImgTagForm.imgtag.placeholder = settingsMenuData.tag;
+    selectImgTagInput.placeholder = settingsMenuData.tag;
     getInfoFromVidgetsInputs();
   }
   window.onload = setInputImgTagBackAfterReloadPage();
@@ -971,7 +1005,7 @@ selectImgTag.classList.add('select-img-tag');
 selectImgTag.name = 'tag';
 let selectImgTagContent = `<p></p>
   <div class="search-box">
-    <input type="text" id="image-tag" name="imgtag" class="imgtag imgtag_hidden">
+    <input type="text" id="image-tag" name="imgtag" class="imgtag-input imgtag-input_hidden">
   </div>`;
 selectImgTag.innerHTML = selectImgTagContent;
 settingsMenu.append(selectImgTag);
