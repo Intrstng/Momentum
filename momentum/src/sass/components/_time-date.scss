@@ -1,19 +1,19 @@
-.time {
-  min-height: 124px;
-  margin-bottom: 40px;
-  @extend %font-primary;
-  font-size: 8rem;
-  letter-spacing: -4px;
-  //@extend %transition-all;
-  @include media-tablet {
-    min-height: 80px;
-    font-size: 6.2rem;
+.main {
+  .time {
+    min-height: 124px;
+    margin-bottom: 40px;
+    @extend %font-primary;
+    font-size: 8rem;
+    letter-spacing: -4px;
+    @include media-tablet {
+      min-height: 80px;
+      font-size: 6.2rem;
+    }
   }
-}
-
-.date {
-  min-height: 28px;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-transform: capitalize;
+  .date {
+    min-height: 28px;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+  }
 }

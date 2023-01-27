@@ -6,36 +6,32 @@
   width: 180px;
   min-height: 180px;  
   text-align: left;
-}
-
-.weather-error {
-  margin-top: -10px;
-}
-
-.description-container {
-  @include flex(flex, flex-start, center);
-  flex-wrap: wrap;
-  column-gap: 12px;
-}
-
-.weather-icon {
-  font-size: 4.4rem;
-}
-
-.city {
-  width: 170px;
-  height: 34px;
-  padding: 5px;
-  font-size: 2rem;
-  line-height: 24px;
-  color: $color-light;  
-  border: 0;
-  outline: 0;
-  border-bottom: 1px solid $color-light;
-  background-color: transparent;
-  &::placeholder {
+  .city {
+    width: 170px;
+    height: 34px;
+    padding: 5px;
     font-size: 2rem;
-    color: $color-light;
-    opacity: .6;
+    line-height: 24px;
+    color: $color-light;  
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid $color-light;
+    background-color: transparent;
+    &::placeholder {
+      font-size: 2rem;
+      color: $color-light;
+      opacity: .6;
+    }
+  }
+  .weather-icon {
+    font-size: 4.4rem;
+  }
+  .weather-error {
+    margin-top: -10px;
+  }
+  .description-container {
+    @include flex(flex, flex-start, center);
+    flex-wrap: wrap;
+    column-gap: 12px;
   }
 }

@@ -1,13 +1,11 @@
 .select-img-tag {
-                //display: flex;
   flex-wrap: nowrap;
   margin-bottom: 6px;
   max-height: 75px;
-            //opacity: 1;
-            display: none;
-                                  max-height: 0;
-                                  opacity: 0;
-                                  transition: max-height 0.3s linear;
+  display: none;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s linear;
   &__line {
       display: none;
     &_active{
@@ -42,7 +40,6 @@
       padding: 5px 5px 5px 8px;
       width: 135px;
       max-height: 25px;
-      //opacity: 1;
       font-family: "Arial", sans-serif;
       font-size: 0.7rem;
       font-weight: bold;

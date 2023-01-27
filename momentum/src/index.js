@@ -515,7 +515,6 @@ const playSelectedTrack = (ev, element = ev.target) => {
     markSelectedTrack('remove');
     playNum = playList.map((elem) => elem.title).indexOf(trackName);
     isPlay = false;
-  console.log('!!!', ev.target.textContent)
     audio.src = playList[playNum].src;
     playAudio();
 }

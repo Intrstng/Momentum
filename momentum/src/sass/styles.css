@@ -635,11 +635,11 @@ body {
   transition: background-image 1s ease-in-out;
 }
 
-.footer .copyright__icon, .footer .copyright__settings, .copyright .todo, .select-img-tag .search-box input[type=text], .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu, .play-item {
+.footer .copyright__icon, .footer .copyright__settings, .copyright .todo, .select-img-tag .search-box input[type=text], .select-lang .lang-radio input[type=radio] + .lang-label:before, .settings-menu .checkbox-ios .checkbox-ios-switch:before, .settings-menu .checkbox-ios .checkbox-ios-switch, .settings-menu .close-settings-btn_hover, .settings-menu, .player .play-item {
   transition: all 0.25s;
 }
 
-.time {
+.main .time {
   font-family: "Arial-MT", sans-serif;
 }
 
@@ -10046,29 +10046,26 @@ body {
   border-radius: 3px;
 }
 
-.play-container {
+.player .play-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 120px;
 }
-
-.play-list {
+.player .play-list {
   text-align: left;
 }
-
-.play-item {
+.player .play-item {
   position: relative;
   padding: 5px 5px 5px 0;
   list-style: none;
   opacity: 0.8;
   cursor: pointer;
 }
-.play-item:hover {
+.player .play-item:hover {
   opacity: 1;
 }
-
-.item-active {
+.player .item-active {
   color: #C5B358;
 }
 
@@ -10083,25 +10080,7 @@ body {
   min-height: 180px;
   text-align: left;
 }
-
-.weather-error {
-  margin-top: -10px;
-}
-
-.description-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  -moz-column-gap: 12px;
-       column-gap: 12px;
-}
-
-.weather-icon {
-  font-size: 4.4rem;
-}
-
-.city {
+.weather .city {
   width: 170px;
   height: 34px;
   padding: 5px;
@@ -10113,36 +10092,49 @@ body {
   border-bottom: 1px solid #FFFFFF;
   background-color: transparent;
 }
-.city::-moz-placeholder {
+.weather .city::-moz-placeholder {
   font-size: 2rem;
   color: #FFFFFF;
   opacity: 0.6;
 }
-.city:-ms-input-placeholder {
+.weather .city:-ms-input-placeholder {
   font-size: 2rem;
   color: #FFFFFF;
   opacity: 0.6;
 }
-.city::placeholder {
+.weather .city::placeholder {
   font-size: 2rem;
   color: #FFFFFF;
   opacity: 0.6;
+}
+.weather .weather-icon {
+  font-size: 4.4rem;
+}
+.weather .weather-error {
+  margin-top: -10px;
+}
+.weather .description-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
 }
 
-.time {
+.main .time {
   min-height: 124px;
   margin-bottom: 40px;
   font-size: 8rem;
   letter-spacing: -4px;
 }
 @media (max-width: 768px) {
-  .time {
+  .main .time {
     min-height: 80px;
     font-size: 6.2rem;
   }
 }
-
-.date {
+.main .date {
   min-height: 28px;
   font-size: 2rem;
   margin-bottom: 20px;
@@ -10325,8 +10317,7 @@ body {
   height: 100%;
   transition: 0.25s;
 }
-
-.track-time {
+.player .track-time {
   display: flex;
   padding: 12px 20px 0;
   margin-bottom: 12px;
@@ -10334,8 +10325,7 @@ body {
   align-items: center;
   font-size: 0.7rem;
 }
-
-.play-list {
+.player .play-list {
   display: none;
   list-style: none;
   padding: 0 14px 12px 25px;
@@ -10343,13 +10333,13 @@ body {
   max-height: 189px;
   overflow: auto;
 }
-.play-list > li {
+.player .play-list > li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
 }
-.play-list .track-title {
+.player .play-list .track-title {
   width: 100%;
 }
 

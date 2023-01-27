@@ -15,8 +15,6 @@
   font-size: 0.8rem;
   @extend %transition-all;
   &_active {
-    //  max-width: 300px;
-    //  height: auto;
     opacity: 1;
     z-index: 1;
     &:after {
