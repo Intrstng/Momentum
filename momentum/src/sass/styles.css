@@ -654,8 +654,6 @@ body {
 }
 
 body {
-  min-width: 480px;
-  min-height: 100vh;
   font-size: 10px;
   color: #FFFFFF;
   text-align: center;
@@ -10330,7 +10328,7 @@ body {
   list-style: none;
   padding: 0 14px 12px 25px;
   margin: 0;
-  max-height: 189px;
+  max-height: 185px;
   overflow: auto;
 }
 .player .play-list > li {

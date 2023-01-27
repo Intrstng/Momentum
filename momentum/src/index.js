@@ -129,7 +129,7 @@ const getRandomNum = (min = 1, max = 20) => {
 
 let randomNum = getRandomNum();
 
-const generateLinkToImg = () => {
+const generateLinkToImgFromGitHub = () => {
   //console.log("in", randomNum);
   randomNum < 10 ? (randomNum = randomNum.toString().padStart(2, '0')) : randomNum;
   // randomNum < 10 ? (randomNum = `0${randomNum}`) : randomNum;
@@ -137,12 +137,113 @@ const generateLinkToImg = () => {
   return `https://raw.githubusercontent.com/Intrstng/stage1-tasks/assets/images/${getTimeOfDay()}/${randomNum}.webp`;
 }
 
+// Get resolution of API img
+const getImgApiResolution = (src, res = '1080') => {
+  let imgResolution;
+  let resSmallS3, smallS3Value, resThumb, resValue, resSmall, smallValue, resRegular, regularValue, fullValue;
+    if (src === 'unsplash') {
+      resSmallS3 = 90;
+      smallS3Value = 'small_s3';
+        resThumb = 200;
+        resValue = 'thumb';
+          resSmall = 400;
+          smallValue = 'small';
+            resRegular = 1080;
+            regularValue = 'regular';
+              fullValue = 'full';
+    }
+    if (src === 'flickr') {
+      resSmallS3 = 100;
+      smallS3Value = 't';
+        resThumb = 240;
+        resValue = 's';
+          resSmall = 400;
+          smallValue = 'w';
+            resRegular = 1600;
+            regularValue = 'h';
+              fullValue = 'k';
+    }
+  if (res <= resSmallS3) { 
+    imgResolution = smallS3Value;
+  } else if (res <= resThumb) {
+    imgResolution = resValue;
+  } else if (res <= resSmall) {
+    imgResolution = smallValue;
+  } else if (res <= resRegular) {
+    imgResolution = regularValue;
+  } else {
+    imgResolution = fullValue;
+  }
+  return imgResolution;
+}
+
+//My API
+  // const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30`;
+
+// Change background image using API
+  // Using fetch API
+      // const generateLinkToImgFromApi = (tag) => {
+      //   let imgResolution = getImgApiResolution(window.innerWidth);
+      //   !tag ? (tag = getTimeOfDay('en')) : tag;
+
+      //     const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17`;
+      //     fetch(url)
+      //       .then(res => res.json())
+      //       .then(data => {
+      //         console.log('res',imgResolution);
+      //         console.log('urls',data.urls);
+      //         console.log('this url',data.urls[imgResolution]);
+      //       })
+      // }
+
+
+// Change background image using API
+  // Async / await API
+const generateLinkToImgFromApi = async (source, tag) => {
+  !tag ? (tag = getTimeOfDay('en')) : tag;
+  let imgResolution = getImgApiResolution(source, window.innerWidth);
+  //My API for Unsplash
+  // const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30`;
+  // ----- //
+
+  const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17`; 
+  const imgFlickrUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=354ed4fae36485a805f9c98c33f66359&tags=${tag}&extras=url_${imgResolution}&format=json&nojsoncallback=1`;
+  
+  if (source === 'unsplash') {
+    const res = await fetch(imgUnsplashUrl);
+    const data = await res.json();
+    return data.urls[imgResolution];
+  }
+    if (source === 'flickr') {
+      const res = await fetch(imgFlickrUrl);
+      const data = await res.json();
+      const imgDataArray = JSON.parse(JSON.stringify(data)).photos.photo;
+      // Del items with empty url_* links from imgDataArray (empty url_* appears when API data doesn`t have the link for used resolution)
+      const notEmptyImgDataArray = imgDataArray.filter((element) => {
+        return element[`url_${imgResolution}`];
+      });
+      console.log(imgDataArray)
+      console.log(notEmptyImgDataArray)
+       const randomIndexImgDataArray = getRandomNum(0, notEmptyImgDataArray.length);
+       console.log(notEmptyImgDataArray.length)
+       console.log(randomIndexImgDataArray)
+      return notEmptyImgDataArray[randomIndexImgDataArray][`url_${imgResolution}`];
+    }
+}
+
+console.log(generateLinkToImgFromApi('unsplash', 'cars')) //(source, tag)
+
+
+
+
+
+
 // Set background image with a SMOOTH changing
 const setBackgroundImg = () => {
   const img = new Image();
-  img.src = generateLinkToImg();
+  img.src = generateLinkToImgFromGitHub();
   img.onload = () => {
-    document.querySelector('body').style.backgroundImage = `url('${generateLinkToImg()}')`;
+    document.querySelector('body').style.backgroundImage = `url('${generateLinkToImgFromGitHub()}')`;
   }
 }
 window.onload = setBackgroundImg();
