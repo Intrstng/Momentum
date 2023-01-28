@@ -218,6 +218,7 @@ const getImgApiResolution = (src, res = '1080') => {
 // Change background image using API
   // Async / await API
 const generateLinkToImgFromApi = async (source, tag) => {
+  console.log('Check');
   !tag ? (tag = getTimeOfDay('en')) : tag;
   let imgResolution = getImgApiResolution(source, window.innerWidth);
   //My API for Unsplash
@@ -259,8 +260,8 @@ const alertImgTagIncorrectInput = (lang = 'en') => {
   console.log(`${localizationObj['img-tag-error'][lang]}`);
   imgErrorAlert.textContent = `${localizationObj['img-tag-error'][lang]}`;
   imgErrorAlert.classList.add('img-tag-error_active');
-  setTimeout(() => imgErrorAlert.classList.remove('img-tag-error_active'), 8000);
   generateLinkToImgFromApi(settingsMenuData.imageSource, defaultImgTag);
+  setTimeout(() => imgErrorAlert.classList.remove('img-tag-error_active'), 8000);
 }
 
 
@@ -740,10 +741,13 @@ searchImgTagField.addEventListener('blur', changeSearchIcon);
 // Close settings menu by Escape or click outside of settings menu
 let openedSettingsMenu = false;
 const closeMenuByAction = () => {
+  const selectImgTagInput = document.forms.tag.imgtag;
   document.addEventListener('keyup', (event) => {
     // Close settings menu by Escape
     if (event.code === 'Escape' && openedSettingsMenu) {
       showSettingsMenu();
+      selectImgTagInput.removeEventListener('keydown', getTagInfoFromInput);
+      selectImgTagInput.removeEventListener('blur', getTagInfoFromInput);
     }
   });
     // Close settings menu by click outside of settings menu
@@ -751,23 +755,70 @@ const closeMenuByAction = () => {
     if (openedSettingsMenu) {
        const withinBoundaries = event.composedPath().includes(settingsMenu);
        if (!withinBoundaries && !(event.target == settingsMenuOpenBtn)) {
+        selectImgTagInput.removeEventListener('keydown', getTagInfoFromInput);
+        selectImgTagInput.removeEventListener('blur', getTagInfoFromInput);
           showSettingsMenu();
         }
     }
   });
 }
 
-// Close settings menu
+
+function addBlurListenerToTagInput() {
+  const selectImgTagInput = document.forms.tag.imgtag;
+  console.log('blur added');
+  selectImgTagInput.addEventListener('blur', getTagInfoFromInput)
+}
+
+function getTagInfoFromInput (event) {
+  if (event.type === 'keydown' && event.code != 'Enter') return;
+  const selectImgTagInput = document.forms.tag.imgtag;
+  if (event.code === 'Enter') {
+        event.preventDefault();
+    this.removeEventListener(event.type, getTagInfoFromInput);
+  }
+  selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
+  selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
+
+
+
+  if (event.type === 'keydown') {
+    event.preventDefault();
+    document.querySelector('.search-box').classList.remove('search-box_active');
+    selectImgTagInput.removeEventListener('blur', getTagInfoFromInput);
+    selectImgTagInput.addEventListener('focus', addBlurListenerToTagInput);
+  }
+  settingsMenuData.tag = selectImgTagInput.value;
+  generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
+}
+
+// selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
+// selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
+
+
+
+
+// Show / close settings menu
 
 const showSettingsMenu = () => {
+    // Choose img tags
+  const selectImgTagForm = document.forms.tag;
+  const selectImgTagInput = selectImgTagForm.imgtag;
+    // Show / close Settings menu by one button
   if (!openedSettingsMenu) {
     openedSettingsMenu = true;
+    selectImgTagInput.value = selectImgTagInput.placeholder;
     settingsMenu.classList.add('settings-menu_active');
+    // Remove EventListeners (also see fn closeMenuByAction)
+    selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
+    selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
     closeMenuByAction();
         getInputsPosInLocalStorage();
   } else {
     openedSettingsMenu = false;
     settingsMenu.classList.remove('settings-menu_active');
+    selectImgTagInput.removeEventListener('keydown', getTagInfoFromInput);
+    selectImgTagInput.removeEventListener('blur', getTagInfoFromInput);
         setInputsPosInLocalStorage();
   }
 
@@ -809,11 +860,6 @@ const selectLanguage = (event) => {
 }
 selectLangForm.addEventListener('click', selectLanguage);
 
-// Choose img tags
-const selectImgTagForm = document.forms.tag;
-const selectImgTagInput = selectImgTagForm.imgtag;
-selectImgTagInput.value = selectImgTagInput.placeholder;
-
 // Hover input tag select
 const hoverTagInput = (event) => {
   if (event.type === 'mouseenter') selectImgTagInput.style.boxShadow = '0 0 6px 1px rgba(255, 255, 255, 0.2)';
@@ -822,34 +868,6 @@ const hoverTagInput = (event) => {
 }
 selectImgTagInput.addEventListener('mouseenter', hoverTagInput);
 selectImgTagInput.addEventListener('mouseout', hoverTagInput);
-
-// const getTagInfoFromInputEnter = (event) => {
-//   if (event.code != 'Enter') return;
-//   event.preventDefault();
-//   settingsMenuData.tag = selectImgTagInput.value;
-//   document.querySelector('.search-box').classList.remove('search-box_active');
-//   generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
-// }
-
-// const getTagInfoFromInputBlur = () => {
-//   settingsMenuData.tag = selectImgTagInput.value;
-//   generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
-// }
-// selectImgTagInput.addEventListener('keydown', getTagInfoFromInputEnter);
-// selectImgTagInput.addEventListener('blur', getTagInfoFromInputBlur);
-
-const getTagInfoFromInput = (event) => {
-  if (event.type === 'keydown' && event.code != 'Enter') return;
-  if (event.type === 'keydown') {
-    event.preventDefault();
-    document.querySelector('.search-box').classList.remove('search-box_active');
-  }
-  settingsMenuData.tag = selectImgTagInput.value;
-  generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
-}
-
-selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
-selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
 
     // Update screen after showing/hiding vidgets
     // const updateScreen = () => {
