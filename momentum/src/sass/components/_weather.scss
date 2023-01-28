@@ -1,16 +1,29 @@
 .weather {
   @include flex(flex, space-between, flex-start);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
   flex-direction: column;
   row-gap: 5px;
   width: 180px;
   min-height: 180px;  
   text-align: left;
+  @include media-small-desktop {
+    font-size: 0.7rem;
+  }
+  @include media-tablet {
+    min-height: 150px;
+  }
+  @include media-mobile {
+    min-height: 120px;
+    font-size: 0.7rem;
+    letter-spacing: normal;
+  }
   .city {
     width: 170px;
     height: 34px;
     padding: 5px;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
     line-height: 24px;
     color: $color-light;  
     border: 0;
@@ -20,18 +33,47 @@
     &::placeholder {
       font-size: 2rem;
       color: $color-light;
-      opacity: .6;
+      opacity: 0.6;
+    }
+    @include media-tablet {
+      width: 130px;
+      height: 28px;
+      font-size: 1.5rem;
+    }
+    @include media-mobile {
+      width: 90px;
+      height: 24px;
+      font-size: 1.2rem;
     }
   }
   .weather-icon {
     font-size: 4.4rem;
+    @include media-small-desktop {
+      font-size: 4rem;
+    }
+    @include media-tablet {
+      font-size: 3rem;
+    }
+    @include media-mobile {
+      font-size: 2.8rem;
+    }
   }
   .weather-error {
     margin-top: -10px;
+    color: rgba(255, 0, 0, 0.7);
   }
   .description-container {
     @include flex(flex, flex-start, center);
     flex-wrap: wrap;
     column-gap: 12px;
+    .temperature {
+      margin-right: 5px;
+    }
+  }
+  @include media-tablet {
+    width: 140px;
+  }
+  @include media-mobile {
+    width: 100px;
   }
 }

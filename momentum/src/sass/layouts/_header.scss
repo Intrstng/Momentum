@@ -4,4 +4,8 @@
   height: 35vh;
   min-height: 220px;  
   padding: 20px;
+  @include media-tablet {
+    height: 25vh;
+    min-height: 220px; 
+  }
 }

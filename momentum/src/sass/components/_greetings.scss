@@ -3,10 +3,14 @@
   flex-wrap: wrap;
   min-height: 48px;
   width: 100vw;
-  font-size: 3rem;
-  @include media-tablet {
+  font-size: 2.9rem;
+  letter-spacing: 0.1rem;
+  @include media-small-desktop {
     min-height: 40px;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+  }
+  @include media-tablet {
+    font-size: 1.6rem;
   }
   .greeting-container {
     flex: 1;  
@@ -20,7 +24,8 @@
     flex: 1;
     max-width: 50%;
     padding: 10px;
-    font-size: 3rem;
+    font-size: 2.9rem;
+    letter-spacing: 0.1rem;
     text-align: left;
     color: $color-light;
     background-color: transparent;
@@ -30,9 +35,13 @@
       color: $color-light;
       opacity: 0.6;
     }
+    @include media-small-desktop {
+      font-size: 2.5rem;
+    }
     @include media-tablet {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       padding: 5px;
+      letter-spacing: normal;
     }
   }
 }

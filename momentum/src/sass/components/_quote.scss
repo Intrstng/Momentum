@@ -1,10 +1,16 @@
 .quote {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   letter-spacing: 1px;
+  @include media-small-desktop {
+    font-size: 0.8rem;
+  }
   .change-quote {
     margin-bottom: 30px;
     // background-image: url('../../../assets/svg/reload.svg');
-    @include background-img('svg/reload.svg'); 
+    @include background-img('svg/reload.svg');
+    @include media-small-desktop {
+      margin-bottom: 25px;
+    }
   }
   .quote-block {
     min-height: 30px;
@@ -12,5 +18,8 @@
   }
   .author {
     min-height: 20px;
+    @include media-tablet {
+      margin-bottom: 25px;
+    }
   }
 }

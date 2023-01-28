@@ -1,6 +1,7 @@
 .copyright {
   .todobtn {
     color: $color-selected;
+    font-size: 1.7rem;
     margin-left: 0.7rem;
     transition: transform 0.2s ease,
                 color 0.2s,
@@ -17,6 +18,9 @@
        color: #BEA732;
       }
     }
+    @include media-small-desktop {
+      font-size: 1.5rem;
+    }
   }
   .todo {
     display: flex;
@@ -29,11 +33,11 @@
     right: 0;
     bottom: 0;
     width: 90vw;
-    height: 88vh;
+    height: 89vh;
     margin: 0 auto;
     padding-bottom: 2%;
     background-color: rgba(6, 90, 82, 0.85);
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Architects Daughter', cursive, 'Arial-MT';
     font-size: 2.4rem;
     border-radius: 2rem;
     overflow: auto;
@@ -50,9 +54,16 @@
       align-items: center;
       h2 {
         color: #eeeeee;
-        margin: 0 0 1% 4.2%;
+        margin: 0 0 20px 80px;
         padding-top: 2%;
         font-size: 3rem;
+        @include media-small-desktop {
+          margin-left: 52px;
+          letter-spacing: 0.1rem;
+        }
+        @include media-tablet {
+          margin: 40px 0 20px 55px; 
+        }
       }
       .todo-close-btn {
         margin-right: 3%;
@@ -69,6 +80,13 @@
           &:active {
             color: $color-player;
           }
+        }
+        @include media-small-desktop {
+          margin-bottom: 20px; 
+        }
+        @include media-tablet {
+          align-self: flex-start;
+          margin: 40px 40px 0 0; 
         }
       }
     }
@@ -88,7 +106,8 @@
     }
     .btn-todo {
       max-width: 150px;
-      margin-left: 5%;
+      margin-left: 90px;
+      margin-bottom: 40px;
       &_hover {
         transition: all 0.2s;
         &:hover {
@@ -102,13 +121,17 @@
           box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
         }
       }
+      @include media-small-desktop {
+        margin-left: 65px;
+        margin-bottom: 30px;
+      }
     }
     &__field {
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
       margin-top: 20px;
-      margin-left: 5%;
+      margin: 0 100px;
       .new-todo-note {
         & > p {
           margin: 0;
@@ -139,6 +162,17 @@
           opacity: 0;
           z-index: -2;
         }
+        @include media-small-desktop {
+          width: 250px;
+          height: 250px;
+          font-size: 1.4rem;
+        }
+        @include media-tablet {
+          font-size: 1.3rem;
+        }
+      }
+      @include media-tablet {
+        margin: 0 90px;
       }
     }
     &__note {
@@ -157,7 +191,8 @@
       padding: 3rem 1.5rem 0.9rem 2rem;
       max-width: 270px;
       min-height: 210px;
-      font-family: 'Architects Daughter', cursive;
+      font-family: 'Arial' sans-serif;
+      font-style: italic;
       box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.75);
       font-size: 1.3rem;
       font-style: italic;
@@ -167,8 +202,20 @@
       position: relative;
       overflow: auto;
       transition: all 0.2s;
+      &::placeholder {
+        font-family: 'Architects Daughter', cursive;
+      }
       &:hover {
         box-shadow: 0px 10px 18px 0px rgba(0, 0, 0, 0.75);
+      }
+      @include media-small-desktop {
+        padding: 2.7rem 1.1rem 0.9rem 1.6rem;
+        max-width: 250px;
+        min-height: 205px;
+      }
+      @include media-tablet {
+        padding: 3.2rem 1.1rem 0.7rem 1.6rem;
+        font-size: 1.2rem;
       }
     }
     .todo-btn-ok {
@@ -192,6 +239,15 @@
           transform: scale(0.97);
         }
       }
+      @include media-small-desktop {
+        right: 17%;
+      }
+      @include media-tablet {
+        width: 26px;
+        height: 26px;
+        top: 7%;
+        right: 18%;
+      }
     }
     .todo-btn-close {
       position: absolute;
@@ -211,6 +267,18 @@
           transform: scale(0.97);
         }
       }
+      @include media-small-desktop {
+        right: 8%;
+      }
+      @include media-tablet {
+        width: 26px;
+        height: 26px;
+        top: 7%;
+        right: 6%;
+      }
     }
+    // @include media-tablet {
+    //   height: 75vh;
+    // }
   }
 }

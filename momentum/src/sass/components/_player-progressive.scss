@@ -29,6 +29,9 @@
       border-radius: 3px;
       transition: 0.25s;
     }
+    @include media-tablet {
+      width: 90%;
+    }
   }
   .controls {
     display: flex;
@@ -43,7 +46,14 @@
     .track-name {
       padding: 0 8px;
       max-width: 160px;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
+      @include media-tablet {
+        max-width: 315px;
+        width: 315px;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.5rem 0 0.8rem;
+        order: 3;
+      }
     }
     .play-container {
       display: flex;
@@ -71,11 +81,24 @@
           outline: 0;  
           transform: scale(1.1);
         }
+        @include media-mobile {
+          width: 23px;
+          height: 23px;
+          background-size: 23px 23px;
+        }
       }
       .play {
         width: 32px;
         height: 32px;
         background-size: 32px 32px;
+        @include media-mobile {
+          width: 28px;
+          height: 28px;
+          background-size: 28px 28px;
+        }
+      }
+      @include media-mobile {
+        width: 82px;
       }
     }
     .volume-container {
@@ -101,7 +124,19 @@
           height: 100%;
           transition: 0.25s;
         }
+        @include media-tablet {
+          order: 2;
+        }
+        @include media-mobile {
+          width: 70px;
+        }
       }
+      @include media-tablet {
+        gap: 0;
+      }
+      }
+      @include media-tablet {
+        flex-wrap: wrap;
       }
     }
   .track-time {
@@ -127,6 +162,23 @@
     }
     .track-title {
       width: 100%;
+      padding-right: 0.5rem;
+      @include media-tablet {
+        font-size: 0.8rem;
+      }
     }
+    .track-duration {
+      @include media-tablet {
+        font-size: 0.8rem;
+      }
+    }
+    @include media-tablet {
+      padding: 0 12px 12px 23px;
+      max-height: 182px;
+    }
+  }
+  @include media-tablet {
+    width: 350px;
+    margin-right: 20px;
   }
 }

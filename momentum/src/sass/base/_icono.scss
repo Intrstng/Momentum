@@ -1433,6 +1433,9 @@ $border-left-color_2: inherit;
 	margin: 4px 10px 4px 11px;
 	margin: 4px 14px 4px 7px;
 	margin: 4px 16px 4px 5px;
+	@include media-mobile {
+		padding: 5px 3px;
+	}
 }
 .icono-youtube {
 	border: 2px solid;
@@ -2458,7 +2461,10 @@ $border-left-color_2: inherit;
 	border-bottom-color: $border-bottom-color_1;
 	padding: 6px 3px;
 	box-shadow: inset 4px 0;
-	margin: 4px 10px 4px 11px;
+	margin: 4px 16px 4px 5px;
+	@include media-mobile {
+		padding: 5px 3px;
+	}
 }
 .icono-calendar {
 	width: 32px;

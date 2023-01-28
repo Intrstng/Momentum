@@ -93,7 +93,7 @@ const getTimeOfDay = (lang = 'en') => {
   else if (hour < 18) {
     return `${localizationObj['greeting-afternoon'][lang]}`;
   } else {
-    return `${localizationObj['greeting-night'][lang]}`;
+    return `${localizationObj['greeting-evening'][lang]}`;
   }
 }
 const showGreeting = (lang = 'en') => {
@@ -218,8 +218,8 @@ const getImgApiResolution = (src, res = '1080') => {
 // Change background image using API
   // Async / await API
 const generateLinkToImgFromApi = async (source, tag) => {
-  console.log('Check');
   !tag ? (tag = getTimeOfDay('en')) : tag;
+  console.log('Selected image tag:', tag);
   let imgResolution = getImgApiResolution(source, window.innerWidth);
   //My API for Unsplash
   // const imgUnsplashUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tag}&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30`;
@@ -752,7 +752,7 @@ const closeMenuByAction = () => {
 // Return blur to image tag input (because press Enter removes blur from image tag input - see getTagInfoFromInput)
 function addBlurListenerToTagInput() {
   const selectImgTagInput = document.forms.tag.imgtag;
-  selectImgTagInput.addEventListener('blur', getTagInfoFromInput)
+  selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
 }
 // Getting data from image tag input by Enter or blur
 function getTagInfoFromInput (event) {
@@ -763,6 +763,7 @@ function getTagInfoFromInput (event) {
     document.querySelector('.search-box').classList.remove('search-box_active');
     //this.removeEventListener(event.type, getTagInfoFromInput);
     this.removeEventListener('blur', getTagInfoFromInput);
+    selectImgTagInput.classList.remove('imgtag-input_error');
   }
   selectImgTagInput.addEventListener('focus', addBlurListenerToTagInput);
   settingsMenuData.tag = selectImgTagInput.value;

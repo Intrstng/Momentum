@@ -1,12 +1,19 @@
 .main {
   .img-tag-error {
     @extend %font-primary;
-    font-size: 1.1rem;
+    width: 60%;
+    height: 44px;
+    font-size: 1.3rem;
     font-style: italic;
     margin-bottom: 10px;
     opacity: 0;
     z-index: -2;
     @extend %transition;
+    @include media-small-desktop {
+      width: 50%;
+      font-size: 0.9rem;
+      margin: 0;
+    }
     &_active {
       opacity: 0.8;
       z-index: 2;
