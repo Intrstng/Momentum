@@ -662,20 +662,6 @@ const selectImgSrcForm = document.forms.src;
   const selectImgSrcFormItems = selectImgSrcForm.querySelectorAll('.select-tag__list__item');
 let openedImgSrcField = false;
 let openedImgTagBlock = false;
-
-// Show / hide img tag select block
-      // const showImgTagBlock = (e) => {
-      //   if (!openedImgTagBlock && (e.target.dataset.source == 'unsplash' || e.target.dataset.source == 'flickr')) {
-      //     openedImgTagBlock = true;
-      //     document.forms.tag.classList.add('select-img-tag_active');
-      //     document.querySelector('.select-img-tag__line').classList.add('select-img-tag__line_active');
-      //   };
-      //   if (openedImgTagBlock && (e.target.dataset.source == 'github')) {
-      //     openedImgTagBlock = false;
-      //     document.forms.tag.classList.remove('select-img-tag_active');
-      //     document.querySelector('.select-img-tag__line').classList.remove('select-img-tag__line_active');
-      //   };
-      // }
       
 // Show / hide img tag select block
 const showImgTagBlock = () => {
@@ -763,40 +749,25 @@ const closeMenuByAction = () => {
   });
 }
 
-
+// Return blur to image tag input (because press Enter removes blur from image tag input - see getTagInfoFromInput)
 function addBlurListenerToTagInput() {
   const selectImgTagInput = document.forms.tag.imgtag;
-  console.log('blur added');
   selectImgTagInput.addEventListener('blur', getTagInfoFromInput)
 }
-
+// Getting data from image tag input by Enter or blur
 function getTagInfoFromInput (event) {
   if (event.type === 'keydown' && event.code != 'Enter') return;
   const selectImgTagInput = document.forms.tag.imgtag;
   if (event.code === 'Enter') {
-        event.preventDefault();
-    this.removeEventListener(event.type, getTagInfoFromInput);
-  }
-  selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
-  selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
-
-
-
-  if (event.type === 'keydown') {
     event.preventDefault();
     document.querySelector('.search-box').classList.remove('search-box_active');
-    selectImgTagInput.removeEventListener('blur', getTagInfoFromInput);
-    selectImgTagInput.addEventListener('focus', addBlurListenerToTagInput);
+    //this.removeEventListener(event.type, getTagInfoFromInput);
+    this.removeEventListener('blur', getTagInfoFromInput);
   }
+  selectImgTagInput.addEventListener('focus', addBlurListenerToTagInput);
   settingsMenuData.tag = selectImgTagInput.value;
   generateLinkToImgFromApi(settingsMenuData.imageSource, settingsMenuData.tag);
 }
-
-// selectImgTagInput.addEventListener('keydown', getTagInfoFromInput);
-// selectImgTagInput.addEventListener('blur', getTagInfoFromInput);
-
-
-
 
 // Show / close settings menu
 
@@ -852,7 +823,6 @@ const selectLanguage = (event) => {
         document.querySelector('.city').value = `${localizationObj['default-city'][selectedLang]}`;
         getCityLocalStorage();
       }
-    
       getWeather(selectedLang);
       translateSettingsMenu(selectedLang);
     }
@@ -1372,12 +1342,3 @@ const setLangStorage = () => {
   localStorage.setItem('lang', settingsMenuData.language);
 }
 window.addEventListener('beforeunload', setLangStorage);
-
-
-
-
-
-
-
-
-//const unsplashApiURL = 'https://api.unsplash.com/search/photos/&query='+word+'&per_page=9&client_id=lXBJOju1hoGHQf4hdVXExR96_QM2EU7UiNH23xWaU30'
