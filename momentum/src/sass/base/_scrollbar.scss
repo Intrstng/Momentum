@@ -1,6 +1,10 @@
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
+  @include media-mobile {
+    width: 0;
+    height: 0;
+  }
   }
 ::-webkit-scrollbar-track {
     background: $color-light;
