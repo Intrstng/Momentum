@@ -81,7 +81,7 @@
 
 .owf-border {
   padding: 0.2em 0.25em 0.15em;
-  border: solid 0.08em #eeeeee;
+  border: solid 0.08em #EEE;
   border-radius: 0.1em;
 }
 
@@ -10634,6 +10634,11 @@ body {
     height: 4px;
   }
 }
+@media (max-width: 320px) {
+  .player .controls .volume-container .volume-slider {
+    display: none;
+  }
+}
 @media (max-width: 768px) {
   .player .controls .volume-container {
     gap: 0;
@@ -10720,6 +10725,11 @@ body {
   .player .play-list {
     padding: 0 2px 8px 14px;
     max-height: 172px;
+  }
+}
+@media (max-width: 320px) {
+  .player .play-list {
+    max-height: 165px;
   }
 }
 @media (max-width: 768px) {
@@ -10902,7 +10912,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 25%/50%;
   vertical-align: top;
-  background: #eee;
+  background: #EEEEEE;
 }
 .settings-menu .checkbox-ios .checkbox-ios-switch:before {
   content: "";
@@ -11086,7 +11096,7 @@ body {
   outline: none;
   border: 0;
   border-radius: 0.5rem;
-  background-color: #eee;
+  background-color: #EEEEEE;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
   position: relative;
 }
@@ -11112,7 +11122,7 @@ body {
 .select-src .select-tag__list__item {
   padding: 5px 5px 5px 12px;
   font-size: 0.7rem;
-  background-color: #eee;
+  background-color: #EEEEEE;
   color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
   box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.2);
@@ -11246,7 +11256,7 @@ body {
   outline: none;
   border: 0;
   border-radius: 0.5rem;
-  background-color: #eee;
+  background-color: #EEEEEE;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
 }
 .select-img-tag .search-box .imgtag-input_error {
@@ -11374,7 +11384,7 @@ body {
   align-items: center;
 }
 .copyright .todo__head h2 {
-  color: #eeeeee;
+  color: #EEEEEE;
   margin: 0 0 20px 80px;
   padding-top: 2%;
   font-size: 3rem;
@@ -11428,7 +11438,7 @@ body {
 }
 .copyright .todo .btn {
   background-color: #FF7F50;
-  color: #eeeeee;
+  color: #EEEEEE;
   font-family: "Arial", "Helvetica", sans-serif;
   font-weight: bold;
   letter-spacing: 0.5px;
@@ -11526,6 +11536,14 @@ body {
     height: 135px;
     padding: 0.7rem 0.4rem 0.4rem 1rem;
     font-size: 0.9rem;
+  }
+}
+@media (max-width: 320px) {
+  .copyright .todo__field .new-todo-note {
+    width: 110px;
+    height: 110px;
+    padding: 0.6rem 0.4rem 0.4rem 0.7rem;
+    font-size: 0.7rem;
   }
 }
 @media (max-width: 768px) {

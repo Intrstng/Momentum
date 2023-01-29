@@ -145,6 +145,9 @@
           width: 65px;
           height: 4px;
         }
+        @include media-mobile-extra-small {
+          display: none;
+        }
       }
       @include media-tablet {
         gap: 0;
@@ -214,6 +217,9 @@
     @include media-mobile-small {
       padding: 0 2px 8px 14px;
       max-height: 172px;
+    }
+    @include media-mobile-extra-small {
+      max-height: 165px;
     }
   }
   @include media-tablet {

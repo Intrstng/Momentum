@@ -23,3 +23,7 @@
 @mixin media-mobile-small {
   @media (max-width: $mobile-small-width) { @content; }
 }
+
+@mixin media-mobile-extra-small {
+  @media (max-width: $mobile-extra-small-width) { @content; }
+}

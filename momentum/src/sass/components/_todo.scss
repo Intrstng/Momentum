@@ -104,7 +104,7 @@
     }
     .btn {
       background-color: #FF7F50;
-      color: $color-checkbox-bgnds;
+      color: $color-checkbox-bgnd;
       font-family: 'Arial', 'Helvetica', sans-serif;
       font-weight: bold;
       letter-spacing: 0.5px;
@@ -195,6 +195,12 @@
           height: 135px;
           padding: 0.7rem 0.4rem 0.4rem 1rem;
           font-size: 0.9rem;
+        }
+        @include media-mobile-extra-small {
+          width: 110px;
+          height: 110px;
+          padding: 0.6rem 0.4rem 0.4rem 0.7rem;
+          font-size: 0.7rem;
         }
       }
       @include media-tablet {
