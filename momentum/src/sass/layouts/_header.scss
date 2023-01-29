@@ -6,6 +6,9 @@
   padding: 20px;
   @include media-tablet {
     height: 25vh;
-    min-height: 220px; 
+  }
+  @include media-tablet {
+    height: 25vh;
+    min-height: 170px; 
   }
 }

@@ -4,12 +4,18 @@
   & > p {
     margin-bottom: 10px;
     font-weight: bold;
+    @include media-mobile {
+      font-size: 0.7rem;
+    }
   }
   & > label {
     display: inline-flex;
     align-items: center;
     user-select: none;
     margin-left: 25px;
+    @include media-mobile {
+      margin-left: 10px;
+    }
   }
 }
   .checkbox-ios {
@@ -22,7 +28,7 @@
     position: relative;
     font-size: 0.8rem;
     user-select: none;
-     .checkbox-ios-switch {
+    .checkbox-ios-switch {
       position: relative;	
       display: inline-block;
       box-sizing: border-box;			
@@ -33,18 +39,27 @@
       vertical-align: top;
       background: #eee;
       @extend %transition-all;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 5px;	
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: $color-light;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-      @extend %transition-all;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 5px;	
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: $color-light;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+        @extend %transition-all;
+        @include media-mobile {
+          width: 10px;	
+          height: 10px;
+          left: 4px;
+        }
+      }
+    @include media-mobile {
+      width: 32px;	
+      height: 18px;
     }
   }
     input[type="checkbox"] {
@@ -81,8 +96,11 @@
       &:checked {
         + {
           .checkbox-ios-switch {
-          &:before {
-          transform:translateX(17px);
+            &:before {
+            transform:translateX(17px);
+            @include media-mobile {
+              transform:translateX(13px);
+            }
             }
            }
           }
@@ -117,6 +135,12 @@
             }
           }
       }
+    }
+    @include media-mobile {
+      font-size: 0.7rem;
+      width: 210px;
+      height: 22px;
+      line-height: 2.2rem;
     }
   }
 }

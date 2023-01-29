@@ -2,9 +2,12 @@
   display: flex;
   flex-wrap: nowrap;
   & > p {
-  align-self: flex-start;
-  font-weight: bold;
-  flex-basis: 50%;
+    align-self: flex-start;
+    font-weight: bold;
+    flex-basis: 50%;
+    @include media-mobile {
+      font-size: 0.7rem;
+  }
   }
   .lang-radio {
     &:first-of-type {
@@ -38,6 +41,11 @@
             cursor: pointer;
             text-align: center;
             @extend %transition-all;
+            @include media-mobile {
+              width: 1rem;
+              height: 1rem;
+              top: -1.5rem;
+            }
           }
         }
       }
@@ -47,6 +55,9 @@
             &:before {
               background-color: $color-checkbox;
               box-shadow: inset 0 0 0 2.5px $color-checkbox-bgnd;
+              @include media-mobile {
+                box-shadow: inset 0 0 0 2px $color-checkbox-bgnd;
+              }
             }
           }
         }
@@ -68,10 +79,17 @@
               box-shadow: inset 0 0 0 2.5px $color-checkbox-bgnd;
               border-color: $color-checkbox-bgnd;
               background: $color-checkbox-bgnd;
+              @include media-mobile {
+                box-shadow: inset 0 0 0 2px $color-checkbox-bgnd;
+              }
             }
           }
         }
       }
+    }
+    @include media-mobile {
+      font-size: 0.6rem;
+      padding-top: 22px;
     }
   }
 }

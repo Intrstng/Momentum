@@ -71,10 +71,20 @@
   left: 20px;
   // background-image: url('../../../assets/svg/slider-prev.svg');
   @include background-img('svg/slider-prev.svg');
+  @include media-mobile {
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+  }
 }
 
 .slide-next {
   right: 20px;
   // background-image: url('../../../assets/svg/slider-next.svg');
   @include background-img('svg/slider-next.svg');
+  @include media-mobile {
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+  }
 }

@@ -5,6 +5,9 @@
     padding-right: 5px;
     width: 125px;
     font-weight: bold;
+    @include media-mobile {
+      font-size: 0.7rem;
+    }
   }
   .select-tag {
     width: 135px;
@@ -31,7 +34,6 @@
       &_active {
         margin-bottom: 6px;
         padding-left: 0;    
-        width: 135px;
         max-height: 75px;
                       display: block;
                       opacity: 1;
@@ -55,6 +57,13 @@
           background-color: #32CD32;
           color: rgb(255, 255, 255);
         }
+        @include media-mobile {
+          font-size: 0.6rem;
+          padding: 4px 4px 4px 12px;
+        }
+      }
+      @include media-mobile {
+        width: 105px;
       }
     }
     &:before {
@@ -68,6 +77,10 @@
       height: 14px;
       background: url('../../assets/svg/bottom-chevron.svg') no-repeat;
       background-size: cover;
+      @include media-mobile {
+        width: 12px;
+        height: 12px;
+      }
     }
     &_active {
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -89,6 +102,11 @@
           background-size: cover;
       }
     }  
+  }
+  @include media-mobile {
+    font-size: 0.6rem;
+    width: 105px;
+    padding: 4px 0px 4px 8px;
   }
  }
 }

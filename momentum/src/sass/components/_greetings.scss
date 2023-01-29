@@ -12,12 +12,18 @@
   @include media-tablet {
     font-size: 1.6rem;
   }
+  @include media-mobile {
+    font-size: 1.3rem;
+  }
   .greeting-container {
     flex: 1;  
     padding: 10px;
     text-align: right;
     @include media-tablet {
       padding: 5px;
+    }
+    @include media-mobile {
+      padding: 0 5px 0 0;
     }
   }
   input[type="text"] {
@@ -42,6 +48,10 @@
       font-size: 1.6rem;
       padding: 5px;
       letter-spacing: normal;
+    }
+    @include media-mobile {
+      font-size: 1.4rem;
+      padding: 0 0 0 5px;
     }
   }
 }

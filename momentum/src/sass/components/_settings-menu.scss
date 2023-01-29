@@ -52,6 +52,9 @@
         opacity: 0.8;
       }
     }
+    @include media-mobile {
+      margin: 0 0 8px 0;
+    }
   }
   .select-img-source,
   .search-box {
@@ -66,5 +69,17 @@
     background-color: rgba(83, 83, 83, 0.7);
     transform: scaleY(0.5);
     margin-bottom: 18px;
+    &:last-of-type {
+      @include media-mobile {
+        display: none;
+      }
+    }
+    @include media-mobile {
+      margin-bottom: 8px;
+    }
+  }
+  @include media-mobile {
+    max-width: 250px;
+    padding: 10px 15px 5px;
   }
 }

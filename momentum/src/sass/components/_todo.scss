@@ -21,6 +21,9 @@
     @include media-small-desktop {
       font-size: 1.5rem;
     }
+    @include media-mobile {
+      font-size: 1.3rem;
+    }
   }
   .todo {
     display: flex;
