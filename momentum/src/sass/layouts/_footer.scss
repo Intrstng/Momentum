@@ -52,6 +52,10 @@
           font-size: 0.7rem;
           margin-right: 0.6rem;
         }
+        @include media-mobile-small {
+          font-size: 0.6rem;
+          margin-right: 0.3rem;
+        }
       }
     }
     &__icon {
@@ -61,6 +65,9 @@
       @extend %transition-all;
       @include media-mobile {
         height: 1.3rem;
+      }
+      @include media-mobile-small {
+        height: 1.1rem;
       }
     }
     &__link {
@@ -80,10 +87,19 @@
         @include media-mobile {
           margin-right: 0.7rem;
         }
+        @include media-mobile-small {
+          margin-right: 0.6rem;
+        }
       }
     }
     @include media-tablet {
       width: 91vw;
     }
+    @include media-mobile {
+      width: 87vw;
+    }
+  }
+  @include media-mobile {
+    padding: 0 20px 20px;
   }
 }

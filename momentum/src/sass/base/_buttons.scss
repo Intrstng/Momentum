@@ -13,12 +13,10 @@
   cursor: pointer;
   transition: .3s;  
 }
-
 .change-quote {
   width: 40px;
   height: 40px;
 }
-
 .player-icon,
 .slider-icon,
 .change-quote {
@@ -26,7 +24,6 @@
     opacity: 1;
   }
 }
-
 .player-icon,
 .slider-icon,
 .change-quote {
@@ -36,7 +33,6 @@
     transform: scale(1.1);
   }
 }
-
 .play {
   width: 40px;
   height: 40px;
@@ -44,29 +40,24 @@
   // background-image: url('/intrstng-JSFEPRESCHOOL2022Q4/momentum/assets/svg/play.svg');
   @include background-img('svg/play.svg');
 }
-
 .pause {
   // background-image: url('../../../assets/svg/pause.svg');
   @include background-img('svg/pause.svg');
 }
-
 .play-prev {
   // background-image: url('../../../assets/svg/play-prev.svg');
   @include background-img('svg/play-prev.svg');
 }
-
 .play-next {
   // background-image: url('../../../assets/svg/play-next.svg');
   @include background-img('svg/play-next.svg');
 }
-
 .slider-icon {
   position: absolute;
   top: 50%;
   margin-top: -16px;
   cursor: pointer;
 }
-
 .slide-prev {
   left: 20px;
   // background-image: url('../../../assets/svg/slider-prev.svg');
@@ -74,17 +65,26 @@
   @include media-mobile {
     width: 25px;
     height: 25px;
+    left: 10px;
     background-size: cover;
   }
+  @include media-mobile-small {
+    width: 20px;
+    height: 20px;
+  }
 }
-
 .slide-next {
   right: 20px;
   // background-image: url('../../../assets/svg/slider-next.svg');
   @include background-img('svg/slider-next.svg');
   @include media-mobile {
+    right: 10px;
     width: 25px;
     height: 25px;
     background-size: cover;
+  }
+  @include media-mobile-small {
+    width: 20px;
+    height: 20px;
   }
 }

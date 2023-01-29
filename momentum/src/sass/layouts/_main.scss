@@ -9,4 +9,7 @@
   @include media-tablet {
     height: 45vh; 
   }
+  @include media-mobile {
+    padding: 0 15px;
+  }
 }

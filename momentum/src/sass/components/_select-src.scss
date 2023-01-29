@@ -21,7 +21,7 @@
     outline: none;
     border: 0;
     border-radius: 0.5rem;
-    background-color: #eee;
+    background-color: $color-checkbox-bgnd;
     box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     &__list {
@@ -45,7 +45,7 @@
       &__item {
         padding: 5px 5px 5px 12px;
         font-size: 0.7rem;
-        background-color: #eee;
+        background-color: $color-checkbox-bgnd;
         color:rgba(0, 0, 0, 0.6);
         cursor: pointer;
         box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
@@ -107,6 +107,7 @@
     font-size: 0.6rem;
     width: 105px;
     padding: 4px 0px 4px 8px;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.3);
   }
  }
 }
