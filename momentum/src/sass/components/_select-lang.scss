@@ -7,7 +7,7 @@
     flex-basis: 50%;
     @include media-mobile {
       font-size: 0.7rem;
-  }
+    }
   }
   .lang-radio {
     &:first-of-type {
@@ -32,8 +32,7 @@
             border-radius: 100%;
             border: 1px solid #a4a4a4;
             display: inline-block;
-            width: 1.2rem;
-            height: 1.2rem;
+            @include width-height(1.2rem);
             position: absolute;
             top: -1.9rem;
             left: 0;
@@ -42,8 +41,7 @@
             text-align: center;
             @extend %transition-all;
             @include media-mobile {
-              width: 1rem;
-              height: 1rem;
+              @include width-height(1rem);
               top: -1.5rem;
             }
           }

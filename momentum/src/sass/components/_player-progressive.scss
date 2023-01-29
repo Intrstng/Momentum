@@ -1,9 +1,9 @@
 .player {
   width: 450px;
   background: -webkit-linear-gradient(45deg, rgba(80, 80, 80, 0.5), rgba(159, 161, 175, 0.2));
-  box-shadow: 0 0 20px 0 #000a;
-  font-family: arial;
-  color: white;
+  box-shadow: 0 0 20px 0 rgba($color-black, 0.7);
+  @extend %font-additional;
+  color: $color-light;
   font-size: 0.75em;
   overflow: hidden;
   display: flex;
@@ -15,19 +15,17 @@
   }
   .timeline {
     margin: 0 auto;
-    background: rgb(242, 242, 242);
-    width: 91%;
-    height: 5px;
+    background: $color-timeline;
+    @include width-height(91%, 5px);
     border-radius: 3px;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 2px 10px 0 #0008;
+    box-shadow: 0 2px 10px 0 rgba($color-black, 0.5);
     .progress {
-      background: coral;
-      width: 0%;
-      height: 100%;
+      background: $color-player;
+      @include width-height(0%, 100%);
       border-radius: 3px;
-      transition: 0.25s;
+      @extend %transition-all;
     }
     @include media-tablet {
       width: 90%;
@@ -37,14 +35,10 @@
     }
   }
   .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    @include flex(flex, space-between, stretch);
     padding: 14px 20px 12px;
     & > * {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flex(flex, center, center);
     }
     .track-name {
       padding: 0 8px;
@@ -62,14 +56,11 @@
       }
     }
     .play-container {
-      display: flex;
+      @include flex(flex, space-between, center);
       flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
       width: 92px;
       .player-icon {
-        width: 25px;
-        height: 25px;
+        @include width-height(25px);
         background-size: 25px 25px;
         background-position: center center;
         background-repeat: no-repeat;
@@ -88,18 +79,15 @@
           transform: scale(1.1);
         }
         @include media-mobile {
-          width: 22px;
-          height: 22px;
+          @include width-height(22px);
           background-size: 22px 22px;
         }
       }
       .play {
-        width: 32px;
-        height: 32px;
+        @include width-height(32px);
         background-size: 32px 32px;
         @include media-mobile {
-          width: 27px;
-          height: 27px;
+          @include width-height(27px);
           background-size: 27px 27px;
         }
       }
@@ -123,13 +111,12 @@
         }
       }
       .volume-slider {
-        width: 90px;
-        height: 6px;
+        @include width-height(90px, 6px);
         border-radius: 3px;
-        background: white;
-        box-shadow: 0 0 20px #000a;
+        background: $color-light;
+        box-shadow: 0 0 20px rgba($color-black, 0.7);
         .volume-percentage {
-          background: coral;
+          background: $color-player;
           border-radius: 3px;
           height: 100%;
           transition: 0.25s;
@@ -138,12 +125,10 @@
           order: 2;
         }
         @include media-mobile {
-          width: 70px;
-          height: 5px;
+          @include width-height(70px, 5px);
         }
         @include media-mobile-small {
-          width: 65px;
-          height: 4px;
+          @include width-height(65px, 4px);
         }
         @include media-mobile-extra-small {
           display: none;
@@ -163,11 +148,9 @@
       }
     }
   .track-time {
-    display: flex;
+    @include flex(flex, space-between, center);
     padding: 12px 20px 0;
     margin-bottom: 12px;
-    justify-content: space-between;
-    align-items: center;
     font-size: 0.7rem;
     @include media-mobile-small {
       padding: 10px 0 0;
@@ -226,8 +209,7 @@
     width: 350px;
     margin-right: 20px;
     ::-webkit-scrollbar {
-      width: 4px;
-      height: 0;
+      @include width-height(4px, 0);
     }
   }
   @include media-mobile {

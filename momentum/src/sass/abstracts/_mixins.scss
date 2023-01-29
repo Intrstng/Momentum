@@ -4,6 +4,11 @@
   align-items: $align-items;
 }
 
+@mixin width-height($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
 @mixin background-img($imgpath) {
   background-image: url($path-assets + $imgpath);
 }

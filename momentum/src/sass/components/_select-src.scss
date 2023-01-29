@@ -13,16 +13,16 @@
     width: 135px;
     list-style: none;
     padding: 5px 0px 5px 8px;
-    font-family: "Arial", sans-serif;
+    @extend %font-additional;
     font-size: 0.7rem;
     font-weight: bold;
     letter-spacing: 0.4px;
-    color:rgba(0, 0, 0, 0.6);
+    color:rgba($color-black, 0.6);
     outline: none;
     border: 0;
     border-radius: 0.5rem;
     background-color: $color-checkbox-bgnd;
-    box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 12px 4px rgba($color-black, 0.2);
     position: relative;
     &__list {
       width: 135px;
@@ -38,7 +38,7 @@
                       display: block;
                       opacity: 1;
         list-style: none;
-        box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+        box-shadow:  0 0 6px 1px rgba($color-light, 0.2);
         border-top: none;
         border-radius: 0 0 0.4rem 0.4rem;
       }
@@ -48,14 +48,14 @@
         background-color: $color-checkbox-bgnd;
         color:rgba(0, 0, 0, 0.6);
         cursor: pointer;
-        box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+        box-shadow:  0 0 6px 1px rgba($color-light, 0.2);
         &_active {
-          background-color: #32CD32;
-          color: rgb(255, 255, 255);
+          background-color: $color-checkbox;
+          color: $color-light;
         }
         &:hover {
-          background-color: #32CD32;
-          color: rgb(255, 255, 255);
+          background-color: $color-checkbox;
+          color: $color-light;
         }
         @include media-mobile {
           font-size: 0.6rem;
@@ -73,32 +73,33 @@
       bottom: 0;
       right: 6px;
       margin: auto 0;
-      width: 14px;
-      height: 14px;
-      background: url('../../assets/svg/bottom-chevron.svg') no-repeat;
+      @include width-height(14px);
+      @include background-img('svg/bottom-chevron.svg');
+      background-repeat: no-repeat;
       background-size: cover;
       @include media-mobile {
-        width: 12px;
-        height: 12px;
+        @include width-height(12px);
       }
     }
     &_active {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba($color-black, 0.1);
       border-radius: 0.3rem 0.3rem 0 0;
-      box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+      box-shadow:  0 0 6px 1px rgba($color-light, 0.2);
       &:before {
-      background: url('../../assets/svg/bottom-chevron-active.svg') no-repeat;
-      background-size: cover;
-      transform: rotate(-180deg);
+        @include background-img('svg/bottom-chevron-active.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        transform: rotate(-180deg);
     }
   }
     &_hover {
-      transition: all 0.2s ease-out;
+      @extend %transition-all;
       &:hover {
         cursor: pointer;
-        box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+        box-shadow:  0 0 6px 1px rgba($color-light, 0.2);
         &:before {
-          background: url('../../assets/svg/bottom-chevron-active.svg') no-repeat;
+          @include background-img('svg/bottom-chevron-active.svg');
+          background-repeat: no-repeat;
           background-size: cover;
       }
     }  
@@ -107,7 +108,7 @@
     font-size: 0.6rem;
     width: 105px;
     padding: 4px 0px 4px 8px;
-    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px 4px rgba($color-black, 0.3);
   }
  }
 }

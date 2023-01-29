@@ -1,7 +1,6 @@
 .header {
   @include flex(flex, space-between, flex-start);
-  width: 100%;
-  height: 35vh;
+  @include width-height(100%, 35vh);
   min-height: 220px;  
   padding: 20px;
   @include media-tablet {

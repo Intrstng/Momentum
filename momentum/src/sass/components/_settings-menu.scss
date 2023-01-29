@@ -2,8 +2,8 @@
   max-width: 300px;
   height: auto;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 20px 0 #000a;
+  background: rgba($color-light, 0.7);
+  box-shadow: 0 0 20px 0 rgba($color-black, 0.7);
   position: absolute;
   left: -55px;
   bottom: 48px;
@@ -11,7 +11,7 @@
   z-index: -1;
   padding: 20px 20px 10px;
   text-align: left;
-  color: rgb(83, 83, 83);
+  color: $color-font;
   font-size: 0.8rem;
   @extend %transition-all;
   &_active {
@@ -23,7 +23,7 @@
       left: 70px;
       bottom: -20px;
       border: 10px solid transparent;
-      border-top: 10px solid rgba(255, 255, 255, 0.7);
+      border-top: 10px solid rgba($color-light, 0.7);
       @include media-small-desktop {
         left: 40px;
       }
@@ -31,14 +31,13 @@
         left: 28px;
         bottom: -16px;
         border: 8px solid transparent;
-        border-top: 8px solid rgba(255, 255, 255, 0.8);
+        border-top: 8px solid rgba($color-light, 0.8);
       }
     }
   }
   .close-settings-btn {
-    width: 25px;
-    height: 25px;
-    color: rgb(83, 83, 83);
+    @include width-height(25px);
+    color: $color-font;
     margin-bottom: 20px;
     cursor: pointer;
     &_hover {
@@ -67,7 +66,7 @@
   .line {
     width: 100%;
     height: 1px;
-    background-color: rgba(83, 83, 83, 0.7);
+    background-color: $color-line;
     transform: scaleY(0.5);
     margin-bottom: 18px;
     &:last-of-type {
@@ -89,7 +88,7 @@
     max-width: 250px;
     padding: 10px 15px 5px;
     bottom: 38px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba($color-light, 0.8);
   }
   @include media-mobile-small {
     bottom: 36px;

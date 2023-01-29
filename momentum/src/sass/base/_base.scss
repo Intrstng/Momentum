@@ -8,11 +8,14 @@ body {
   font-size: 10px;
   color: $color-light;
   text-align: center;
-  //overflow: hidden;
-  background-image: url($path-assets + 'img/bg.jpg');
+  @include background-img('img/bg.jpg');
   background-color: $color-dark;
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
   @extend %transition;
+}
+
+@mixin background-img($imgpath) {
+  background-image: url($path-assets + $imgpath);
 }

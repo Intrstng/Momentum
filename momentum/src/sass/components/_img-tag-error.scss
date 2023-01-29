@@ -1,8 +1,7 @@
 .main {
   .img-tag-error {
     @extend %font-primary;
-    width: 60%;
-    height: 44px;
+    @include width-height(60%, 44px);
     font-size: 1.3rem;
     font-style: italic;
     margin-bottom: 10px;

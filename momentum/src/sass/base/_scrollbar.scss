@@ -1,15 +1,12 @@
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  @include width-height(6px);
   @include media-mobile {
-    width: 0;
-    height: 0;
+    @include width-height(0);
   }
   }
 ::-webkit-scrollbar-track {
     background: $color-light;
     border-radius: 3px;
-
   }
 ::-webkit-scrollbar-thumb {
     background: $color-player;

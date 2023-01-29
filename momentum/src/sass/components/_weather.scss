@@ -7,6 +7,7 @@
   width: 180px;
   min-height: 180px;  
   text-align: left;
+  transition: opacity 0.5s ease;
   @include media-small-desktop {
     font-size: 0.7rem;
   }
@@ -19,8 +20,7 @@
     letter-spacing: normal;
   }
   .city {
-    width: 170px;
-    height: 34px;
+    @include width-height(170px, 34px);
     padding: 5px;
     font-size: 1.8rem;
     letter-spacing: 0.1rem;
@@ -36,17 +36,16 @@
       opacity: 0.6;
     }
     @include media-tablet {
-      width: 130px;
-      height: 28px;
+      @include width-height(130px, 28px);
       font-size: 1.5rem;
     }
     @include media-mobile {
-      width: 90px;
-      height: 24px;
+      @include width-height(90px, 24px);
       font-size: 1.2rem;
     }
   }
   .weather-icon {
+    transition: opacity 0.5s ease;
     font-size: 4.4rem;
     @include media-small-desktop {
       font-size: 4rem;
@@ -57,10 +56,19 @@
     @include media-mobile {
       font-size: 2.8rem;
     }
+    &_hidden {
+      opacity: 0;
+    }
   }
   .weather-error {
-    margin-top: -10px;
-    color: rgba(255, 0, 0, 0.7);
+    transition: opacity 0.5s ease;
+    font-size: 0.9rem;
+    margin-top: -40px;
+    color: $color-error;
+    opacity: 0;
+    &_active {
+      opacity: 1;
+    }
   }
   .description-container {
     @include flex(flex, flex-start, center);
@@ -68,6 +76,19 @@
     column-gap: 12px;
     .temperature {
       margin-right: 5px;
+    }
+    &_hidden {
+      opacity: 0;
+    }
+  }
+  .wind {
+    &_hidden {
+      opacity: 0;
+    }
+  }
+  .humidity {
+    &_hidden {
+      opacity: 0;
     }
   }
   @include media-tablet {

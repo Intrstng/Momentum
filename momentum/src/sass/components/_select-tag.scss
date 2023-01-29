@@ -28,18 +28,18 @@
       bottom: 0;
       right: 5px;
       margin: auto 0;
-      width: 16px;
-      height: 16px;
-      background: url('../../assets/svg/search.svg') no-repeat;
+      @include width-height(16px);
+      @include background-img('svg/search.svg');
+      background-repeat: no-repeat;
       background-size: cover;
       @include media-mobile {
-        width: 13px;
-        height: 13px;
+        @include width-height(13px);
       }
     }  
     &_active {
         &:before {
-          background: url('../../assets/svg/search-active.svg') no-repeat;
+          @include background-img('svg/search-active.svg');
+          background-repeat: no-repeat;
           background-size: cover;
       }
     }
@@ -47,20 +47,20 @@
       padding: 5px 5px 5px 8px;
       width: 135px;
       max-height: 25px;
-      font-family: "Arial", sans-serif;
+      @extend %font-additional;
       font-size: 0.7rem;
       font-weight: bold;
       letter-spacing: 0.4px;
-      color:rgba(0, 0, 0, 0.5);
+      color:rgba($color-black, 0.5);
         cursor: pointer;
       outline: none;
       border: 0;
       border-radius: 0.5rem;
       background-color: $color-checkbox-bgnd;
-      box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 12px 4px rgba($color-black, 0.2);
       @extend %transition-all;
       &_error {
-        background-color: rgba(255, 0, 0, 0.4);
+        background-color: $color-error-background;
         &::placeholder {
           color: $color-light;
           letter-spacing: 1px;
@@ -85,13 +85,13 @@
         }
       }
       &:hover {
-        box-shadow:  0 0 6px 1px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 6px 1px rgba($color-light, 0.2);
       }
       @include media-mobile {
         width: 105px;
         padding: 5px 5px 5px 8px;
         font-size: 0.6rem;
-        box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 10px 4px rgba($color-black, 0.3);
       }
     }
   }

@@ -349,18 +349,32 @@ const getWeather = (lang = 'en') => {
       function(response) {  
         if (response.status !== 200) {
           weatherError.textContent = `${errorText}: ${response.status}`; 
-          console.log(`${consoleErrorText}: ${response.status}`);  
+          console.log(`${consoleErrorText}: ${response.status}`);
+          // Delete previous weather data from screen when you get a weather error
+          weatherIcon.classList.add('weather-icon_hidden');
+          //weatherIcon.className = 'weather-icon owf';
+          weatherDescription.classList.add('description-container_hidden');
+          setTimeout(() => {
+            weatherError.classList.add('weather-error_active');
+          }, 500)
+          //weatherDescription.firstElementChild.textContent = '';
+          //weatherDescription.lastElementChild.textContent = '';
+          wind.textContent = '';
+          humidity.textContent = '';
           return;  
         }
         response.json().then(function(data) {
+          weatherError.style.opacity = 0;
           weatherError.textContent = '';
           weatherIcon.className = 'weather-icon owf';
           weatherIcon.classList.add(`owf-${data.weather[0].id}`)
           weatherDescription.firstElementChild.textContent = `${Math.round(data.main.temp)} ${String.fromCodePoint(8451)}`; // Farenheit 8457
           weatherDescription.lastElementChild.textContent = data.weather[0].description;
           wind.textContent = `${localizationObj['weather-wind'][lang]}: ${Math.round(data.wind.speed)} ${localizationObj['weather-units'][lang]}`;
-          humidity.textContent = `${localizationObj['weather-humidity'][lang]}: ${Math.round(data.main.humidity)} ${String.fromCodePoint(37)}`;
-          //console.log(data.weather[0].id);  
+          humidity.textContent = `${localizationObj['weather-humidity'][lang]}: ${Math.round(data.main.humidity)} ${String.fromCodePoint(37)}`; 
+          weatherIcon.classList.remove('weather-icon_hidden');
+          weatherDescription.classList.remove('description-container_hidden');
+          //console.log(data.weather[0].id);
         });  
       }  
     )  
