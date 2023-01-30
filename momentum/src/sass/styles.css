@@ -10161,7 +10161,6 @@ body {
   width: 180px;
   min-height: 180px;
   text-align: left;
-  transition: opacity 0.5s ease;
 }
 @media (max-width: 1280px) {
   .weather {
@@ -10213,6 +10212,7 @@ body {
     width: 130px;
     height: 28px;
     font-size: 1.5rem;
+    letter-spacing: normal;
   }
 }
 @media (max-width: 540px) {
@@ -10223,8 +10223,8 @@ body {
   }
 }
 .weather .weather-icon {
-  transition: opacity 0.5s ease;
   font-size: 4.4rem;
+  transition: opacity 0.5s ease;
 }
 @media (max-width: 1280px) {
   .weather .weather-icon {
@@ -10245,14 +10245,19 @@ body {
   opacity: 0;
 }
 .weather .weather-error {
-  transition: opacity 0.5s ease;
   font-size: 0.9rem;
   margin-top: -40px;
-  color: rgba(255, 0, 0, 0.7);
+  color: rgba(255, 0, 0, 0.8);
   opacity: 0;
+  transition: opacity 0.5s ease;
 }
 .weather .weather-error_active {
   opacity: 1;
+}
+@media (max-width: 768px) {
+  .weather .weather-error {
+    font-size: 0.8rem;
+  }
 }
 .weather .description-container {
   display: flex;
@@ -10261,6 +10266,8 @@ body {
   flex-wrap: wrap;
   -moz-column-gap: 12px;
        column-gap: 12px;
+  margin-top: 10px;
+  transition: opacity 0.5s ease;
 }
 .weather .description-container .temperature {
   margin-right: 5px;
@@ -10268,8 +10275,19 @@ body {
 .weather .description-container_hidden {
   opacity: 0;
 }
+@media (max-width: 540px) {
+  .weather .description-container {
+    margin-top: 25px;
+  }
+}
+.weather .wind {
+  transition: opacity 0.5s ease;
+}
 .weather .wind_hidden {
   opacity: 0;
+}
+.weather .humidity {
+  transition: opacity 0.5s ease;
 }
 .weather .humidity_hidden {
   opacity: 0;

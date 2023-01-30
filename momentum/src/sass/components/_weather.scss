@@ -7,7 +7,6 @@
   width: 180px;
   min-height: 180px;  
   text-align: left;
-  transition: opacity 0.5s ease;
   @include media-small-desktop {
     font-size: 0.7rem;
   }
@@ -38,6 +37,7 @@
     @include media-tablet {
       @include width-height(130px, 28px);
       font-size: 1.5rem;
+      letter-spacing: normal;
     }
     @include media-mobile {
       @include width-height(90px, 24px);
@@ -45,8 +45,8 @@
     }
   }
   .weather-icon {
-    transition: opacity 0.5s ease;
     font-size: 4.4rem;
+    transition: opacity 0.5s ease;
     @include media-small-desktop {
       font-size: 4rem;
     }
@@ -61,32 +61,42 @@
     }
   }
   .weather-error {
-    transition: opacity 0.5s ease;
     font-size: 0.9rem;
     margin-top: -40px;
     color: $color-error;
     opacity: 0;
+    transition: opacity 0.5s ease;
     &_active {
       opacity: 1;
+    }
+    @include media-tablet {
+      font-size: 0.8rem;
     }
   }
   .description-container {
     @include flex(flex, flex-start, center);
     flex-wrap: wrap;
     column-gap: 12px;
+    margin-top: 10px;
+    transition: opacity 0.5s ease;
     .temperature {
       margin-right: 5px;
     }
     &_hidden {
       opacity: 0;
     }
+    @include media-mobile {
+      margin-top: 25px;
+    }
   }
   .wind {
+    transition: opacity 0.5s ease;
     &_hidden {
       opacity: 0;
     }
   }
   .humidity {
+    transition: opacity 0.5s ease;
     &_hidden {
       opacity: 0;
     }

@@ -15,7 +15,3 @@ body {
   background-blend-mode: multiply;
   @extend %transition;
 }
-
-@mixin background-img($imgpath) {
-  background-image: url($path-assets + $imgpath);
-}

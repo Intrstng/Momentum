@@ -347,24 +347,27 @@ const getWeather = (lang = 'en') => {
   fetch(url)
     .then(  
       function(response) {  
-        if (response.status !== 200) {
-          weatherError.textContent = `${errorText}: ${response.status}`; 
-          console.log(`${consoleErrorText}: ${response.status}`);
+        if (response.status !== 200) { 
           // Delete previous weather data from screen when you get a weather error
-          weatherIcon.classList.add('weather-icon_hidden');
           //weatherIcon.className = 'weather-icon owf';
+          weatherIcon.classList.add('weather-icon_hidden');
           weatherDescription.classList.add('description-container_hidden');
+          wind.classList.add('wind_hidden');
+          humidity.classList.add('humidity_hidden');
+          console.log(`${consoleErrorText}: ${response.status}`);
           setTimeout(() => {
+            weatherError.textContent = `${errorText}: ${response.status}`;
             weatherError.classList.add('weather-error_active');
-          }, 500)
-          //weatherDescription.firstElementChild.textContent = '';
-          //weatherDescription.lastElementChild.textContent = '';
-          wind.textContent = '';
-          humidity.textContent = '';
-          return;  
+            wind.textContent = '';
+            humidity.textContent = '';
+            weatherDescription.firstElementChild.textContent = '';
+            weatherDescription.lastElementChild.textContent = '';
+          }, 500);
+          return;
         }
         response.json().then(function(data) {
-          weatherError.style.opacity = 0;
+          weatherError.classList.remove('weather-error_active');
+          weatherIcon.classList.remove('weather-icon_hidden');
           weatherError.textContent = '';
           weatherIcon.className = 'weather-icon owf';
           weatherIcon.classList.add(`owf-${data.weather[0].id}`)
@@ -374,6 +377,8 @@ const getWeather = (lang = 'en') => {
           humidity.textContent = `${localizationObj['weather-humidity'][lang]}: ${Math.round(data.main.humidity)} ${String.fromCodePoint(37)}`; 
           weatherIcon.classList.remove('weather-icon_hidden');
           weatherDescription.classList.remove('description-container_hidden');
+          wind.classList.remove('wind_hidden');
+          humidity.classList.remove('humidity_hidden');
           //console.log(data.weather[0].id);
         });  
       }  
