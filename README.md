@@ -11,23 +11,23 @@ Users can customize the page’s appearance, select the interface language, choo
 
 ### Key FeaturesInterface Personalization:
 
-    - Choose your preferred language (English or Russian), select the source for background images, and customize which widgets are displayed
+- Choose your preferred language (English or Russian), select the source for background images, and customize which widgets are displayed
 
-    - **Dynamic Background**: Automatically rotating images with smooth loading; photos are fetched via the Unsplash and Flickr APIs, or sourced from a local GitHub image collection
+- **Dynamic Background**: Automatically rotating images with smooth loading; photos are fetched via the Unsplash and Flickr APIs, or sourced from a local GitHub image collection
 
-    - **Clock and Calendar**: Displays the current time and date, localized according to your chosen language
+- **Clock and Calendar**: Displays the current time and date, localized according to your chosen language
 
-    - **Greeting**: A dynamic greeting that changes based on the time of day
+- **Greeting**: A dynamic greeting that changes based on the time of day
 
-    - **Weather**: Real-time weather updates via the OpenWeatherMap API, with the option to select your city
+- **Weather**: Real-time weather updates via the OpenWeatherMap API, with the option to select your city
 
-    - **Quotes**: Displays random quotes and sayings, with support for multiple sources
+- **Quotes**: Displays random quotes and sayings, with support for multiple sources
 
-    - **Audio Player**: Play music tracks, skip between songs, and control volume and playback progress
+- **Audio Player**: Play music tracks, skip between songs, and control volume and playback progress
 
-    - **To-Do List**: Create, complete, and delete tasks, with the ability to save your to-do list
+- **To-Do List**: Create, complete, and delete tasks, with the ability to save your to-do list
 
-    - **Settings Persistence**: Uses LocalStorage to remember your username, language, city, interface preferences, and to-do list
+- **Settings Persistence**: Uses LocalStorage to remember your username, language, city, interface preferences, and to-do list
 
 
 ### Technologies
