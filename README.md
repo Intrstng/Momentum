@@ -35,10 +35,10 @@ Users can customize the page’s appearance, select the interface language, choo
 JavaScript (ES6+), HTML5, CSS3, Sass/SCSS, Fetch API, Async/Await, REST API, LocalStorage, Git
 
 ### Implemented technical solutions
-Asynchronous interaction with external APIs
-Dynamic creation and updating of DOM elements
-Audio handling via HTMLAudioElement
-Management of user settings state
-Interface localization
-Error handling during API data retrieval
-Persistence of user data across page reloads
+- Asynchronous interaction with external APIs
+- Dynamic creation and updating of DOM elements
+- Audio handling via HTMLAudioElement
+- Management of user settings state
+- Interface localization
+- Error handling during API data retrieval
+- Persistence of user data across page reloads
