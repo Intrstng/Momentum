@@ -34,19 +34,15 @@
 .play {
   @include width-height(40px);
   background-size: 40px 40px;
-  // background-image: url('/intrstng-JSFEPRESCHOOL2022Q4/momentum/assets/svg/play.svg');
   @include background-img('svg/play.svg');
 }
 .pause {
-  // background-image: url('../../../assets/svg/pause.svg');
   @include background-img('svg/pause.svg');
 }
 .play-prev {
-  // background-image: url('../../../assets/svg/play-prev.svg');
   @include background-img('svg/play-prev.svg');
 }
 .play-next {
-  // background-image: url('../../../assets/svg/play-next.svg');
   @include background-img('svg/play-next.svg');
 }
 .slider-icon {
@@ -57,7 +53,6 @@
 }
 .slide-prev {
   left: 20px;
-  // background-image: url('../../../assets/svg/slider-prev.svg');
   @include background-img('svg/slider-prev.svg');
   @include media-mobile {
     @include width-height(25px);
@@ -70,7 +65,6 @@
 }
 .slide-next {
   right: 20px;
-  // background-image: url('../../../assets/svg/slider-next.svg');
   @include background-img('svg/slider-next.svg');
   @include media-mobile {
     @include width-height(25px);

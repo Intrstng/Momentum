@@ -10,7 +10,6 @@
   }
   .change-quote {
     margin-bottom: 30px;
-    // background-image: url('../../../assets/svg/reload.svg');
     @include background-img('svg/reload.svg');
     @include media-small-desktop {
       margin-bottom: 25px;
