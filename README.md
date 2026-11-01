@@ -9,6 +9,9 @@ Users can customize the page’s appearance, select the interface language, choo
 
 [Deploy](https://intrstng.github.io/Momentum/)
 
+## Screenshot
+<img width="800" height="450" alt="Capture" src="./assets/img/screenshot.PNG" />
+
 ### Key Features Interface Personalization:
 
 - Choose your preferred language (English or Russian), select the source for background images, and customize which widgets are displayed
